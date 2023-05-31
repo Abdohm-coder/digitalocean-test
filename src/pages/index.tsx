@@ -19,6 +19,7 @@ const Home = () => {
 
     fetchData();
   }, []);
+  console.log(data);
   return (
     <>
       <Head>

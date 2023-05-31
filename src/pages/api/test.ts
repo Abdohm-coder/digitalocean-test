@@ -16,16 +16,18 @@ const options = {
 };
 
 export default async function handler(
-  req: NextApiRequest,
+  _: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
   try {
     const response = await axios.request(options);
     const data = response.data;
     console.log(data);
+    // @ts-ignore
     res.status(200).json({ data });
   } catch (error) {
     console.error("Error: ", error);
+    // @ts-ignore
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
