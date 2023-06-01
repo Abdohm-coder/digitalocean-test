@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
             <Link
               className="nav-link active"
               aria-current="page"
-              href={`performers/${convertTitleToPath(title)}`}>
+              href={`/performers/${convertTitleToPath(title)}`}>
               {title}
             </Link>
           </li>
@@ -83,8 +83,9 @@ const Navbar: React.FC = () => {
           <Link
             className="nav-link active"
             aria-current="page"
-            href={`performers/${convertTitleToPath(title)}`}>
-            {title} <BsChevronRight className="float-end" />
+            href={`/category/${convertTitleToPath(title)}`}>
+            {title} 
+            <BsChevronRight className="float-end" />
           </Link>
         </li>
       ));
@@ -100,7 +101,7 @@ const Navbar: React.FC = () => {
         <Link
           className="nav-link active"
           aria-current="page"
-          href={convertTitleToPath(title)}>
+          href={`/${convertTitleToPath(title)}`}>
           {title} <BsChevronRight className="float-end" />
         </Link>
       </li>
@@ -176,7 +177,7 @@ const Navbar: React.FC = () => {
                     setSelectedSubMenu(0);
                   }}>
                   <Link
-                    href={convertTitleToPath(title)}
+                    href={`/${convertTitleToPath(title)}`}
                     className={`nav-link  ${
                       i === selectedMenu && show && "active"
                     }`}>
@@ -222,7 +223,7 @@ const Navbar: React.FC = () => {
                       ].children.map(({ title }, i) => (
                         <li key={`${i}: ${title}`} className="col-6 nav-item">
                           <Link
-                            href={`performers/${convertTitleToPath(title)}`}
+                            href={`/performers/${convertTitleToPath(title)}`}
                             className="nav-link link-info fw-semibold">
                             {title}
                           </Link>

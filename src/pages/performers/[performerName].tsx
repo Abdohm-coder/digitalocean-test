@@ -10,20 +10,28 @@ import Image from "next/image";
 import axios from "axios";
 import Head from "next/head";
 import { siteSettings } from "@/settings/site.settings";
+import { capitalizeString } from "@/utils/capitalize-string";
+import { convertPathnameToTitle } from "@/utils/pathname-to-title";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();
   const performerName = query.performerName as string;
+  const [performerTitle, setPerformerTitle] = useState("");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
 
   useEffect(() => {
-    if (performerName) {
+    if (performerName) setPerformerTitle(convertPathnameToTitle(performerName));
+  }, [performerName]);
+
+  useEffect(() => {
+    if (performerTitle && eventNumber <= 500) {
       const fetchEvents = async () => {
         try {
           const response = await axios.post("/api/GetEvents", {
-            performerName,
+            performerName: performerTitle,
             numberOfEvents: eventNumber,
+            orderByClause: "endDate DESC",
           });
           const data = response.data.GetEventsResult.Event;
           setEvents(data);
@@ -36,12 +44,12 @@ const PerformerPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [eventNumber, performerName]);
+  }, [eventNumber, performerTitle]);
   return (
     <>
       <Head>
         <title>
-          {performerName} Tickets | {siteSettings.site_name}
+          {capitalizeString(performerTitle)} Tickets | {siteSettings.site_name}
         </title>
       </Head>
       <main className="container">
@@ -57,10 +65,14 @@ const PerformerPage: React.FC = () => {
             {performerName?.replaceAll("-", " ")} Tickets
           </h1>
         </div>
-        <EventList setEventNumber={setEventNumber} events={events} />
+        <EventList
+          eventNumber={eventNumber}
+          setEventNumber={setEventNumber}
+          events={events}
+        />
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
-        <Details />
+        <Details performerTitle={performerTitle} />
         <NewsLetterForm />
       </main>
       <Footer />

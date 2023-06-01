@@ -5,6 +5,7 @@ import { useDebounce } from "use-debounce";
 import { siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
 import axios from "axios";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
@@ -41,31 +42,27 @@ const Hero = () => {
       <div className="position-relative mt-3 col-11 col-md-8 col-lg-6 col-xl-4 mb-auto">
         <input
           type="text"
-          className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-white"
+          className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-gray"
           placeholder="Event, artist or team"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
-        {
+        {data.length > 0 && (
           <div
             style={{ zIndex: 9999 }}
             className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
             <div className="search-result-title">Performers</div>
-            <Link href={"#"} className="search-result-item">
-              Grace Potter
-            </Link>
-            <Link href={"#"} className="search-result-item">
-              Grand Ole Opry
-            </Link>
-            <div className="search-result-title">Cities</div>
-            <Link href={"#"} className="search-result-item">
-              Grand Rapids, MI
-            </Link>
-            <Link href={"#"} className="search-result-item">
-              Grand Junction, CO
-            </Link>
+            {data.map(({ ID, Name }) => (
+              <div key={ID}>
+                <Link
+                  href={`/performers/${convertTitleToPath(Name)}`}
+                  className="search-result-item">
+                  {Name}
+                </Link>
+              </div>
+            ))}
           </div>
-        }
+        )}
         <button
           className="btn btn-lg btn-primary rounded-circle text-white position-absolute top-50 translate-middle-y d-flex align-items-center justify-content-center"
           style={{ height: "80%", right: "1%" }}>

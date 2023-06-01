@@ -7,9 +7,10 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(LocalizedFormat);
 
 const EventList: React.FC<{
+  eventNumber: number;
   events: GetEventsProps[];
   setEventNumber: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ events, setEventNumber }) => {
+}> = ({ events, setEventNumber, eventNumber }) => {
   return (
     <section>
       <div className="list-group">
@@ -57,13 +58,15 @@ const EventList: React.FC<{
             </Link>
           )
         )}
-        <div className="list-group-item text-center">
-          <button
-            onClick={() => setEventNumber((state) => state * 2)}
-            className="btn btn-sm btn-outline-dark px-5 rounded-pill my-4">
-            Load More
-          </button>
-        </div>
+        {eventNumber <= 500 && (
+          <div className="list-group-item text-center">
+            <button
+              onClick={() => setEventNumber((state) => state * 2)}
+              className="btn btn-sm btn-outline-dark px-5 rounded-pill my-4">
+              Load More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -37,7 +37,7 @@ const CategoriesPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (categoryData?.ParentCategoryID) {
+    if (categoryData?.ParentCategoryID && eventNumber <= 500) {
       const fetchEvents = async () => {
         try {
           const response = await axios.post("/api/GetEvents", {
@@ -98,7 +98,11 @@ const CategoriesPage: React.FC = () => {
           />
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList setEventNumber={setEventNumber} events={events} />
+              <EventList
+                eventNumber={eventNumber}
+                setEventNumber={setEventNumber}
+                events={events}
+              />
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />

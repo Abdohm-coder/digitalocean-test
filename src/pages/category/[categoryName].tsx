@@ -13,6 +13,7 @@ import TicketInfo from "@/components/Categories/TicketInfo";
 import axios from "axios";
 import Head from "next/head";
 import { siteSettings } from "@/settings/site.settings";
+import { capitalizeString } from "@/utils/capitalize-string";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -57,7 +58,11 @@ const CategoryPage: React.FC = () => {
   }, [categoryData?.ChildCategoryID, categoryData?.ParentCategoryID]);
 
   useEffect(() => {
-    if (categoryData?.ChildCategoryID && categoryData?.ParentCategoryID) {
+    if (
+      categoryData?.ChildCategoryID &&
+      categoryData?.ParentCategoryID &&
+      eventNumber <= 500
+    ) {
       const fetchEvents = async () => {
         try {
           const response = await axios.post("/api/GetEvents", {
@@ -88,7 +93,7 @@ const CategoryPage: React.FC = () => {
     <>
       <Head>
         <title>
-          {categoryTitle} Tickets | {siteSettings.site_name}
+          {capitalizeString(categoryTitle)} Tickets | {siteSettings.site_name}
         </title>
       </Head>
       <main className="bg-light">
@@ -96,7 +101,11 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList setEventNumber={setEventNumber} events={events} />
+              <EventList
+                eventNumber={eventNumber}
+                setEventNumber={setEventNumber}
+                events={events}
+              />
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />

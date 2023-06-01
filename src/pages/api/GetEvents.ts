@@ -9,7 +9,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const { parentCategoryID, childCategoryID, performerName } = req.body;
+  const {
+    parentCategoryID,
+    childCategoryID,
+    performerName,
+    numberOfEvents,
+    orderByClause,
+  } = req.body;
 
   // Create a new SoapClient instance
   const client = await createClientAsync(
@@ -24,6 +30,8 @@ export default async function handler(
   if (parentCategoryID) params["parentCategoryID"] = parentCategoryID;
   if (childCategoryID) params["childCategoryID"] = childCategoryID;
   if (performerName) params["performerName"] = performerName;
+  if (numberOfEvents) params["numberOfEvents"] = numberOfEvents;
+  if (orderByClause) params["orderByClause"] = orderByClause;
 
   try {
     // Make the SOAP request

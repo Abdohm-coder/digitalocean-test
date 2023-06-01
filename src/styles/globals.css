@@ -78,8 +78,12 @@
   object-fit: cover;
 }
 
-.placeholder-white::placeholder {
-  color: white;
+.placeholder-gray::placeholder {
+  color: #888 !important;
+}
+
+.text-gray {
+  color: #888 !important;
 }
 
 .text-capitalize {

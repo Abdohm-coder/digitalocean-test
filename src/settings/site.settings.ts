@@ -16,7 +16,7 @@ export const siteSettings = {
   main_categories: [
     {
       title: "Concerts",
-      link: "/concert-tickets",
+      link: "/concerts-tickets",
       top_events: [
         {
           event_title: "Maluma",

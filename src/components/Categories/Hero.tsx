@@ -15,7 +15,7 @@ const Hero: React.FC<props> = ({ title }) => {
               <Link href="/">Home</Link>
             </li>
             <li
-              className="breadcrumb-item active text-capitalize"
+              className="breadcrumb-item active text-gray text-capitalize"
               aria-current="page">
               {title}
             </li>
