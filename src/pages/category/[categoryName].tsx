@@ -50,7 +50,7 @@ const CategoryPage: React.FC = () => {
 
       const fetchPerformerByCategory = async () => {
         try {
-          const response = await axios.post("/api/GetPerfomersByCategory", {
+          const response = await axios.post("/api/GetPerformerByCategory", {
             hasEvent: true,
             parentCategoryID: categoryData.ParentCategoryID,
             childCategoryID: categoryData.ChildCategoryID,

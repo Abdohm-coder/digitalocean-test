@@ -37,7 +37,7 @@ export declare type GetEventTickets3Input = {
   translationLanguageId?: number;
 };
 
-export declare type GetPerfomersByCategoryInput = {
+export declare type GetPerformerByCategoryInput = {
   parentCategoryID?: number;
   childCategoryID?: number;
   grandchildCategoryID?: number;

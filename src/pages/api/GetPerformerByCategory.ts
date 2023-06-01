@@ -9,11 +9,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const body = req.body;
-  const parentCategoryID = body.parentCategoryID || "",
-    childCategoryID = body.childCategoryID || "",
-    hasEvent = body.hasEvent || "",
-    grandchildCategoryID = body.grandchildCategoryID || "";
+  const {
+    parentCategoryID,
+    childCategoryID,
+    performerName,
+    hasEvent,
+    grandchildCategoryID,
+  } = req.body;
 
   // Create a new SoapClient instance
   const client = await createClientAsync(
@@ -21,13 +23,16 @@ export default async function handler(
   );
 
   // Define the SOAP request parameters
-  const params = {
+  const params: any = {
     websiteConfigID: 4626,
-    parentCategoryID,
-    childCategoryID,
-    hasEvent,
-    grandchildCategoryID,
   };
+
+  if (parentCategoryID) params["parentCategoryID"] = parentCategoryID;
+  if (childCategoryID) params["childCategoryID"] = childCategoryID;
+  if (performerName) params["performerName"] = performerName;
+  if (hasEvent) params["hasEvent"] = hasEvent;
+  if (grandchildCategoryID)
+    params["grandchildCategoryID"] = grandchildCategoryID;
 
   try {
     // Make the SOAP request

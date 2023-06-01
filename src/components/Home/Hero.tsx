@@ -41,7 +41,7 @@ const Hero = () => {
       <div className="position-relative mt-3 col-11 col-md-8 col-lg-6 col-xl-4 mb-auto">
         <input
           type="text"
-          className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3"
+          className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-white"
           placeholder="Event, artist or team"
           onChange={(e) => setSearch(e.target.value)}
           value={search}

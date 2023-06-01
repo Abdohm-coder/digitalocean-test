@@ -9,10 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const body = req.body;
-  const searchTerms = body.searchTerms || "",
-    whereClause = body.whereClause || "",
-    orderByClause = body.orderByClause || "";
+  const { searchTerms, whereClause, orderByClause } = req.body;
 
   // Create a new SoapClient instance
   const client = await createClientAsync(
@@ -20,12 +17,12 @@ export default async function handler(
   );
 
   // Define the SOAP request parameters
-  const params = {
+  const params: any = {
     websiteConfigID: 4626,
-    searchTerms,
-    whereClause,
-    orderByClause,
   };
+  if (searchTerms) params["searchTerms"] = searchTerms;
+  if (whereClause) params["whereClause"] = whereClause;
+  if (orderByClause) params["orderByClause"] = orderByClause;
 
   try {
     // Make the SOAP request
