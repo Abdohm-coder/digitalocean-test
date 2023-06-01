@@ -14,6 +14,7 @@ import {
 import { convertPathnameToTitle } from "../../utils/pathname-to-title";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 const CategoriesPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -21,6 +22,7 @@ const CategoriesPage: React.FC = () => {
   const pathname = usePathname();
   const categoryTitle = convertPathnameToTitle(pathname);
   console.log();
+  const [eventNumber, setEventNumber] = useState(50);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
     []
@@ -40,6 +42,8 @@ const CategoriesPage: React.FC = () => {
         try {
           const response = await axios.post("/api/GetEvents", {
             parentCategoryID: categoryData.ParentCategoryID,
+            orderByClause: "endDate DESC",
+            numberOfEvents: eventNumber,
             // childCategoryID: categoryData.ChildCategoryID,
           });
           const data = response.data.GetEventsResult.Event;
@@ -50,6 +54,13 @@ const CategoriesPage: React.FC = () => {
         }
       };
       fetchEvents();
+    } else {
+      console.log("error event id");
+    }
+  }, [eventNumber, categoryData?.ParentCategoryID]);
+
+  useEffect(() => {
+    if (categoryData?.ParentCategoryID && categoryData?.ChildCategoryID) {
       const fetchPerformerByCategory = async () => {
         try {
           const response = await axios.post("/api/GetPerformerByCategory", {
@@ -65,8 +76,6 @@ const CategoriesPage: React.FC = () => {
         }
       };
       fetchPerformerByCategory();
-    } else {
-      console.log("error event id");
     }
   }, [categoryData?.ChildCategoryID, categoryData?.ParentCategoryID]);
 
@@ -77,23 +86,26 @@ const CategoriesPage: React.FC = () => {
           title={categoryData?.ParentCategoryDescription || categoryTitle}
         />
         <div className="container">
-          <Categories categories={categories.splice(0, 10)} />
+          <Categories
+            categories={removeDuplicatedElements(
+              categories,
+              "ParentCategoryDescription"
+            ).splice(0, 8)}
+          />
           <NewCategorySales
             performers={performers.splice(0, 8)}
-            title={`New ${
-              categoryData?.ParentCategoryDescription || categoryTitle
-            } On Sale Today`}
+            title={`Top National Events`}
           />
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList events={events} />
+              <EventList setEventNumber={setEventNumber} events={events} />
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />
             </div>
           </div>
           {/* <CategoryCards categories={categories.splice(0, 3)} /> */}
-          <TicketInfo />
+          <TicketInfo categoryTitle={categoryTitle} />
         </div>
       </main>
       <Footer />

@@ -11,6 +11,8 @@ import EventList from "@/components/Event/EventList";
 import Guarantee from "@/components/Categories/Guarantee";
 import TicketInfo from "@/components/Categories/TicketInfo";
 import axios from "axios";
+import Head from "next/head";
+import { siteSettings } from "@/settings/site.settings";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -20,6 +22,7 @@ const CategoryPage: React.FC = () => {
   const [categoryTitle, setCategoryTitle] = useState("");
 
   const [events, setEvents] = useState<GetEventsProps[]>([]);
+  const [eventNumber, setEventNumber] = useState(50);
   const [_, setPerformers] = useState<GetPerfomerByCategoryProps[]>([]);
   const categoryData = useMemo(
     () =>
@@ -32,22 +35,9 @@ const CategoryPage: React.FC = () => {
   useEffect(() => {
     if (categoryName) setCategoryTitle(convertPathnameToTitle(categoryName));
   }, [categoryName]);
-  useEffect(() => {
-    if (categoryData?.ChildCategoryID) {
-      const fetchEvents = async () => {
-        try {
-          const response = await axios.post("/api/GetEvents", {
-            parentCategoryID: categoryData.ParentCategoryID,
-            childCategoryID: categoryData.ChildCategoryID,
-          });
-          const data = response.data.GetEventsResult.Event;
-          setEvents(data);
-          console.log(response.data);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
 
+  useEffect(() => {
+    if (categoryData?.ChildCategoryID && categoryData?.ParentCategoryID) {
       const fetchPerformerByCategory = async () => {
         try {
           const response = await axios.post("/api/GetPerformerByCategory", {
@@ -62,26 +52,58 @@ const CategoryPage: React.FC = () => {
           console.error("Error:", error);
         }
       };
-      fetchEvents();
       fetchPerformerByCategory();
     }
   }, [categoryData?.ChildCategoryID, categoryData?.ParentCategoryID]);
 
+  useEffect(() => {
+    if (categoryData?.ChildCategoryID && categoryData?.ParentCategoryID) {
+      const fetchEvents = async () => {
+        try {
+          const response = await axios.post("/api/GetEvents", {
+            parentCategoryID: categoryData.ParentCategoryID,
+            childCategoryID: categoryData.ChildCategoryID,
+            orderByClause: "endDate DESC",
+            numberOfEvents: eventNumber,
+            // childCategoryID: categoryData.ChildCategoryID,
+          });
+          const data = response.data.GetEventsResult.Event;
+          setEvents(data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchEvents();
+    } else {
+      console.log("error event id");
+    }
+  }, [
+    eventNumber,
+    categoryData?.ParentCategoryID,
+    categoryData?.ChildCategoryID,
+  ]);
+
   return (
     <>
+      <Head>
+        <title>
+          {categoryTitle} Tickets | {siteSettings.site_name}
+        </title>
+      </Head>
       <main className="bg-light">
         <Hero title={categoryData?.ChildCategoryDescription || categoryTitle} />
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList events={events} />
+              <EventList setEventNumber={setEventNumber} events={events} />
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />
             </div>
           </div>
           {/* <CategoryCards categories={categories.splice(0, 3)} /> */}
-          <TicketInfo />
+          <TicketInfo categoryTitle={categoryTitle} />
         </div>
       </main>
     </>

@@ -26,7 +26,7 @@ const TopEvents: React.FC<props> = ({ title, count }) => {
                 alt="image"
                 width={840}
                 height={540}
-                className="w-100 h-100"
+                className="w-100 h-100 object-cover"
               />
               <div
                 className="position-absolute top-0  py-2 px-3 rounded-bottom ms-3 text-white fs-2 fw-bold"

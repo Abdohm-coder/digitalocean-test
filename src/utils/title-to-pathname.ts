@@ -1,5 +1,5 @@
 export const convertTitleToPath = (title: string) =>
-  title
+  `${title
     .replace(/[^\w\s]/gi, "")
     .replace(/\s+/g, "-")
-    .toLowerCase();
+    .toLowerCase()}-tickets`;

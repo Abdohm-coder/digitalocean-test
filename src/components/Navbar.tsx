@@ -11,6 +11,7 @@ import {
 import { siteSettings } from "../settings/site.settings";
 import Link from "next/link";
 import Image from "next/image";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
 
 const Navbar: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -58,41 +59,50 @@ const Navbar: React.FC = () => {
   const MobileMenu = () => {
     if (mobileMenuView === 2) {
       return Menus[selectedMenu].subMenus[selectedSubMenu].children.map(
-        (m, i) => (
+        ({ title }, i) => (
           <li key={i} className="list-group-item list-group-item-action">
-            <a className="nav-link active" aria-current="page" href="#">
-              {m.title}
-            </a>
+            <Link
+              className="nav-link active"
+              aria-current="page"
+              href={`performers/${convertTitleToPath(title)}`}>
+              {title}
+            </Link>
           </li>
         )
       );
     }
     if (mobileMenuView === 1) {
-      return Menus[selectedMenu].subMenus.map((m, i) => (
+      return Menus[selectedMenu].subMenus.map(({ title }, i) => (
         <li
-          key={i}
+          key={`${i}: ${title}`}
           className="list-group-item list-group-item-action"
           onClick={() => {
             setSelectedSubMenu(i);
             setMobileMenuView(2);
           }}>
-          <a className="nav-link active" aria-current="page" href="#">
-            {m.title} <BsChevronRight className="float-end" />
-          </a>
+          <Link
+            className="nav-link active"
+            aria-current="page"
+            href={`performers/${convertTitleToPath(title)}`}>
+            {title} <BsChevronRight className="float-end" />
+          </Link>
         </li>
       ));
     }
-    return Menus.map((m, i) => (
+    return Menus.map(({ title }, i) => (
       <li
-        key={i}
+        key={`${i}: ${title}`}
         className="list-group-item list-group-item-action"
         onClick={() => {
           setSelectedMenu(i);
           setMobileMenuView(1);
         }}>
-        <a className="nav-link active" aria-current="page" href="#">
-          {m.title} <BsChevronRight className="float-end" />
-        </a>
+        <Link
+          className="nav-link active"
+          aria-current="page"
+          href={convertTitleToPath(title)}>
+          {title} <BsChevronRight className="float-end" />
+        </Link>
       </li>
     ));
   };
@@ -154,9 +164,9 @@ const Navbar: React.FC = () => {
             <ul
               className="navbar-nav align-items-center justify-content-end gap-3 ms-auto mb-2 mb-lg-0 position-relative"
               onMouseLeave={() => setShow(false)}>
-              {Menus.map((menu, i) => (
+              {Menus.map(({ title }, i) => (
                 <li
-                  key={i}
+                  key={`${i}: ${title}`}
                   className={`nav-item position-relative rounded-top ${
                     i === selectedMenu && show && "bg-primary bg-opacity-50"
                   }`}
@@ -165,13 +175,13 @@ const Navbar: React.FC = () => {
                     setSelectedMenu(i);
                     setSelectedSubMenu(0);
                   }}>
-                  <a
-                    href="#"
+                  <Link
+                    href={convertTitleToPath(title)}
                     className={`nav-link  ${
                       i === selectedMenu && show && "active"
                     }`}>
-                    {menu.title}
-                  </a>
+                    {title}
+                  </Link>
                 </li>
               ))}
               {show && (
@@ -187,16 +197,19 @@ const Navbar: React.FC = () => {
                     className="col-4 overflow-auto"
                     style={{ maxHeight: "70vh" }}>
                     <ul className="list-group list-group-flush">
-                      {Menus[selectedMenu].subMenus.map((sm, si) => (
-                        <li
-                          key={si}
-                          role={"button"}
-                          className={`list-group-item ${
+                      {Menus[selectedMenu].subMenus.map(({ title }, si) => (
+                        <Link
+                          className={`list-group-item list-none ${
                             si === selectedSubMenu && "bg-primary bg-opacity-10"
                           }`}
-                          onMouseEnter={() => setSelectedSubMenu(si)}>
-                          {sm.title}
-                        </li>
+                          key={`${si}: ${title}`}
+                          href={`/category/${convertTitleToPath(title)}`}>
+                          <li
+                            role={"button"}
+                            onMouseEnter={() => setSelectedSubMenu(si)}>
+                            {title}
+                          </li>
+                        </Link>
                       ))}
                     </ul>
                   </div>
@@ -206,13 +219,13 @@ const Navbar: React.FC = () => {
                     <ul className="row list-unstyled nav">
                       {Menus[selectedMenu].subMenus[
                         selectedSubMenu
-                      ].children.map((c) => (
-                        <li key={c.title} className="col-6 nav-item">
-                          <a
-                            href="#"
+                      ].children.map(({ title }, i) => (
+                        <li key={`${i}: ${title}`} className="col-6 nav-item">
+                          <Link
+                            href={`performers/${convertTitleToPath(title)}`}
                             className="nav-link link-info fw-semibold">
-                            {c.title}
-                          </a>
+                            {title}
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -220,11 +233,11 @@ const Navbar: React.FC = () => {
                 </div>
               )}
             </ul>
-            <a
+            <Link
               className="btn btn-sm btn-primary text-white rounded-pill px-3 ms-4 text-nowrap"
               href="#">
               <BsTelephoneFill /> CALL US
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

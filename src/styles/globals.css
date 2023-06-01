@@ -81,3 +81,11 @@
 .placeholder-white::placeholder {
   color: white;
 }
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.list-none {
+  list-style: none;
+}

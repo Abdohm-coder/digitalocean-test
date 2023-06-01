@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <>
       <Head>
-        <title>Ticketjewel | Concerts, Sports, and Theater</title>
+        <title>{siteSettings.site_name} | Concerts, Sports, and Theater</title>
         <meta name="description" content="Rent Web Application" />
       </Head>
       <main>

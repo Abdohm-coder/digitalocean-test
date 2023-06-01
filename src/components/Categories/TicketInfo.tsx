@@ -1,9 +1,9 @@
 import React from "react";
 
-const TicketInfo: React.FC = () => {
+const TicketInfo: React.FC<{ categoryTitle: string }> = ({ categoryTitle }) => {
   return (
     <section className="py-5">
-      <h4>Concert Ticket Info</h4>
+      <h4 className="text-capitalize">{categoryTitle} Ticket Info</h4>
       <p>
         {`TicketNetwork is the best place to find tickets to that concert you want to cross off of your bucket list.
         Concert tickets are on our site for a discounted price, and a wide range of seats creates an extensive selection

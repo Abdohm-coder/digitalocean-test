@@ -3,6 +3,7 @@ import Logo from "../assets/images/logo.png";
 export const baseApi = "https://ticketjewel.com";
 
 export const siteSettings = {
+  site_name: "Ticketjewel",
   logo: {
     src: Logo,
     alt: "Ticketjewel",

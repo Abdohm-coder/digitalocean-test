@@ -36,7 +36,11 @@ const PerformerPage: React.FC = () => {
     <>
       <main className="container">
         <div className="position-relative my-5">
-          <Image src={EventBg} alt="event bg" className="w-100 rounded-5" />
+          <Image
+            src={EventBg}
+            alt="event bg"
+            className="w-100 rounded-5 object-cover"
+          />
           <h1
             className="text-white m-0 fw-bold position-absolute "
             style={{ left: "16px", bottom: "16px" }}>
