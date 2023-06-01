@@ -16,8 +16,8 @@ const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
 
   const { query } = useRouter();
-  const categoryID = query.categoryID as string;
-  const categoryTitle = convertPathnameToTitle(categoryID!);
+  const categoryName = query.categoryName as string;
+  const [categoryTitle, setCategoryTitle] = useState("");
 
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [_, setPerformers] = useState<GetPerfomerByCategoryProps[]>([]);
@@ -29,6 +29,9 @@ const CategoryPage: React.FC = () => {
     [categories, categoryTitle]
   );
 
+  useEffect(() => {
+    if (categoryName) setCategoryTitle(convertPathnameToTitle(categoryName));
+  }, [categoryName]);
   useEffect(() => {
     if (categoryData?.ChildCategoryID) {
       const fetchEvents = async () => {
