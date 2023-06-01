@@ -3,7 +3,6 @@ import {
   GetEventsProps,
   GetPerfomerByCategoryProps,
 } from "../../types/data-types";
-import axios from "../../axios-instance";
 import { useDataContext } from "../../context/data.context";
 import { convertPathnameToTitle } from "../../utils/pathname-to-title";
 import { useRouter } from "next/router";
@@ -11,6 +10,7 @@ import Hero from "@/components/Categories/Hero";
 import EventList from "@/components/Event/EventList";
 import Guarantee from "@/components/Categories/Guarantee";
 import TicketInfo from "@/components/Categories/TicketInfo";
+import axios from "axios";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();

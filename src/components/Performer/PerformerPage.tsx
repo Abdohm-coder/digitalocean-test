@@ -4,10 +4,10 @@ import EventList from "../Event/EventList";
 import NewsLetterForm from "../NewsLetterForm";
 import Details from "../Event/Details";
 import Footer from "../Footer";
-import axios from "../../axios-instance";
 import { GetEventsProps } from "../../types/data-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import axios from "axios";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();

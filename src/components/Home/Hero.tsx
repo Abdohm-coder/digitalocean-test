@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
-import axios from "../../axios-instance";
 import { SearchEventsProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
 import { siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
+import axios from "axios";
 
 const Hero = () => {
   const [search, setSearch] = useState("");

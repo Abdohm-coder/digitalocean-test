@@ -11,9 +11,9 @@ import {
   GetEventsProps,
   GetPerfomerByCategoryProps,
 } from "../../types/data-types";
-import axios from "../../axios-instance";
 import { convertPathnameToTitle } from "../../utils/pathname-to-title";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
 const CategoriesPage: React.FC = () => {
   const { categories } = useDataContext();

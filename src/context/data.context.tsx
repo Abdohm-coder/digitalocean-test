@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import axios from "../axios-instance";
 import { GetCategoriesProps } from "@/types/data-types";
+import axios from "axios";
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
