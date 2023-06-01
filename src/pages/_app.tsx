@@ -1,20 +1,29 @@
+import { useEffect } from "react";
 import { AppProps } from "next/app";
 import "@/styles/globals.css";
-import { Nunito } from "next/font/google";
+import Footer from "@/components/Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/custom-bootstrap.scss";
+import "@/styles/globals.css";
+import Head from "next/head";
+import Navbar from "@/components/Navbar";
+import ScrollToTop from "@/components/ScrollToTop";
+import { DataProvider } from "@/context/data.context";
 
-export const font = Nunito({
-  subsets: ["latin"],
-});
-
-const MyApp = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
   return (
-
-        <div className={font.className}>
-          <Component {...pageProps} />
-        </div>
+    <DataProvider>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <ScrollToTop />
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
+    </DataProvider>
   );
 };
 
