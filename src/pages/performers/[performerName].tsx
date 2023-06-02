@@ -31,7 +31,7 @@ const PerformerPage: React.FC = () => {
           const response = await axios.post("/api/GetEvents", {
             performerName: performerTitle,
             numberOfEvents: eventNumber,
-            orderByClause: "endDate DESC",
+            orderByClause: "endDate%20DESC",
           });
           const data = response.data.GetEventsResult.Event;
           setEvents(data);
@@ -72,7 +72,7 @@ const PerformerPage: React.FC = () => {
         />
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
-        <Details performerTitle={performerTitle} />
+        <Details performerTitle={capitalizeString(performerTitle)} />
         <NewsLetterForm />
       </main>
       <Footer />

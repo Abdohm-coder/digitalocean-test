@@ -1,2 +1,2 @@
 export const convertPathnameToTitle = (pathname: string) =>
-  pathname.replace("/", "").replace("-tickets", "").toLowerCase();
+  pathname.replaceAll(/\//g, " ").replaceAll("-", " ").replace("-tickets", "").toLowerCase();

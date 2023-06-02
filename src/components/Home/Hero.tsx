@@ -16,10 +16,10 @@ const Hero = () => {
     if (search.trim().length > 0) {
       const fetchSearchEvents = async () => {
         try {
-          const response = await axios.post("/api/SearchEvents", {
+          const response = await axios.post("/api/SearchPerformers", {
             searchTerms: search,
           });
-          const data = response.data.SearchEventsResult.Event;
+          const data = response.data.SearchPerformersResult.Performer;
           setData(data);
           console.log(response.data);
         } catch (error) {

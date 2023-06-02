@@ -3,7 +3,7 @@ import React from "react";
 const Details: React.FC<{ performerTitle : string}> = ({ performerTitle }) => {
   return (
     <section className="bg-light p-4 rounded-3 border mt-5">
-      <h2>{performerTitle} Tickets</h2>
+      <h2 className="text-capitalize">{performerTitle} Tickets</h2>
       <p>
         {`From Woodstock to the Boston Pops, from Coachella and Lollapalooza to the Grand Ole Opry and the Telluride
         Bluegrass Festival, there’s nothing quite like the live concert experience. Today's music scene is packed with
