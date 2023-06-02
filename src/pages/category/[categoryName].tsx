@@ -4,7 +4,7 @@ import {
   GetPerfomerByCategoryProps,
 } from "../../types/data-types";
 import { useDataContext } from "../../context/data.context";
-import { convertPathnameToTitle } from "../../utils/pathname-to-title";
+import { convertQueryToTitle } from "../../utils/query-to-title";
 import { useRouter } from "next/router";
 import Hero from "@/components/Categories/Hero";
 import EventList from "@/components/Event/EventList";
@@ -25,6 +25,8 @@ const CategoryPage: React.FC = () => {
   const categoryName = query.categoryName as string;
   const [categoryTitle, setCategoryTitle] = useState("");
 
+  console.log(categoryTitle);
+
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
   const [_, setPerformers] = useState<GetPerfomerByCategoryProps[]>([]);
@@ -37,7 +39,7 @@ const CategoryPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (categoryName) setCategoryTitle(convertPathnameToTitle(categoryName));
+    if (categoryName) setCategoryTitle(convertQueryToTitle(categoryName));
   }, [categoryName]);
 
   useEffect(() => {
@@ -66,7 +68,7 @@ const CategoryPage: React.FC = () => {
           const response = await fetcGetEvents({
             parentCategoryID: categoryData[0].ParentCategoryID,
             childCategoryID: categoryData[0].ChildCategoryID,
-            orderByClause: "Date%20DESC",
+            // orderByClause: "Date%20DESC",
             numberOfEvents: eventNumber,
           });
           setEvents(response || []);
@@ -103,7 +105,7 @@ const CategoryPage: React.FC = () => {
               <Guarantee />
             </div>
           </div>
-          {/* <CategoryCards categories={categories.splice(0, 3)} /> */}
+          {/* <CategoryCards categories={categories.slice(0, 3)} /> */}
           <TicketInfo categoryTitle={categoryTitle} />
         </div>
       </main>

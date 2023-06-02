@@ -5,15 +5,22 @@ import {
   GetVenueProps,
 } from "@/types/data-types";
 import axios from "axios";
+import {
+  googleSheetID,
+  googleSheetName,
+  googleSheetRange,
+} from "@/settings/site.settings";
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
   performers: GetEventPerformersProps[];
   venues: GetVenueProps[];
+  images: Array<string[]>;
 }>({
   categories: [],
   performers: [],
   venues: [],
+  images: [],
 });
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -22,6 +29,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
   const [venues, setVenues] = useState<GetVenueProps[]>([]);
+  const [images, setImages] = useState<Array<string[]>>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,13 +96,26 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         setPerformers(JSON.parse(storedData));
       }
     };
+
+    const fetchImages = async () => {
+      const { data } = await axios.get("/api/fetchGoogleSheetData", {
+        params: {
+          sheetId: googleSheetID,
+          sheetName: googleSheetName,
+          range: googleSheetRange,
+        },
+      });
+      // @ts-ignore
+      setImages(data.data);
+    };
+    fetchImages();
     fetchAllVenues();
     fetchAllPerformers();
     fetchData();
   }, []);
 
   return (
-    <DataContext.Provider value={{ categories, performers, venues }}>
+    <DataContext.Provider value={{ categories, performers, venues, images }}>
       {children}
     </DataContext.Provider>
   );

@@ -9,6 +9,10 @@ import {
 
 export const baseApi = "https://ticketjewel.com";
 
+export const googleSheetID = "1Ojnkc4IaJcXjuh-A20xCsc8pR8pMFIJfS7rFP_DoMlQ"; // Sheet ID
+export const googleSheetName = "Sheet1"; // Sheet Name
+export const googleSheetRange = "A:C"; // The range of cells
+
 export const siteSettings = {
   site_name: "Ticketjewel",
   logo: {

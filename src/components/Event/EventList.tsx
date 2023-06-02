@@ -4,6 +4,7 @@ import { GetEventsProps } from "../../types/data-types";
 import Link from "next/link";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 dayjs.extend(LocalizedFormat);
 
 const EventList: React.FC<{
@@ -14,13 +15,14 @@ const EventList: React.FC<{
   return (
     <section>
       <div className="list-group">
-        {events.map(
+        {removeDuplicatedElements(events, "Venue").map(
           ({
             ID,
             Name,
             Venue,
             City,
             StateProvince,
+            DisplayDate,
             Date: DateTime,
           }: GetEventsProps) => (
             <Link
@@ -29,20 +31,28 @@ const EventList: React.FC<{
               className="list-group-item list-group-item-action event-item">
               <div className="d-flex gap-3 align-items-center w-100">
                 <div className="text-center border-end pe-3">
-                  <h6 className="mb-1 text-primary text-uppercase">
-                    {new Date(DateTime).toLocaleString("en-US", {
-                      weekday: "short",
-                    })}
-                  </h6>
-                  <p className="m-0 small text-muted text-uppercase">
-                    {`${new Date(DateTime).getDay()} 
+                  {DisplayDate.includes("TBA") ? (
+                    <h6 className="mb-1 text-primary text-uppercase">TBA</h6>
+                  ) : (
+                    <>
+                      <h6 className="mb-1 text-primary text-uppercase">
+                        {new Date(DateTime).toLocaleString("en-US", {
+                          weekday: "short",
+                        })}
+                      </h6>
+                      <p className="m-0 small text-muted text-uppercase">
+                        {`${new Date(DateTime).toLocaleString("en-US", {
+                          day: "2-digit",
+                        })}
                       ${new Date(DateTime).toLocaleString("en-US", {
                         month: "short",
                       })}`}
-                  </p>
-                  <p className="m-0 small text-muted text-uppercase">
-                    {dayjs(DateTime).format("LT")}
-                  </p>
+                      </p>
+                      <p className="m-0 small text-muted text-uppercase">
+                        {dayjs(DateTime).format("LT")}
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="flex-fill">
                   <h5 className="mb-1 text-muted">

@@ -6,13 +6,14 @@ import { fetcSearchEvents, siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [data, setData] = useState<SearchEventsProps[]>([]);
 
-  const { venues } = useDataContext();
+  const { venues, performers } = useDataContext();
 
   const searchVenues = useMemo(
     () =>
@@ -24,6 +25,16 @@ const Hero = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [debouncedFilter, venues]
   );
+  const searchPerformers = useMemo(
+    () =>
+      search.trim().length > 0
+        ? performers.filter(({ PerformerName }) =>
+            PerformerName.toLowerCase().includes(search.toLowerCase())
+          )
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [debouncedFilter, performers]
+  );
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -31,7 +42,7 @@ const Hero = () => {
         try {
           const response = await fetcSearchEvents({
             searchTerms: search,
-            orderByClause: "Date%20DESC",
+            // orderByClause: "Date%20DESC",
           });
           setData(response || []);
           console.log(data);
@@ -66,15 +77,17 @@ const Hero = () => {
           {data.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
-              {data.map(({ ID, Name }) => (
-                <div key={ID}>
-                  <Link
-                    href={`/performers/${convertTitleToPath(Name)}`}
-                    className="search-result-item">
-                    {Name}
-                  </Link>
-                </div>
-              ))}
+              {removeDuplicatedElements(searchPerformers, "PerformerName").map(
+                ({ PerformerName, PerformerID }) => (
+                  <div key={PerformerID}>
+                    <Link
+                      href={`/performers/${convertTitleToPath(PerformerName)}`}
+                      className="search-result-item">
+                      {PerformerName}
+                    </Link>
+                  </div>
+                )
+              )}
             </>
           )}
           {searchVenues.length > 0 && (

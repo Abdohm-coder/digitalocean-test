@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { GetCategoriesProps } from "../../types/data-types";
-import { convertPathnameToTitle } from "@/utils/pathname-to-title";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
 
 const Categories: React.FC<{ categories: GetCategoriesProps[] }> = ({
   categories,
@@ -12,7 +12,7 @@ const Categories: React.FC<{ categories: GetCategoriesProps[] }> = ({
           <li key={ChildCategoryID} className="nav-item">
             <Link
               className="nav-link link-info fw-semibold text-capitalize"
-              href={`/category/${convertPathnameToTitle(
+              href={`/category/${convertTitleToPath(
                 ChildCategoryDescription
               )}`}>
               {ChildCategoryDescription.toLowerCase()}
