@@ -46,7 +46,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         currentTime - +storedTimestamp > oneDay
       ) {
         try {
-          const response = await axios.get("/api/GetEventPerformers");
+          const response = await axios.get("/api/GetVenue");
           const newData = response.data.GetVenueResult.Venue;
 
           localStorage.setItem("venues", JSON.stringify(newData));

@@ -6,27 +6,22 @@ type ResponseData = {
 };
 
 export default async function handler(
-  req: NextApiRequest,
+  _: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const { searchTerms /*whereClause , orderByClause */ } = req.body;
-
   // Create a new SoapClient instance
   const client = await createClientAsync(
     "http://tnwebservices-test.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx?wsdl"
   );
 
   // Define the SOAP request parameters
-  const params: any = {
+  const params = {
     websiteConfigID: 4626,
   };
-  if (searchTerms) params["searchTerms"] = searchTerms;
-  // if (whereClause) params["whereClause"] = whereClause;
-  // if (orderByClause) params["orderByClause"] = orderByClause;
 
   try {
     // Make the SOAP request
-    const response = await client.SearchEventsAsync(params);
+    const response = await client.GetVenueAsync(params);
 
     // Return the SOAP response as JSON
     res.status(200).json(response[0]);
