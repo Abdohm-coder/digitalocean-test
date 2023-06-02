@@ -15,7 +15,7 @@ const Categories: React.FC<{ categories: GetCategoriesProps[] }> = ({
               href={`/category/${convertPathnameToTitle(
                 ChildCategoryDescription
               )}`}>
-              {ChildCategoryDescription}
+              {ChildCategoryDescription.toLowerCase()}
             </Link>
           </li>
         ))}

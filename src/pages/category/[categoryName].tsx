@@ -10,9 +10,12 @@ import Hero from "@/components/Categories/Hero";
 import EventList from "@/components/Event/EventList";
 import Guarantee from "@/components/Categories/Guarantee";
 import TicketInfo from "@/components/Categories/TicketInfo";
-import axios from "axios";
 import Head from "next/head";
-import { siteSettings } from "@/settings/site.settings";
+import {
+  fetcGetEvents,
+  fetcPerformerByCategory,
+  siteSettings,
+} from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
 
 const CategoryPage: React.FC = () => {
@@ -27,7 +30,7 @@ const CategoryPage: React.FC = () => {
   const [_, setPerformers] = useState<GetPerfomerByCategoryProps[]>([]);
   const categoryData = useMemo(
     () =>
-      categories.find(({ ChildCategoryDescription }) =>
+      categories.filter(({ ChildCategoryDescription }) =>
         ChildCategoryDescription.toLowerCase().includes(categoryTitle)
       ),
     [categories, categoryTitle]
@@ -38,43 +41,36 @@ const CategoryPage: React.FC = () => {
   }, [categoryName]);
 
   useEffect(() => {
-    if (categoryData?.ChildCategoryID && categoryData?.ParentCategoryID) {
+    if (categoryData[0]?.ParentCategoryID) {
       const fetchPerformerByCategory = async () => {
         try {
-          const response = await axios.post("/api/GetPerformerByCategory", {
+          const response = await fetcPerformerByCategory({
             hasEvent: true,
-            parentCategoryID: categoryData.ParentCategoryID,
-            childCategoryID: categoryData.ChildCategoryID,
+            parentCategoryID: categoryData[0].ParentCategoryID,
+            childCategoryID: categoryData[0].ChildCategoryID,
           });
-          const data = response.data.GetPerformerByCategoryResult.Performer;
-          setPerformers(data);
-          console.log(data);
+          setPerformers(response || []);
+          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
       };
       fetchPerformerByCategory();
     }
-  }, [categoryData?.ChildCategoryID, categoryData?.ParentCategoryID]);
+  }, [categoryData]);
 
   useEffect(() => {
-    if (
-      categoryData?.ChildCategoryID &&
-      categoryData?.ParentCategoryID &&
-      eventNumber <= 500
-    ) {
+    if (categoryData[0]?.ParentCategoryID && eventNumber <= 500) {
       const fetchEvents = async () => {
         try {
-          const response = await axios.post("/api/GetEvents", {
-            parentCategoryID: categoryData.ParentCategoryID,
-            childCategoryID: categoryData.ChildCategoryID,
+          const response = await fetcGetEvents({
+            parentCategoryID: categoryData[0].ParentCategoryID,
+            childCategoryID: categoryData[0].ChildCategoryID,
             orderByClause: "Date%20DESC",
             numberOfEvents: eventNumber,
-            // childCategoryID: categoryData.ChildCategoryID,
           });
-          const data = response.data.GetEventsResult.Event;
-          setEvents(data);
-          console.log(response.data);
+          setEvents(response || []);
+          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
@@ -83,11 +79,7 @@ const CategoryPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [
-    eventNumber,
-    categoryData?.ParentCategoryID,
-    categoryData?.ChildCategoryID,
-  ]);
+  }, [categoryData, eventNumber]);
 
   return (
     <>
@@ -97,7 +89,7 @@ const CategoryPage: React.FC = () => {
         </title>
       </Head>
       <main className="bg-light">
-        <Hero title={categoryData?.ChildCategoryDescription || categoryTitle} />
+        <Hero title={categoryTitle} />
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">

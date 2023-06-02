@@ -1,27 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchPerformersProps } from "../../types/data-types";
+import { SearchEventsProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
-import { siteSettings } from "../../settings/site.settings";
+import { fetcSearchEvents, siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
-import axios from "axios";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
+import { useDataContext } from "@/context/data.context";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [data, setData] = useState<SearchPerformersProps[]>([]);
+  const [data, setData] = useState<SearchEventsProps[]>([]);
+
+  const { venues } = useDataContext();
+
+  const searchVenues = useMemo(
+    () =>
+      search.trim().length > 0
+        ? venues.filter(({ Name }) =>
+            Name.toLowerCase().includes(search.toLowerCase())
+          )
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [debouncedFilter, venues]
+  );
 
   useEffect(() => {
     if (search.trim().length > 0) {
       const fetchSearchEvents = async () => {
         try {
-          const response = await axios.post("/api/SearchPerformers", {
+          const response = await fetcSearchEvents({
             searchTerms: search,
+            orderByClause: "Date%20DESC",
           });
-          const data = response.data.SearchPerformersResult.Performer;
-          setData(data);
-          console.log(response.data);
+          setData(response || []);
+          console.log(data);
         } catch (error) {
           console.error("Error:", error);
         }
@@ -47,22 +60,38 @@ const Hero = () => {
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
-        {data.length > 0 && (
-          <div
-            style={{ zIndex: 9999 }}
-            className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
-            <div className="search-result-title">Performers</div>
-            {data.map(({ ID, Description }) => (
-              <div key={ID}>
-                <Link
-                  href={`/performers/${convertTitleToPath(Description)}`}
-                  className="search-result-item">
-                  {Description}
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
+        <div
+          style={{ zIndex: 9999 }}
+          className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
+          {data.length > 0 && (
+            <>
+              <div className="search-result-title">Performers</div>
+              {data.map(({ ID, Name }) => (
+                <div key={ID}>
+                  <Link
+                    href={`/performers/${convertTitleToPath(Name)}`}
+                    className="search-result-item">
+                    {Name}
+                  </Link>
+                </div>
+              ))}
+            </>
+          )}
+          {searchVenues.length > 0 && (
+            <>
+              <div className="search-result-title">Venues</div>
+              {searchVenues.map(({ ID, Name }) => (
+                <div key={ID}>
+                  <Link
+                    href={`/performers/${convertTitleToPath(Name)}`}
+                    className="search-result-item">
+                    {Name}
+                  </Link>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
         <button
           className="btn btn-lg btn-primary rounded-circle text-white position-absolute top-50 translate-middle-y d-flex align-items-center justify-content-center"
           style={{ height: "80%", right: "1%" }}>

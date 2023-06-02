@@ -58,6 +58,11 @@ const EventList: React.FC<{
             </Link>
           )
         )}
+        {events.length === 0 && (
+          <div className="list-group-item list-group-item-action event-item">
+            No events available.
+          </div>
+        )}
         {eventNumber <= 500 && (
           <div className="list-group-item text-center">
             <button

@@ -7,9 +7,8 @@ import Footer from "@/components/Footer";
 import { GetEventsProps } from "@/types/data-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import axios from "axios";
 import Head from "next/head";
-import { siteSettings } from "@/settings/site.settings";
+import { fetcSearchEvents, siteSettings } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
 import { convertPathnameToTitle } from "@/utils/pathname-to-title";
 
@@ -25,17 +24,16 @@ const PerformerPage: React.FC = () => {
   }, [performerName]);
 
   useEffect(() => {
-    if (performerTitle && eventNumber <= 500) {
+    if (performerTitle) {
       const fetchEvents = async () => {
         try {
-          const response = await axios.post("/api/GetEvents", {
-            performerName: performerTitle,
-            numberOfEvents: eventNumber,
+          const response = await fetcSearchEvents({
+            searchTerms: performerTitle,
+            // numberOfEvents: eventNumber,
             orderByClause: "Date%20DESC",
           });
-          const data = response.data.GetEventsResult.Event;
-          setEvents(data);
-          console.log(response.data);
+          setEvents(response || []);
+          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
@@ -44,7 +42,7 @@ const PerformerPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [eventNumber, performerTitle]);
+  }, [performerTitle]);
   return (
     <>
       <Head>
@@ -60,9 +58,9 @@ const PerformerPage: React.FC = () => {
             className="w-100 rounded-5 object-cover"
           />
           <h1
-            className="text-white m-0 fw-bold position-absolute "
+            className="text-white m-0 fw-bold position-absolute text-capitalize"
             style={{ left: "16px", bottom: "16px" }}>
-            {performerName?.replaceAll("-", " ")} Tickets
+            {capitalizeString(performerTitle)} Tickets
           </h1>
         </div>
         <EventList

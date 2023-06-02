@@ -13,8 +13,10 @@ import {
 } from "../../types/data-types";
 import { convertPathnameToTitle } from "../../utils/pathname-to-title";
 import { usePathname } from "next/navigation";
-import axios from "axios";
-import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import {
+  fetcGetEvents,
+  fetchHighSalesPerformers,
+} from "@/settings/site.settings";
 
 const CategoriesPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -30,25 +32,23 @@ const CategoriesPage: React.FC = () => {
 
   const categoryData = useMemo(
     () =>
-      categories.find(({ ParentCategoryDescription }) =>
+      categories.filter(({ ParentCategoryDescription }) =>
         ParentCategoryDescription.toLowerCase().includes(categoryTitle)
       ),
     [categories, categoryTitle]
   );
 
   useEffect(() => {
-    if (categoryData?.ParentCategoryID && eventNumber <= 500) {
+    if (categoryData[0]?.ParentCategoryID && eventNumber <= 500) {
       const fetchEvents = async () => {
         try {
-          const response = await axios.post("/api/GetEvents", {
-            parentCategoryID: categoryData.ParentCategoryID,
+          const response = await fetcGetEvents({
+            parentCategoryID: categoryData[0]?.ParentCategoryID,
             orderByClause: "Date%20DESC",
             numberOfEvents: eventNumber,
-            // childCategoryID: categoryData.ChildCategoryID,
           });
-          const data = response.data.GetEventsResult.Event;
-          setEvents(data);
-          console.log(response.data);
+          setEvents(response || []);
+          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
@@ -57,45 +57,38 @@ const CategoriesPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [eventNumber, categoryData?.ParentCategoryID]);
+  }, [categoryData, eventNumber]);
 
   useEffect(() => {
-    if (categoryData?.ParentCategoryID && categoryData?.ChildCategoryID) {
+    if (categoryData[0]?.ParentCategoryID) {
       const fetchPerformerByCategory = async () => {
         try {
-          const response = await axios.post("/api/GetPerformerByCategory", {
-            hasEvent: true,
-            parentCategoryID: categoryData.ParentCategoryID,
-            childCategoryID: categoryData.ChildCategoryID,
+          const response = await fetchHighSalesPerformers({
+            numReturned: 8,
+            parentCategoryID: categoryData[0].ParentCategoryID,
           });
-          const data = response.data.GetPerformerByCategoryResult.Performer;
-          setPerformers(data);
-          console.log(data);
+          setPerformers(response || []);
+          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
       };
       fetchPerformerByCategory();
     }
-  }, [categoryData?.ChildCategoryID, categoryData?.ParentCategoryID]);
+  }, [categoryData]);
 
   return (
     <>
       <main className="bg-light">
-        <Hero
-          title={categoryData?.ParentCategoryDescription || categoryTitle}
-        />
+        <Hero title={categoryTitle} />
         <div className="container">
-          <Categories
-            categories={removeDuplicatedElements(
-              categories,
-              "ParentCategoryDescription"
-            ).splice(0, 8)}
-          />
-          <NewCategorySales
-            performers={performers.splice(0, 8)}
-            title={`Top National Events`}
-          />
+          <Categories categories={categoryData?.splice(0, 8)} />
+          {performers.length > 0 && (
+            <NewCategorySales
+              performers={performers.splice(0, 8)}
+              title={`Top National Events`}
+            />
+          )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
               <EventList

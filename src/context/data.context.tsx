@@ -2,15 +2,18 @@ import { useState, useEffect, useContext, createContext } from "react";
 import {
   GetCategoriesProps,
   GetEventPerformersProps,
+  GetVenueProps,
 } from "@/types/data-types";
 import axios from "axios";
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
   performers: GetEventPerformersProps[];
+  venues: GetVenueProps[];
 }>({
   categories: [],
   performers: [],
+  venues: [],
 });
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -18,6 +21,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
+  const [venues, setVenues] = useState<GetVenueProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +34,34 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Error:", error);
       }
     };
-    const fetchPerformers = async () => {
+    const fetchAllVenues = async () => {
+      const storedData = localStorage.getItem("venues");
+      const storedTimestamp = localStorage.getItem("timestamp");
+      const currentTime = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+
+      if (
+        !storedData ||
+        !storedTimestamp ||
+        currentTime - +storedTimestamp > oneDay
+      ) {
+        try {
+          const response = await axios.get("/api/GetEventPerformers");
+          const newData = response.data.GetVenueResult.Venue;
+
+          localStorage.setItem("venues", JSON.stringify(newData));
+          localStorage.setItem("timestamp", currentTime.toString());
+
+          setVenues(newData);
+        } catch (error) {
+          console.error("Error:", error);
+          throw error;
+        }
+      } else {
+        setVenues(JSON.parse(storedData));
+      }
+    };
+    const fetchAllPerformers = async () => {
       const storedData = localStorage.getItem("perfomers");
       const storedTimestamp = localStorage.getItem("timestamp");
       const currentTime = new Date().getTime();
@@ -57,12 +88,13 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         setPerformers(JSON.parse(storedData));
       }
     };
-    fetchPerformers();
+    fetchAllVenues();
+    fetchAllPerformers();
     fetchData();
   }, []);
 
   return (
-    <DataContext.Provider value={{ categories, performers }}>
+    <DataContext.Provider value={{ categories, performers, venues }}>
       {children}
     </DataContext.Provider>
   );

@@ -43,3 +43,16 @@ export declare type GetPerformerByCategoryInput = {
   grandchildCategoryID?: number;
   hasEvent?: boolean;
 };
+
+export declare type GetHighSalesPerformersInput = {
+  parentCategoryID?: number;
+  childCategoryID?: number;
+  grandchildCategoryID?: number;
+  numReturned?: number;
+};
+
+export declare type SearchEventsInput = {
+  searchTerms?: string;
+  whereClause?: string;
+  orderByClause?: string;
+};

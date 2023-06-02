@@ -1,4 +1,11 @@
+import axios from "axios";
 import Logo from "../assets/images/logo.png";
+import {
+  GetEventsInput,
+  GetHighSalesPerformersInput,
+  GetPerformerByCategoryInput,
+  SearchEventsInput,
+} from "@/types/input-calls-types";
 
 export const baseApi = "https://ticketjewel.com";
 
@@ -177,4 +184,48 @@ export const siteSettings = {
       ],
     },
   ],
+};
+
+export const fetchHighSalesPerformers = async (
+  params: GetHighSalesPerformersInput
+) => {
+  try {
+    const response = await axios.post("/api/GetHighSalesPerformers", params);
+    const data = response.data.GetHighSalesPerformersResult.PerformerPercent;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetcPerformerByCategory = async (
+  params: GetPerformerByCategoryInput
+) => {
+  try {
+    const response = await axios.post("/api/GetPerformerByCategory", params);
+    const data = response.data.GetPerformerByCategoryResult.Performer;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetcSearchEvents = async (params: SearchEventsInput) => {
+  try {
+    const response = await axios.post("/api/SearchEvents", params);
+    const data = response.data.SearchEventsResult.Event;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetcGetEvents = async (params: GetEventsInput) => {
+  try {
+    const response = await axios.post("/api/GetEvents", params);
+    const data = response.data.GetEventsResult.Event;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
