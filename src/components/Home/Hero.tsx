@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchEventsProps } from "../../types/data-types";
+import { SearchPerformersProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
 import { siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { convertTitleToPath } from "@/utils/title-to-pathname";
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [data, setData] = useState<SearchEventsProps[]>([]);
+  const [data, setData] = useState<SearchPerformersProps[]>([]);
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -52,12 +52,12 @@ const Hero = () => {
             style={{ zIndex: 9999 }}
             className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
             <div className="search-result-title">Performers</div>
-            {data.map(({ ID, Name }) => (
+            {data.map(({ ID, Description }) => (
               <div key={ID}>
                 <Link
-                  href={`/performers/${convertTitleToPath(Name)}`}
+                  href={`/performers/${convertTitleToPath(Description)}`}
                   className="search-result-item">
-                  {Name}
+                  {Description}
                 </Link>
               </div>
             ))}

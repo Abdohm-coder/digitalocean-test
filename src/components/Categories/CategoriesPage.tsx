@@ -42,7 +42,7 @@ const CategoriesPage: React.FC = () => {
         try {
           const response = await axios.post("/api/GetEvents", {
             parentCategoryID: categoryData.ParentCategoryID,
-            orderByClause: "endDate%20DESC",
+            orderByClause: "Date%20DESC",
             numberOfEvents: eventNumber,
             // childCategoryID: categoryData.ChildCategoryID,
           });

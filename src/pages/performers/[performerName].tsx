@@ -31,7 +31,7 @@ const PerformerPage: React.FC = () => {
           const response = await axios.post("/api/GetEvents", {
             performerName: performerTitle,
             numberOfEvents: eventNumber,
-            orderByClause: "endDate%20DESC",
+            orderByClause: "Date%20DESC",
           });
           const data = response.data.GetEventsResult.Event;
           setEvents(data);
