@@ -3,7 +3,48 @@
     "title": "Concerts",
     "subMenus": [
       {
-        "title": "Trending",
+        "title": "Festivals",
+        "children": [
+          {
+            "title": "New Orleans Jazz Festival"
+          },
+          {
+            "title": "Austin City Limits Festival"
+          },
+          {
+            "title": "Coachella Music Festival"
+          },
+          {
+            "title": "Stagecoach Country Music Festival"
+          },
+          {
+            "title": "JAS Aspen Snowmass"
+          },
+          {
+            "title": "Barefoot Country Music Fest"
+          },
+          {
+            "title": "Electric Forest"
+          },
+          {
+            "title": "Telluride Bluegrass Festival"
+          },
+          {
+            "title": "Bonnaroo"
+          },
+          {
+            "title": "Ultra Music Festival"
+          },
+          {
+            "title": "Hangout Music Festival"
+          },
+          {
+            "title": "View All Music Festivals"
+          }
+        ]
+      },
+      {
+        "title": "Country",
         "children": [
           {
             "title": "Tedeschi Trucks Band"
@@ -45,12 +86,12 @@
             "title": "Fall Out Boy"
           },
           {
-            "title": "View All Trending"
+            "title": "View All Country"
           }
         ]
       },
       {
-        "title": "Top Selling",
+        "title": "Pop",
         "children": [
           {
             "title": "Phish"
@@ -100,145 +141,7 @@
         ]
       },
       {
-        "title": "Comedy",
-        "children": [
-          {
-            "title": "Bert Kreischer"
-          },
-          {
-            "title": "Jerry Seinfeld"
-          },
-          {
-            "title": "Dane Cook"
-          },
-          {
-            "title": "Mark Normand"
-          },
-          {
-            "title": "Matt Rife"
-          },
-          {
-            "title": "Sam Morril"
-          },
-          {
-            "title": "Theo Von"
-          },
-          {
-            "title": "Taylor Tomlinson"
-          },
-          {
-            "title": "Iliza Shlesinger"
-          },
-          {
-            "title": "Tina Fey"
-          },
-          {
-            "title": "Amy Poehler"
-          },
-          {
-            "title": "Tim Dillon"
-          },
-          {
-            "title": "Chris Distefano"
-          },
-          {
-            "title": "Katt Williams"
-          },
-          {
-            "title": "View All Comedy"
-          }
-        ]
-      },
-      {
-        "title": "Venues",
-        "children": [
-          {
-            "title": "Red Rocks Amphitheater"
-          },
-          {
-            "title": "Leader Bank Pavilion"
-          },
-          {
-            "title": "Ruoff Music Center"
-          },
-          {
-            "title": "Bethel Woods Center For The Arts"
-          },
-          {
-            "title": "Huntington Bank Pavilion"
-          },
-          {
-            "title": "The Gorge Amphitheater"
-          },
-          {
-            "title": "Hollywood Bowl"
-          },
-          {
-            "title": "Greek Theatre"
-          },
-          {
-            "title": "Blossom Music Center"
-          },
-          {
-            "title": "Starlight Theatre"
-          },
-          {
-            "title": "Ascend Amphitheater"
-          },
-          {
-            "title": "Merriweather Post Pavilion"
-          },
-          {
-            "title": "Northwell Health at Jones Beach Theater"
-          },
-          {
-            "title": "View All Venues"
-          }
-        ]
-      },
-      {
-        "title": "Music Festivals",
-        "children": [
-          {
-            "title": "New Orleans Jazz Festival"
-          },
-          {
-            "title": "Austin City Limits Festival"
-          },
-          {
-            "title": "Coachella Music Festival"
-          },
-          {
-            "title": "Stagecoach Country Music Festival"
-          },
-          {
-            "title": "JAS Aspen Snowmass"
-          },
-          {
-            "title": "Barefoot Country Music Fest"
-          },
-          {
-            "title": "Electric Forest"
-          },
-          {
-            "title": "Telluride Bluegrass Festival"
-          },
-          {
-            "title": "Bonnaroo"
-          },
-          {
-            "title": "Ultra Music Festival"
-          },
-          {
-            "title": "Hangout Music Festival"
-          },
-          {
-            "title": "View All Music Festivals"
-          }
-        ]
-      },
-      {
-        "title": "Cities",
+        "title": "Hip Hop",
         "children": [
           {
             "title": "Atlanta Concerts"
@@ -319,6 +222,103 @@
             "title": "View All Cities"
           }
         ]
+      },
+      {
+        "title": "Rock",
+        "children": [
+          {
+            "title": "Red Rocks Amphitheater"
+          },
+          {
+            "title": "Leader Bank Pavilion"
+          },
+          {
+            "title": "Ruoff Music Center"
+          },
+          {
+            "title": "Bethel Woods Center For The Arts"
+          },
+          {
+            "title": "Huntington Bank Pavilion"
+          },
+          {
+            "title": "The Gorge Amphitheater"
+          },
+          {
+            "title": "Hollywood Bowl"
+          },
+          {
+            "title": "Greek Theatre"
+          },
+          {
+            "title": "Blossom Music Center"
+          },
+          {
+            "title": "Starlight Theatre"
+          },
+          {
+            "title": "Ascend Amphitheater"
+          },
+          {
+            "title": "Merriweather Post Pavilion"
+          },
+          {
+            "title": "Northwell Health at Jones Beach Theater"
+          },
+          {
+            "title": "View All Venues"
+          }
+        ]
+      },
+      {
+        "title": "Comedy",
+        "children": [
+          {
+            "title": "Bert Kreischer"
+          },
+          {
+            "title": "Jerry Seinfeld"
+          },
+          {
+            "title": "Dane Cook"
+          },
+          {
+            "title": "Mark Normand"
+          },
+          {
+            "title": "Matt Rife"
+          },
+          {
+            "title": "Sam Morril"
+          },
+          {
+            "title": "Theo Von"
+          },
+          {
+            "title": "Taylor Tomlinson"
+          },
+          {
+            "title": "Iliza Shlesinger"
+          },
+          {
+            "title": "Tina Fey"
+          },
+          {
+            "title": "Amy Poehler"
+          },
+          {
+            "title": "Tim Dillon"
+          },
+          {
+            "title": "Chris Distefano"
+          },
+          {
+            "title": "Katt Williams"
+          },
+          {
+            "title": "View All Comedy"
+          }
+        ]
       }
     ]
   },
@@ -326,7 +326,7 @@
     "title": "Sports",
     "subMenus": [
       {
-        "title": "Trending",
+        "title": "NFL",
         "children": [
           {
             "title": "Los Angeles FC"
@@ -371,7 +371,7 @@
             "title": "WWE"
           },
           {
-            "title": "View All Trending"
+            "title": "View All NFL"
           }
         ]
       },
@@ -676,68 +676,6 @@
         ]
       },
       {
-        "title": "NCAA Basketball",
-        "children": [
-          {
-            "title": "March Madness"
-          },
-          {
-            "title": "ACC Basketball"
-          },
-          {
-            "title": "American Basketball"
-          },
-          {
-            "title": "Big East Basketball"
-          },
-          {
-            "title": "Big Ten Basketball"
-          },
-          {
-            "title": "Big 12 Basketball"
-          },
-          {
-            "title": "C-USA Basketball"
-          },
-          {
-            "title": "MAC Basketball"
-          },
-          {
-            "title": "Mountain West Basketball"
-          },
-          {
-            "title": "Pac 12 Basketball"
-          },
-          {
-            "title": "SEC Basketball"
-          },
-          {
-            "title": "Sun Belt Basketball"
-          },
-          {
-            "title": "Summit League Basketball"
-          },
-          {
-            "title": "A10 Basketball"
-          },
-          {
-            "title": "Horizon league Basketball"
-          },
-          {
-            "title": "Ivy League Basketball"
-          },
-          {
-            "title": "Big Sky Basketball"
-          },
-          {
-            "title": "Big South Basketball"
-          },
-          {
-            "title": "View All NCAA Basketball"
-          }
-        ]
-      },
-      {
         "title": "MLS",
         "children": [
           {
@@ -831,150 +769,6 @@
             "title": "View All MLS"
           }
         ]
-      },
-      {
-        "title": "Wrestling & Action",
-        "children": [
-          {
-            "title": "All Elite Wrestling (AEW)"
-          },
-          {
-            "title": "NASCAR"
-          },
-          {
-            "title": "WWE"
-          },
-          {
-            "title": "Monster Jam (Dallas)"
-          },
-          {
-            "title": "All Star Monster Truck Tour"
-          },
-          {
-            "title": "AMA Supercross"
-          },
-          {
-            "title": "Barstool Sports Rough N' Rowdy"
-          },
-          {
-            "title": "NCAA Wrestling Championship"
-          },
-          {
-            "title": "UFC Fight Night"
-          },
-          {
-            "title": "View All Wrestling & Action"
-          }
-        ]
-      },
-      {
-        "title": "Cities",
-        "children": [
-          {
-            "title": "Atlanta Sports"
-          },
-          {
-            "title": "Baltimore Sports"
-          },
-          {
-            "title": "Boston Sports"
-          },
-          {
-            "title": "Brooklyn Sports"
-          },
-          {
-            "title": "Charlotte Sports"
-          },
-          {
-            "title": "Chicago Sports"
-          },
-          {
-            "title": "Cincinnati Sports"
-          },
-          {
-            "title": "Cleveland Sports"
-          },
-          {
-            "title": "Columbus Sports"
-          },
-          {
-            "title": "Dallas Sports"
-          },
-          {
-            "title": "Denver Sports"
-          },
-          {
-            "title": "Detroit Sports"
-          },
-          {
-            "title": "Houston Sports"
-          },
-          {
-            "title": "Indianapolis Sports"
-          },
-          {
-            "title": "Las Vegas Sports"
-          },
-          {
-            "title": "Los Angeles Sports"
-          },
-          {
-            "title": "Miami Sports"
-          },
-          {
-            "title": "New York City Sports"
-          },
-          {
-            "title": "New Orleans Sports"
-          },
-          {
-            "title": "Orlando Sports"
-          },
-          {
-            "title": "Philadelphia Sports"
-          },
-          {
-            "title": "Phoenix Sports"
-          },
-          {
-            "title": "Pittsburgh Sports"
-          },
-          {
-            "title": "San Francisco Sports "
-          },
-          {
-            "title": "Seattle Sports"
-          },
-          {
-            "title": "View All Cities"
-          }
-        ]
-      },
-      {
-        "title": "Horse Racing",
-        "children": [
-          {
-            "title": "Belmont Stakes"
-          },
-          {
-            "title": "Black Eyed Susan Stakes"
-          },
-          {
-            "title": "Kentucky Derby"
-          },
-          {
-            "title": "Kentucky Oaks"
-          },
-          {
-            "title": "Longines FEI Jumping World Cup"
-          },
-          {
-            "title": "Preakness Stakes"
-          },
-          {
-            "title": "View All Horse Racing"
-          }
-        ]
       }
     ]
   },
@@ -982,7 +776,7 @@
     "title": "Theater",
     "subMenus": [
       {
-        "title": "Trending",
+        "title": "Broadway",
         "children": [
           {
             "title": "Blue Man Group"
@@ -1052,7 +846,7 @@
         ]
       },
       {
-        "title": "Cirque du Soleil",
+        "title": "On Tour",
         "children": [
           {
             "title": "Cirque du Soleil - Michael Jackson"
@@ -1106,329 +900,6 @@
           },
           {
             "title": "View All Musicals"
-          }
-        ]
-      },
-      {
-        "title": "Cities",
-        "children": [
-          {
-            "title": "Pittsburgh Theater"
-          },
-          {
-            "title": "Philadelphia Theater"
-          },
-          {
-            "title": "Seattle Theater"
-          },
-          {
-            "title": "Raleigh Theater"
-          },
-          {
-            "title": "San Francisco Theater"
-          },
-          {
-            "title": "Portland Theater"
-          },
-          {
-            "title": "Providence Theater"
-          },
-          {
-            "title": "Atlanta Theater"
-          },
-          {
-            "title": "Baltimore Theater"
-          },
-          {
-            "title": "Charlotte Theater"
-          },
-          {
-            "title": "Chicago Theater"
-          },
-          {
-            "title": "Cleveland Theater"
-          },
-          {
-            "title": "Columbus Theater"
-          },
-          {
-            "title": "Denver Theater"
-          },
-          {
-            "title": "Dallas Theater"
-          },
-          {
-            "title": "Houston Theater"
-          },
-          {
-            "title": "Indianapolis Theater"
-          },
-          {
-            "title": "Kansas City Theater"
-          },
-          {
-            "title": "Las Vegas Theater"
-          },
-          {
-            "title": "Los Angeles Theater"
-          },
-          {
-            "title": "Louisville Theater"
-          },
-          {
-            "title": "Miami Theater"
-          },
-          {
-            "title": "New York Theater"
-          },
-          {
-            "title": "New Orleans Theater"
-          },
-          {
-            "title": "Washington DC Theater"
-          },
-          {
-            "title": "View All Cities"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Venues",
-    "subMenus": [
-      {
-        "title": "Trending",
-        "children": [
-          {
-            "title": "Red Rocks Amphitheater"
-          },
-          {
-            "title": "FivePoint Amphitheater"
-          },
-          {
-            "title": "Cellairis Amphitheatre"
-          },
-          {
-            "title": "Cal Coast Credit Union Open Air Theatre"
-          },
-          {
-            "title": "Blossom Music Center"
-          },
-          {
-            "title": "Fiddlers Green Amphitheater"
-          },
-          {
-            "title": "Oklahoma City Zoo Amphitheatre"
-          },
-          {
-            "title": "Red Hat Amphitheater"
-          },
-          {
-            "title": "Merriweather Post Pavilion"
-          },
-          {
-            "title": "Madison Square Garden"
-          },
-          {
-            "title": "View All Trending"
-          }
-        ]
-      },
-      {
-        "title": "Sports Venues",
-        "children": [
-          {
-            "title": "Coors Field"
-          },
-          {
-            "title": "Bank of America Stadium"
-          },
-          {
-            "title": "Fenway Park"
-          },
-          {
-            "title": "Progressive Field"
-          },
-          {
-            "title": "Gillette Stadium"
-          },
-          {
-            "title": "Minute Maid Park"
-          },
-          {
-            "title": "Yankee Stadium"
-          },
-          {
-            "title": "Lumen Field"
-          },
-          {
-            "title": "Wrigley Field"
-          },
-          {
-            "title": "Mercedes-Benz Stadium"
-          },
-          {
-            "title": "View All Sports Venues"
-          }
-        ]
-      },
-      {
-        "title": "Concert Venues",
-        "children": [
-          {
-            "title": "Red Rocks Amphitheater"
-          },
-          {
-            "title": "PNC Music Pavilion"
-          },
-          {
-            "title": "The Rooftop At Pier 17"
-          },
-          {
-            "title": "Pacific Amphitheater"
-          },
-          {
-            "title": "Oak Mountain Amphitheater"
-          },
-          {
-            "title": "Gerald R Ford Amphitheater"
-          },
-          {
-            "title": "The Gorge Amphitheater"
-          },
-          {
-            "title": "Leader Bank Pavilion"
-          },
-          {
-            "title": "St Joseph's Health Amphitheater"
-          },
-          {
-            "title": "Huntington Bank Pavilion"
-          },
-          {
-            "title": "View All Concert Venues"
-          }
-        ]
-      },
-      {
-        "title": "Theater Venues",
-        "children": [
-          {
-            "title": "Radio City Music Hall"
-          },
-          {
-            "title": "Virginia/August Wilson Theatre"
-          },
-          {
-            "title": "Broadhurst Theatre"
-          },
-          {
-            "title": "Gershwin Theatre"
-          },
-          {
-            "title": "Metropolitan Opera House"
-          },
-          {
-            "title": "Hollywood Pantages Theatre"
-          },
-          {
-            "title": "Neil Simon Theatre"
-          },
-          {
-            "title": "Richard Rodgers Theatre"
-          },
-          {
-            "title": "Orpheum Theatre"
-          },
-          {
-            "title": "Lyric Opera House"
-          },
-          {
-            "title": "View All Theater Venues"
-          }
-        ]
-      },
-      {
-        "title": "Cities",
-        "children": [
-          {
-            "title": "Fresno"
-          },
-          {
-            "title": "New Orleans"
-          },
-          {
-            "title": "Cleveland"
-          },
-          {
-            "title": "Orlando"
-          },
-          {
-            "title": "Miami"
-          },
-          {
-            "title": "Colorado Springs"
-          },
-          {
-            "title": "Arlington"
-          },
-          {
-            "title": "Atlanta"
-          },
-          {
-            "title": "Buffalo"
-          },
-          {
-            "title": "Charleston"
-          },
-          {
-            "title": "Chicago"
-          },
-          {
-            "title": "Columbia"
-          },
-          {
-            "title": "Dallas"
-          },
-          {
-            "title": "Durham"
-          },
-          {
-            "title": "Greenville"
-          },
-          {
-            "title": "Indianapolis"
-          },
-          {
-            "title": "Knoxville"
-          },
-          {
-            "title": "Kansas City"
-          },
-          {
-            "title": "Las Vegas"
-          },
-          {
-            "title": "Los Angeles"
-          },
-          {
-            "title": "Minneapois"
-          },
-          {
-            "title": "New York City"
-          },
-          {
-            "title": "Omaha"
-          },
-          {
-            "title": "Phoenix"
-          },
-          {
-            "title": "Portland"
-          },
-          {
-            "title": "View All Cities"
           }
         ]
       }

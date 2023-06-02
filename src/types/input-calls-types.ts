@@ -56,3 +56,9 @@ export declare type SearchEventsInput = {
   whereClause?: string;
   orderByClause?: string;
 };
+
+export declare type SearchPerformersInput = {
+  searchTerms?: string;
+  whereClause?: string;
+  orderByClause?: string;
+};

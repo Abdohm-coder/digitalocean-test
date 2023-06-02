@@ -2,7 +2,6 @@ import Hero from "./Hero";
 import TopEvents from "./TopEvents";
 import Events from "../Events";
 import NewsLetterForm from "../NewsLetterForm";
-import Footer from "../Footer";
 import { siteSettings } from "../../settings/site.settings";
 
 const HomePage: React.FC = () => {
@@ -22,7 +21,6 @@ const HomePage: React.FC = () => {
           <NewsLetterForm />
         </div>
       </main>
-      <Footer />
     </>
   );
 };

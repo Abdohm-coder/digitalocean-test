@@ -1,8 +1,15 @@
 import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchEventsProps } from "../../types/data-types";
+import {
+  SearchEventsProps,
+  SearchPerformersProps,
+} from "../../types/data-types";
 import { useDebounce } from "use-debounce";
-import { fetcSearchEvents, siteSettings } from "../../settings/site.settings";
+import {
+  fetchSearchEvents,
+  fetchSearchPerformers,
+  siteSettings,
+} from "../../settings/site.settings";
 import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
@@ -11,9 +18,10 @@ import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [data, setData] = useState<SearchEventsProps[]>([]);
+  const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
 
-  const { venues, performers } = useDataContext();
+  const { venues } = useDataContext();
 
   const searchVenues = useMemo(
     () =>
@@ -25,32 +33,35 @@ const Hero = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [debouncedFilter, venues]
   );
-  const searchPerformers = useMemo(
-    () =>
-      search.trim().length > 0
-        ? performers.filter(({ PerformerName }) =>
-            PerformerName.toLowerCase().includes(search.toLowerCase())
-          )
-        : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [debouncedFilter, performers]
-  );
 
   useEffect(() => {
     if (search.trim().length > 0) {
-      const fetchSearchEvents = async () => {
+      const fetchData = async () => {
         try {
-          const response = await fetcSearchEvents({
+          const response = await fetchSearchEvents({
             searchTerms: search,
             // orderByClause: "Date%20DESC",
           });
-          setData(response || []);
-          console.log(data);
+          setEvents(response || []);
+          console.log(response);
         } catch (error) {
           console.error("Error:", error);
         }
       };
-      fetchSearchEvents();
+      const fetchPerformers = async () => {
+        try {
+          const response = await fetchSearchPerformers({
+            searchTerms: search,
+            // orderByClause: "Date%20DESC",
+          });
+          setPerformers(response || []);
+          console.log(response);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchData();
+      fetchPerformers();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,20 +85,34 @@ const Hero = () => {
         <div
           style={{ zIndex: 9999 }}
           className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
-          {data.length > 0 && (
+          {performers.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
-              {removeDuplicatedElements(searchPerformers, "PerformerName").map(
-                ({ PerformerName, PerformerID }) => (
-                  <div key={PerformerID}>
+              {removeDuplicatedElements(performers, "Description").map(
+                ({ ID, Description }) => (
+                  <div key={ID}>
                     <Link
-                      href={`/performers/${convertTitleToPath(PerformerName)}`}
+                      href={`/performers/${convertTitleToPath(Description)}`}
                       className="search-result-item">
-                      {PerformerName}
+                      {Description}
                     </Link>
                   </div>
                 )
               )}
+            </>
+          )}
+          {events.length > 0 && (
+            <>
+              <div className="search-result-title">Events</div>
+              {removeDuplicatedElements(events, "Name").map(({ ID, Name }) => (
+                <div key={ID}>
+                  <Link
+                    href={`/performers/${convertTitleToPath(Name)}`}
+                    className="search-result-item">
+                    {Name}
+                  </Link>
+                </div>
+              ))}
             </>
           )}
           {searchVenues.length > 0 && (

@@ -1,10 +1,12 @@
 import axios from "axios";
 import Logo from "../assets/images/logo.png";
 import {
+  GetEventTickets3Input,
   GetEventsInput,
   GetHighSalesPerformersInput,
   GetPerformerByCategoryInput,
   SearchEventsInput,
+  SearchPerformersInput,
 } from "@/types/input-calls-types";
 
 export const baseApi = "https://ticketjewel.com";
@@ -202,7 +204,7 @@ export const fetchHighSalesPerformers = async (
   }
 };
 
-export const fetcPerformerByCategory = async (
+export const fetchPerformerByCategory = async (
   params: GetPerformerByCategoryInput
 ) => {
   try {
@@ -214,7 +216,7 @@ export const fetcPerformerByCategory = async (
   }
 };
 
-export const fetcSearchEvents = async (params: SearchEventsInput) => {
+export const fetchSearchEvents = async (params: SearchEventsInput) => {
   try {
     const response = await axios.post("/api/SearchEvents", params);
     const data = response.data.SearchEventsResult.Event;
@@ -224,10 +226,30 @@ export const fetcSearchEvents = async (params: SearchEventsInput) => {
   }
 };
 
-export const fetcGetEvents = async (params: GetEventsInput) => {
+export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
+  try {
+    const response = await axios.post("/api/SearchPerformers", params);
+    const data = response.data.SearchPerformersResult.Performer;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetchGetEvents = async (params: GetEventsInput) => {
   try {
     const response = await axios.post("/api/GetEvents", params);
     const data = response.data.GetEventsResult.Event;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetchGetEventTickets3 = async (params: GetEventTickets3Input) => {
+  try {
+    const response = await axios.post("/api/GetEventTickets3", params);
+    const data = response.data.GetEventTickets3Result.Tickets.TicketGroup3;
     return data;
   } catch (error) {
     console.error("Error:", error);

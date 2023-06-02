@@ -74,6 +74,14 @@
   color: #3683fc;
 }
 
+.view-all {
+  color: #3683fc !important;
+}
+
+.item {
+  color: #000 !important;
+}
+
 .object-cover {
   object-fit: cover;
 }

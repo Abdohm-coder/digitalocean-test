@@ -12,8 +12,8 @@ import Guarantee from "@/components/Categories/Guarantee";
 import TicketInfo from "@/components/Categories/TicketInfo";
 import Head from "next/head";
 import {
-  fetcGetEvents,
-  fetcPerformerByCategory,
+  fetchGetEvents,
+  fetchPerformerByCategory,
   siteSettings,
 } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
@@ -44,9 +44,9 @@ const CategoryPage: React.FC = () => {
 
   useEffect(() => {
     if (categoryData[0]?.ParentCategoryID) {
-      const fetchPerformerByCategory = async () => {
+      const fetchData = async () => {
         try {
-          const response = await fetcPerformerByCategory({
+          const response = await fetchPerformerByCategory({
             hasEvent: true,
             parentCategoryID: categoryData[0].ParentCategoryID,
             childCategoryID: categoryData[0].ChildCategoryID,
@@ -57,7 +57,7 @@ const CategoryPage: React.FC = () => {
           console.error("Error:", error);
         }
       };
-      fetchPerformerByCategory();
+      fetchData();
     }
   }, [categoryData]);
 
@@ -65,7 +65,7 @@ const CategoryPage: React.FC = () => {
     if (categoryData[0]?.ParentCategoryID && eventNumber <= 500) {
       const fetchEvents = async () => {
         try {
-          const response = await fetcGetEvents({
+          const response = await fetchGetEvents({
             parentCategoryID: categoryData[0].ParentCategoryID,
             childCategoryID: categoryData[0].ChildCategoryID,
             // orderByClause: "Date%20DESC",

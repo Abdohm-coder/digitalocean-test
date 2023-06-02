@@ -15,7 +15,7 @@ const EventList: React.FC<{
   return (
     <section>
       <div className="list-group">
-        {removeDuplicatedElements(events, "Venue").map(
+        {removeDuplicatedElements(events, "VenueID").map(
           ({
             ID,
             Name,

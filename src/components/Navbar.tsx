@@ -59,16 +59,26 @@ const Navbar: React.FC = () => {
   const MobileMenu = () => {
     if (mobileMenuView === 2) {
       return Menus[selectedMenu].subMenus[selectedSubMenu].children.map(
-        ({ title }, i) => (
-          <li key={i} className="list-group-item list-group-item-action">
-            <Link
-              className="nav-link active"
-              aria-current="page"
-              href={`/performers/${convertTitleToPath(title)}`}>
-              {title}
-            </Link>
-          </li>
-        )
+        ({ title }, i) => {
+          const lastItem =
+            Menus[selectedMenu].subMenus[selectedSubMenu].children.length - 1;
+          return (
+            <li key={i} className={`list-group-item list-group-item-action`}>
+              <Link
+                className={`nav-link active ${
+                  i === lastItem ? "view-all" : "item"
+                }`}
+                aria-current="page"
+                href={
+                  lastItem === i
+                    ? `/category/${Menus[selectedMenu].subMenus[selectedSubMenu].title}`
+                    : `/performers/${convertTitleToPath(title)}`
+                }>
+                {title}
+              </Link>
+            </li>
+          );
+        }
       );
     }
     if (mobileMenuView === 1) {
@@ -84,7 +94,7 @@ const Navbar: React.FC = () => {
             className="nav-link active"
             aria-current="page"
             href={`/category/${convertTitleToPath(title)}`}>
-            {title} 
+            {title}
             <BsChevronRight className="float-end" />
           </Link>
         </li>
@@ -220,15 +230,33 @@ const Navbar: React.FC = () => {
                     <ul className="row list-unstyled nav">
                       {Menus[selectedMenu].subMenus[
                         selectedSubMenu
-                      ].children.map(({ title }, i) => (
-                        <li key={`${i}: ${title}`} className="col-6 nav-item">
-                          <Link
-                            href={`/performers/${convertTitleToPath(title)}`}
-                            className="nav-link link-info fw-semibold">
-                            {title}
-                          </Link>
-                        </li>
-                      ))}
+                      ].children.map(({ title }, i) => {
+                        const lastItem =
+                          Menus[selectedMenu].subMenus[selectedSubMenu].children
+                            .length - 1;
+
+                        return (
+                          <li
+                            key={`${i}: ${title}`}
+                            className={`col-6 nav-item`}>
+                            <Link
+                              href={
+                                lastItem === i
+                                  ? `/category/${convertTitleToPath(
+                                      Menus[selectedMenu].subMenus[
+                                        selectedSubMenu
+                                      ].title
+                                    )}`
+                                  : `/performers/${convertTitleToPath(title)}`
+                              }
+                              className={`nav-link fw-semibold ${
+                                i === lastItem ? "view-all" : "item"
+                              }`}>
+                              {title}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
