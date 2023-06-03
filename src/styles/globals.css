@@ -103,7 +103,7 @@
 }
 
 /* Customize Map Widget */
-<style > #tn-maps {
+#tn-maps {
   max-width: unset !important;
 }
 
