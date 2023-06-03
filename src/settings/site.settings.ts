@@ -261,7 +261,7 @@ export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
 
 export const fetchGetEvents = async (params: GetEventsInput) => {
   try {
-    const response = await axios.get("/api/GetEvents");
+    const response = await axios.post("/api/GetEvents", params);
     const data = response.data.GetEventsResult?.Event;
     return data;
   } catch (error) {

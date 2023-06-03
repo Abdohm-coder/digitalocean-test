@@ -75,7 +75,7 @@ const CategoryPage: React.FC = () => {
             parentCategoryID: categoryData[0].ParentCategoryID,
             childCategoryID: categoryData[0].ChildCategoryID,
             // orderByClause: "Date%20DESC",
-            // numberOfEvents: eventNumber,
+             numberOfEvents: eventNumber,
           });
           setEvents(response || []);
           console.log(response || []);
@@ -87,7 +87,7 @@ const CategoryPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [categoryData]);
+  }, [categoryData, eventNumber]);
 
   return (
     <>

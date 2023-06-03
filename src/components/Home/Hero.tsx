@@ -85,7 +85,7 @@ const Hero = () => {
         <div
           style={{ zIndex: 9999 }}
           className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
-          {performers.length > 0 && (
+          {/* {performers.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
               {removeDuplicatedElements(performers, "Description").map(
@@ -100,10 +100,10 @@ const Hero = () => {
                 )
               )}
             </>
-          )}
+          )} */}
           {events.length > 0 && (
             <>
-              <div className="search-result-title">Events</div>
+              <div className="search-result-title">Performers</div>
               {removeDuplicatedElements(events, "Name").map(({ ID, Name }) => (
                 <div key={ID}>
                   <Link
