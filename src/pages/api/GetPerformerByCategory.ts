@@ -1,3 +1,4 @@
+import { SOAP_ACTION, WBCID } from "@/settings/site.settings";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClientAsync } from "soap";
 
@@ -18,13 +19,11 @@ export default async function handler(
   } = req.body;
 
   // Create a new SoapClient instance
-  const client = await createClientAsync(
-    "http://tnwebservices-test.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx?wsdl"
-  );
+  const client = await createClientAsync(SOAP_ACTION);
 
   // Define the SOAP request parameters
   const params: any = {
-    websiteConfigID: 4626,
+    websiteConfigID: WBCID,
   };
 
   if (parentCategoryID) params["parentCategoryID"] = parentCategoryID;

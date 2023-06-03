@@ -6,8 +6,8 @@ import {
 } from "@/types/data-types";
 import axios from "axios";
 import {
-  googleSheetID,
-  googleSheetName,
+  SHEET_ID,
+  SHEET_NAME,
   googleSheetRange,
 } from "@/settings/site.settings";
 
@@ -105,8 +105,8 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchImages = async () => {
       const { data } = await axios.get("/api/fetchGoogleSheetData", {
         params: {
-          sheetId: googleSheetID,
-          sheetName: googleSheetName,
+          sheetId: SHEET_ID,
+          sheetName: SHEET_NAME,
           range: googleSheetRange,
         },
       });
