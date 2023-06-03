@@ -9,6 +9,7 @@ import { fetchHighInventoryPerformers } from "@/settings/site.settings";
 import { GetHighInventoryPerformersProps } from "@/types/data-types";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
+import DefaultImage from "@/assets/images/default.jpg";
 
 interface props {
   title: string;
@@ -92,7 +93,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
               <div className="position-relative overlay up">
                 {performerImage && (
                   <Image
-                    src={performerImage}
+                    src={performerImage || DefaultImage}
                     alt={`${Description} image`}
                     className="w-100 object-cover"
                     width={300}

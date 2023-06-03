@@ -1,4 +1,4 @@
-import { SOAP_ACTION } from "@/settings/site.settings";
+import { SOAP_ACTION, WBCID } from "@/settings/site.settings";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClientAsync } from "soap";
 

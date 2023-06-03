@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import EventImage from "../../assets/images/event.webp";
+import DefaultImage from "@/assets/images/default.jpg";
 import { convertTitleToPath } from "../../utils/title-to-pathname";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,7 +21,7 @@ const TopNationalEvents: React.FC<{
     <div className="col-6 col-md-4 col-lg-3 p-1">
       <div className="position-relative overlay up">
         <Image
-          src={performerImage || EventImage}
+          src={performerImage || DefaultImage}
           alt={`${name} image`}
           height={200}
           width={1200}

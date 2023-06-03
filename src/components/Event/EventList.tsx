@@ -73,7 +73,7 @@ const EventList: React.FC<{
             No events available.
           </div>
         )}
-        {eventNumber <= 500 && (
+        {eventNumber <= 500 && events.length > 0 && (
           <div className="list-group-item text-center">
             <button
               onClick={() => setEventNumber((state) => state * 2)}
