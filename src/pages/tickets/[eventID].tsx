@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { WBCID, fetchGetEventTickets3 } from "@/settings/site.settings";
+import { fetchGetEventTickets3 } from "@/settings/site.settings";
 import { GetEventTickets3Props } from "@/types/data-types";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -60,11 +60,12 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
 };
 
 export async function getServerSideProps(context) {
-  const { eventId } = context.params;
+  const { eventID } = context.params;
   const userAgent = "something";
+  const WBCID = 4626;
 
   const response = await axios.get(
-    `https://mapwidget3.seatics.com/html?eventId=${eventId}&websiteConfigId=${WBCID}&userAgent=${userAgent}`
+    `https://mapwidget3.seatics.com/html?eventId=${eventID}&websiteConfigId=${WBCID}&userAgent=${userAgent}`
   );
 
   const widgetHTML = response.data;
