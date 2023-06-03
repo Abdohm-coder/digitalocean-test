@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { BsArrowsAngleContract, BsArrowsFullscreen } from "react-icons/bs";
-import MapImage from "@/assets/images/map.jpg";
-import { WBCID } from "@/settings/site.settings";
-import Script from "next/script";
+import { useEffect } from "react";
 
-const Map: React.FC<{ id: number }> = ({ id }) => {
-  const [show, setShow] = useState(false);
-
+function TicketResults({ widgetHTML, id }: { widgetHTML: string; id: number }) {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `https://mapwidget3.seatics.com/js?eventId=${id}&websiteConfigId=${WBCID}`;
+    script.src = `https://mapwidget3.seatics.com/js?eventId=${5312098}&websiteConfigId=690`;
     script.async = true;
     document.body.appendChild(script);
 
@@ -17,25 +11,17 @@ const Map: React.FC<{ id: number }> = ({ id }) => {
       document.body.removeChild(script);
     };
   }, [id]);
-  return (
-    <>
-      <Script
-        src={`https://mapwidget3.seatics.com/js?eventId=${4312622}&websiteConfigId=${WBCID}`}
-      />
-      <div className="d-none d-lg-block">
-        {/* <img src={MapImage} alt="Map" className="w-100" /> */}
-      </div>
-      <div className="d-block d-lg-none text-center">
-        {show && <img src={MapImage} alt="Map" className="w-100" />}
-        <button
-          className="btn btn-sm btn-light mt-2"
-          onClick={() => setShow((s) => !s)}>
-          {show ? "Hide Map " : "Show Map "}
-          {show ? <BsArrowsAngleContract /> : <BsArrowsFullscreen />}
-        </button>
-      </div>
-    </>
-  );
-};
 
-export default Map;
+  return (
+    <div>
+      <h1>Ticket Results</h1>
+
+      {/* Render the widgetHTML */}
+      <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
+
+      {/* Rest of your ticket results page content */}
+    </div>
+  );
+}
+
+export default TicketResults;

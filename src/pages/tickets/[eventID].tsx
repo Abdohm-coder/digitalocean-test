@@ -5,8 +5,9 @@ import TicketInfo from "@/components/Tickets/TicketInfo";
 import { fetchGetEventTickets3 } from "@/settings/site.settings";
 import { GetEventTickets3Props } from "@/types/data-types";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-const TicketPage = () => {
+const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
   const { query } = useRouter();
   const eventID = query.eventID as string;
   const [tickets, setTickets] = useState<GetEventTickets3Props[]>([]);
@@ -44,7 +45,7 @@ const TicketPage = () => {
         className="row g-3 mt-4 align-items-center border-top"
         style={{ height: "65vh" }}>
         <div className="col-12 col-lg-8 col-xl-9">
-          <Map id={+eventID} />
+          <Map id={+eventID} widgetHTML={widgetHTML} />
         </div>
         <div
           className="col-12 col-lg-4 col-xl-3 position-relative"
@@ -221,5 +222,22 @@ const TicketPage = () => {
     </main>
   );
 };
+
+export async function getServerSideProps() {
+  const websiteConfigId = "690";
+  const userAgent = "something";
+
+  const response = await axios.get(
+    `https://mapwidget3.seatics.com/html?eventId=${5312098}&websiteConfigId=${websiteConfigId}&userAgent=${userAgent}`
+  );
+
+  const widgetHTML = response.data;
+
+  return {
+    props: {
+      widgetHTML,
+    },
+  };
+}
 
 export default TicketPage;
