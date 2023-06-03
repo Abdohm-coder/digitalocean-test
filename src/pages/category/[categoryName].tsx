@@ -68,14 +68,14 @@ const CategoryPage: React.FC = () => {
   }, [categoryData]);
 
   useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID && eventNumber <= 500) {
+    if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
           const response = await fetchGetEvents({
             parentCategoryID: categoryData[0].ParentCategoryID,
             childCategoryID: categoryData[0].ChildCategoryID,
             // orderByClause: "Date%20DESC",
-            numberOfEvents: eventNumber,
+            // numberOfEvents: eventNumber,
           });
           setEvents(response || []);
           console.log(response || []);
@@ -87,7 +87,7 @@ const CategoryPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [categoryData, eventNumber]);
+  }, [categoryData]);
 
   return (
     <>
@@ -97,18 +97,19 @@ const CategoryPage: React.FC = () => {
         </title>
       </Head>
       <main className="bg-light">
-        {performers.length > 0 ? (
-          <section className="mt-3">
-            <h3 className="fw-bold text-capitalize">Top National Events</h3>
-            <div className="d-flex overflow-auto flex-lg-wrap">
-              {performers.slice(0, 8).map(({ Description, ID }) => (
-                <TopNationalEvents key={ID} name={Description} />
-              ))}
-            </div>
-          </section>
-        ) : (
-          <Hero title={categoryTitle} />
-        )}
+        <Hero title={categoryTitle} />
+        <div className="container">
+          {performers.length > 0 && (
+            <section className="mt-3">
+              <h3 className="fw-bold text-capitalize">Top National Events</h3>
+              <div className="d-flex overflow-auto flex-lg-wrap">
+                {performers.slice(0, 8).map(({ Description, ID }) => (
+                  <TopNationalEvents key={ID} name={Description} />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
 
         <div className="container">
           <div className="row my-5">

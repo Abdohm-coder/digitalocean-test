@@ -17,11 +17,7 @@ const HomePage = () => {
         <div className="container">
           <TopEvents count={3} title="Top Event In USA" />
           {siteSettings.main_categories.map((category) => (
-            <Events
-              key={`category: ${category.title}`}
-              count={5}
-              {...category}
-            />
+            <Events key={`category: ${category.title}`} {...category} />
           ))}
           <NewsLetterForm />
         </div>

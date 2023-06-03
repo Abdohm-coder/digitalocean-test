@@ -1,2 +1,6 @@
 export const capitalizeString = (str?: string) =>
-  str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+  str
+    ? str.replace(/\b\w/g, function (match) {
+        return match.toUpperCase();
+      })
+    : "";

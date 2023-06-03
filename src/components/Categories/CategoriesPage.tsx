@@ -36,13 +36,13 @@ const CategoriesPage: React.FC = () => {
   console.log(categoryData);
 
   useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID && eventNumber <= 500) {
+    if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
           const response = await fetchGetEvents({
             parentCategoryID: categoryData[0]?.ParentCategoryID,
             // orderByClause: "Date%20DESC",
-            numberOfEvents: eventNumber,
+            // numberOfEvents: eventNumber,
           });
           setEvents(response || []);
           console.log(response || []);
@@ -54,7 +54,7 @@ const CategoriesPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [categoryData, eventNumber]);
+  }, [categoryData]);
 
   useEffect(() => {
     if (categoryData[0]?.ParentCategoryID) {

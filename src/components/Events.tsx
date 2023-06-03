@@ -13,14 +13,8 @@ import DefaultImage from "@/assets/images/default.jpg";
 
 interface props {
   title: string;
-  count: number;
   link: string;
   id: number;
-  top_events: {
-    event_title: string;
-    event_link: string;
-    event_image_src: string;
-  }[];
 }
 
 const Events: React.FC<props> = ({ title, link, id }) => {
@@ -51,7 +45,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     const fetchData = async () => {
       try {
         const response = await fetchHighInventoryPerformers({
-          numReturned: 12,
+          // numReturned: 12,
           parentCategoryID: id,
         });
         setData(response || []);
@@ -91,15 +85,13 @@ const Events: React.FC<props> = ({ title, link, id }) => {
           {data.map(({ Description, ID }) => (
             <SwiperSlide key={ID}>
               <div className="position-relative overlay up">
-                {performerImage && (
-                  <Image
-                    src={performerImage || DefaultImage}
-                    alt={`${Description} image`}
-                    className="w-100 object-cover"
-                    width={300}
-                    height={300}
-                  />
-                )}
+                <Image
+                  src={performerImage || DefaultImage}
+                  alt={`${Description} image`}
+                  className="w-100 object-cover"
+                  width={300}
+                  height={300}
+                />
                 <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
                   {Description}
                 </h5>

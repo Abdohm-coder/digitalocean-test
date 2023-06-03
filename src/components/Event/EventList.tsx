@@ -11,7 +11,7 @@ const EventList: React.FC<{
   eventNumber: number;
   events: GetEventsProps[];
   setEventNumber: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ events, setEventNumber, eventNumber }) => {
+}> = ({ events, setEventNumber }) => {
   return (
     <section>
       <div className="list-group">
@@ -73,7 +73,7 @@ const EventList: React.FC<{
             No events available.
           </div>
         )}
-        {eventNumber <= 500 && events.length > 0 && (
+        {events.length % 50 === 0 && events.length > 0 && (
           <div className="list-group-item text-center">
             <button
               onClick={() => setEventNumber((state) => state * 2)}
