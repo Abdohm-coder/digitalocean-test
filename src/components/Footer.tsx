@@ -27,23 +27,18 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
+                <Link className="nav-link link-light" href="/concerts-ticekts">
                   Concerts
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
+                <Link className="nav-link link-light" href="/sports-ticekts">
                   Sports
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Theater
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Venue
+                <Link className="nav-link link-light" href="/theatre-ticekts">
+                  Theatre
                 </Link>
               </li>
               <li className="nav-item">
