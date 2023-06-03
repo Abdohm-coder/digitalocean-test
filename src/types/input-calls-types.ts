@@ -26,7 +26,7 @@ export declare type GetEventsInput = {
 };
 
 export declare type GetEventTickets3Input = {
-  eventID: number;
+  eventID?: number;
   numberOfRecords?: number;
   lowPrice?: number;
   highPrice?: number;

@@ -235,7 +235,7 @@ export const fetchPerformerByCategory = async (
 export const fetchSearchEvents = async (params: SearchEventsInput) => {
   try {
     const response = await axios.post("/api/SearchEvents", params);
-    const data = response.data.SearchEventsResult.Event;
+    const data = response.data.SearchEventsResult?.Event;
     return data;
   } catch (error) {
     console.error("Error:", error);
@@ -255,7 +255,7 @@ export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
 export const fetchGetEvents = async (params: GetEventsInput) => {
   try {
     const response = await axios.post("/api/GetEvents", params);
-    const data = response.data.GetEventsResult.Event;
+    const data = response.data.GetEventsResult?.Event;
     return data;
   } catch (error) {
     console.error("Error:", error);

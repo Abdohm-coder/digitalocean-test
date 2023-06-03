@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Categories from "./Categories";
 import Hero from "./Hero";
-import NewCategorySales from "./NewCategorySales";
+import TopNationalEvents from "./TopNationalEvents";
 import EventList from "../Event/EventList";
 import Guarantee from "./Guarantee";
 import TicketInfo from "./TicketInfo";
@@ -81,10 +81,14 @@ const CategoriesPage: React.FC = () => {
         <div className="container">
           <Categories categories={categoryData?.slice(0, 8)} />
           {performers.length > 0 && (
-            <NewCategorySales
-              performers={performers.slice(0, 8)}
-              title={`Top National Events`}
-            />
+            <section className="mt-3">
+              <h3 className="fw-bold text-capitalize">Top National Events</h3>
+              <div className="d-flex overflow-auto flex-lg-wrap">
+                {performers.slice(0, 8).map(({ Description, ID }) => (
+                  <TopNationalEvents key={ID} name={Description} />
+                ))}
+              </div>
+            </section>
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">

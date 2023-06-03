@@ -13,6 +13,7 @@ export default async function handler(
     parentCategoryID,
     childCategoryID,
     performerName,
+    performerID,
     numberOfEvents,
     orderByClause,
   } = req.body;
@@ -30,6 +31,7 @@ export default async function handler(
   if (parentCategoryID) params["parentCategoryID"] = parentCategoryID;
   if (childCategoryID) params["childCategoryID"] = childCategoryID;
   if (performerName) params["performerName"] = performerName;
+  if (performerID) params["performerID"] = performerID;
   if (numberOfEvents) params["numberOfEvents"] = numberOfEvents;
   if (orderByClause) params["orderByClause"] = orderByClause;
 

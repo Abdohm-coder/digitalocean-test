@@ -92,7 +92,7 @@ const Hero = () => {
                 ({ ID, Description }) => (
                   <div key={ID}>
                     <Link
-                      href={`/performers/${convertTitleToPath(Description)}`}
+                      href={`/performers/${ID}`}
                       className="search-result-item">
                       {Description}
                     </Link>

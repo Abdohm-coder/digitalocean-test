@@ -17,6 +17,7 @@ import {
   siteSettings,
 } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
+import TopNationalEvents from "@/components/Categories/TopNationalEvents";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -29,7 +30,9 @@ const CategoryPage: React.FC = () => {
 
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [_, setPerformers] = useState<GetPerfomerByCategoryProps[]>([]);
+  const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
+    []
+  );
   const categoryData = useMemo(
     () =>
       categories.filter(({ ChildCategoryDescription }) =>
@@ -39,7 +42,10 @@ const CategoryPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (categoryName) setCategoryTitle(convertQueryToTitle(categoryName));
+    if (categoryName) {
+      const name = convertQueryToTitle(categoryName);
+      setCategoryTitle(name);
+    }
   }, [categoryName]);
 
   useEffect(() => {
@@ -91,7 +97,19 @@ const CategoryPage: React.FC = () => {
         </title>
       </Head>
       <main className="bg-light">
-        <Hero title={categoryTitle} />
+        {performers.length > 0 ? (
+          <section className="mt-3">
+            <h3 className="fw-bold text-capitalize">Top National Events</h3>
+            <div className="d-flex overflow-auto flex-lg-wrap">
+              {performers.slice(0, 8).map(({ Description, ID }) => (
+                <TopNationalEvents key={ID} name={Description} />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <Hero title={categoryTitle} />
+        )}
+
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">

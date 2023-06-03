@@ -18,11 +18,22 @@ const TicketPage = () => {
           const response = await fetchGetEventTickets3({
             eventID: +eventID,
           });
-          setTickets(response);
+          setTickets(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
       };
+      const fetchData2 = async () => {
+        try {
+          const response = await fetchGetEventTickets3({
+            ticketGroupID: +eventID,
+          });
+          setTickets(response || []);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchData2();
       fetchData();
     }
   }, [eventID]);

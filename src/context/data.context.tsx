@@ -16,11 +16,15 @@ export const DataContext = createContext<{
   performers: GetEventPerformersProps[];
   venues: GetVenueProps[];
   images: Array<string[]>;
+  performerID: number | null;
+  setPerformerID: React.Dispatch<React.SetStateAction<number | null>>;
 }>({
   categories: [],
   performers: [],
   venues: [],
   images: [],
+  performerID: null,
+  setPerformerID: () => {},
 });
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -28,6 +32,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
+  const [performerID, setPerformerID] = useState<number | null>(null);
   const [venues, setVenues] = useState<GetVenueProps[]>([]);
   const [images, setImages] = useState<Array<string[]>>([]);
 
@@ -115,7 +120,15 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <DataContext.Provider value={{ categories, performers, venues, images }}>
+    <DataContext.Provider
+      value={{
+        categories,
+        performers,
+        venues,
+        images,
+        performerID,
+        setPerformerID,
+      }}>
       {children}
     </DataContext.Provider>
   );

@@ -6,7 +6,7 @@ const TheaterTickets = () => {
   return (
     <>
       <Head>
-        <title>Concerts Tickets | {siteSettings.site_name}</title>
+        <title>Theater Tickets | {siteSettings.site_name}</title>
       </Head>
       <CategoriesPage />
     </>
