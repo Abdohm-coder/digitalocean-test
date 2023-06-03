@@ -1,15 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { fetchHighInventoryPerformers } from "@/settings/site.settings";
+import { GetHighInventoryPerformersProps } from "@/types/data-types";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
+import { useDataContext } from "@/context/data.context";
 
 interface props {
   title: string;
   count: number;
   link: string;
+  id: number;
   top_events: {
     event_title: string;
     event_link: string;
@@ -17,7 +22,9 @@ interface props {
   }[];
 }
 
-const Events: React.FC<props> = ({ title, count, link, top_events }) => {
+const Events: React.FC<props> = ({ title, link, id }) => {
+  const { images } = useDataContext();
+
   const swiperRef = useRef<SwiperType>();
   const breakpoints = {
     0: {
@@ -30,12 +37,39 @@ const Events: React.FC<props> = ({ title, count, link, top_events }) => {
       slidesPerView: 4,
     },
   };
+
   const [isStart, setIsStart] = useState(true);
   const [isLast, setIsLast] = useState(false);
   function sliderChange(swiper: SwiperType) {
     setIsStart(swiper.isBeginning);
     setIsLast(swiper.isEnd);
   }
+  const [performerImage, setPerformerImage] = useState<string | null>(null);
+  const [data, setData] = useState<GetHighInventoryPerformersProps[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchHighInventoryPerformers({
+          numReturned: 12,
+          parentCategoryID: id,
+        });
+        setData(response || []);
+        console.log(response || []);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    images.forEach((el) => {
+      data.forEach(({ Description }) => {
+        if (Description.toLowerCase().includes(el[1].toLowerCase()))
+          setPerformerImage(el[2]);
+      });
+    });
+  }, [data, images]);
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
@@ -53,20 +87,24 @@ const Events: React.FC<props> = ({ title, count, link, top_events }) => {
             swiperRef.current = swiper;
           }}
           onSlideChange={sliderChange}>
-          {top_events.map(({ event_title, event_image_src, event_link }, i) => (
-            <SwiperSlide key={i}>
+          {data.map(({ Description, ID }) => (
+            <SwiperSlide key={ID}>
               <div className="position-relative overlay up">
-                <Image
-                  src={event_image_src}
-                  alt={event_title}
-                  className="w-100 object-cover"
-                  width={300}
-                  height={300}
-                />
+                {performerImage && (
+                  <Image
+                    src={performerImage}
+                    alt={`${Description} image`}
+                    className="w-100 object-cover"
+                    width={300}
+                    height={300}
+                  />
+                )}
                 <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
-                  {event_title}
+                  {Description}
                 </h5>
-                <Link href={event_link} className="stretched-link"></Link>
+                <Link
+                  href={`/performers/${convertTitleToPath(Description)}`}
+                  className="stretched-link"></Link>
               </div>
             </SwiperSlide>
           ))}

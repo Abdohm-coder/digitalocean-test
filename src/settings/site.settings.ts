@@ -3,6 +3,7 @@ import Logo from "../assets/images/logo.png";
 import {
   GetEventTickets3Input,
   GetEventsInput,
+  GetHighInventoryPerformersInput,
   GetHighSalesPerformersInput,
   GetPerformerByCategoryInput,
   SearchEventsInput,
@@ -29,6 +30,7 @@ export const siteSettings = {
   main_categories: [
     {
       title: "Concerts",
+      id: 2,
       link: "/concerts-tickets",
       top_events: [
         {
@@ -83,6 +85,7 @@ export const siteSettings = {
     },
     {
       title: "Sports",
+      id: 1,
       link: "/sports-tickets",
       top_events: [
         {
@@ -137,6 +140,7 @@ export const siteSettings = {
     },
     {
       title: "Theater",
+      id: 2,
       link: "/theater-tickets",
       top_events: [
         {
@@ -198,6 +202,18 @@ export const fetchHighSalesPerformers = async (
   try {
     const response = await axios.post("/api/GetHighSalesPerformers", params);
     const data = response.data.GetHighSalesPerformersResult.PerformerPercent;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const fetchHighInventoryPerformers = async (
+  params: GetHighInventoryPerformersInput
+) => {
+  try {
+    const response = await axios.post("/api/GetHighInventoryPerformers", params);
+    const data = response.data.GetHighInventoryPerformersResult.PerformerPercent;
     return data;
   } catch (error) {
     console.error("Error:", error);

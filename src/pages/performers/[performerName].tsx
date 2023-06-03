@@ -26,7 +26,7 @@ const PerformerPage: React.FC = () => {
       const name = convertQueryToTitle(performerName);
       images.forEach((el) => {
         console.log(el);
-        if (el[1].toLocaleLowerCase().includes(name)) setPerformerImage(el[2]);
+        if (el[1].toLowerCase().includes(name)) setPerformerImage(el[2]);
       });
       setPerformerTitle(name);
     }

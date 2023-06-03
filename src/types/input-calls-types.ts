@@ -51,6 +51,13 @@ export declare type GetHighSalesPerformersInput = {
   numReturned?: number;
 };
 
+export declare type GetHighInventoryPerformersInput = {
+  parentCategoryID?: number;
+  childCategoryID?: number;
+  grandchildCategoryID?: number;
+  numReturned?: number;
+};
+
 export declare type SearchEventsInput = {
   searchTerms?: string;
   whereClause?: string;
