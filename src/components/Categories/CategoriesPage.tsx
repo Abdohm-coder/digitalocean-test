@@ -41,7 +41,7 @@ const CategoriesPage: React.FC = () => {
         try {
           const response = await fetchGetEvents({
             parentCategoryID: categoryData[0]?.ParentCategoryID,
-            // orderByClause: "Date%20DESC",
+            orderByClause: "endDate",
             // numberOfEvents: eventNumber,
           });
           setEvents(response || []);

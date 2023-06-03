@@ -1,42 +1,10 @@
-import { useState, useEffect } from "react";
-import { fetchGetEventTickets3 } from "@/settings/site.settings";
-import { GetEventTickets3Props } from "@/types/data-types";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import axios from "axios";
 import { BsArrowsAngleContract, BsArrowsFullscreen } from "react-icons/bs";
+import { GetServerSideProps } from "next";
 
 const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
-  const { query } = useRouter();
-  const eventID = query.eventID as string;
-  const [tickets, setTickets] = useState<GetEventTickets3Props[]>([]);
   const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (+eventID) {
-      const fetchData = async () => {
-        try {
-          const response = await fetchGetEventTickets3({
-            eventID: +eventID,
-          });
-          setTickets(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      const fetchData2 = async () => {
-        try {
-          const response = await fetchGetEventTickets3({
-            ticketGroupID: +eventID,
-          });
-          setTickets(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchData2();
-      fetchData();
-    }
-  }, [eventID]);
   return (
     <div>
       <div className="d-none d-lg-block">
@@ -59,8 +27,8 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { eventID } = context.params;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const eventID = context.params?.eventID;
   const userAgent = "something";
   const WBCID = 4626;
 
@@ -79,8 +47,8 @@ export async function getServerSideProps(context) {
       Seatics.config.currencyIntl = {};
       Seatics.config.enableLegalDisclosureMobile = false;
       Seatics.config.enableHeaderLegalDisclosureMobile = true;
-                     Seatics.config.skipPrecheckoutDesktop = true; /*default = false*/
-               Seatics.config.skipPrecheckoutMobile = true; /*default = false*/
+                     Seatics.config.skipPrecheckoutDesktop = true; 
+               Seatics.config.skipPrecheckoutMobile = true;
                 Seatics.config.buyButtonContentHtml = '<button class="btn-buy venue-ticket-list-checkout-trigger-js">Continue</button>';
                 Seatics.config.tgGuaranteeNoteHtml = '';
                 Seatics.config.tgMarkTooltipText = 'These tickets are featured as a great value.';
@@ -133,6 +101,6 @@ Seatics.SmallScreenMapOptions.FullyHidden;
       widgetHTML: updatedWidgetHTML,
     },
   };
-}
+};
 
 export default TicketPage;

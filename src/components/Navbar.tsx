@@ -199,7 +199,7 @@ const Navbar: React.FC = () => {
                 <div
                   className="position-absolute top-100 row bg-white shadow p-3 rounded"
                   style={{
-                    zIndex: 99,
+                    zIndex: 9999,
                     width: "70vw",
                     maxWidth: "700px",
                     right: "-10vw",
