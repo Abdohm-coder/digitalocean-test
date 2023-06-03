@@ -7,7 +7,7 @@ type ResponseData = {
 };
 
 export default async function handler(
-  req: NextApiRequest,
+  _: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
   // const {
@@ -39,7 +39,7 @@ export default async function handler(
     const response = await client.GetEventsAsync(params);
 
     // Return the SOAP response as JSON
-    res.status(200).json(response[0]);
+    res.status(200).json(response);
   } catch (error) {
     console.error("SOAP request error:", error);
     // @ts-ignore
