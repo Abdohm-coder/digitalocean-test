@@ -101,3 +101,771 @@
 .list-none {
   list-style: none;
 }
+
+/* Customize Map Widget */
+<style > #tn-maps {
+  max-width: unset !important;
+}
+
+#map-list-holder,
+.event-info-inner-ctn {
+  margin: 0 auto;
+  /*width: 96% !important;*/
+  padding-bottom: 40px !important;
+  padding-top: 40px !important;
+}
+
+@media only screen and (min-width: 740px) {
+  #map-list-holder,
+  .event-info-inner-ctn {
+    width: 748px !important;
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  #map-list-holder,
+  .event-info-inner-ctn {
+    width: 1000px !important;
+  }
+}
+
+@media only screen and (min-width: 1198px) {
+  #map-list-holder,
+  .event-info-inner-ctn {
+    width: 1199px !important;
+  }
+}
+button.btn-buy.venue-ticket-list-checkout-trigger-js {
+  background: #0077ff !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+  padding: 0 10px !important;
+  display: inline-block !important;
+  text-indent: 0 !important;
+  width: auto !important;
+  margin-right: 10px !important;
+}
+#sea-inventory-slider-with-filterBtn
+  .sea-inventory-slider
+  .slick-track
+  label.active {
+  font-weight: bold !important;
+  border-radius: 5px !important;
+}
+#sea-inventory-slider-with-filterBtn .sea-inventory-slider .slick-track label {
+  color: #8e8e93 !important;
+}
+#sea-inventory-slider-with-filterBtn #sea-inventory-filtersBtncnt {
+  background: #ff5566;
+  color: #fff;
+  font-weight: bold;
+}
+/*.list-ctn {*/
+/*    float: right;*/
+/*    width: 33%;*/
+/*}*/
+/*.map-ctn {*/
+/*    width: 66%;*/
+/*    float: left;*/
+/*    margin: 0 !important;*/
+/*}*/
+.venue-map-reset {
+  right: 3px !important;
+  left: auto !important;
+}
+.venue-ticket-list-info-wrap {
+  display: none !important;
+}
+#event-info-area {
+  background: #fec63c;
+  margin-top: 130px;
+}
+@media screen and (max-width: 991px) {
+  #event-info-area {
+    margin-top: 0;
+  }
+  /*-------------*/
+  #list-ctn {
+    top: 16px;
+  }
+
+  .showMap #map-shower {
+    width: 100%;
+    text-align: center;
+    background: #000;
+    border-radius: 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sea-map-inner {
+    display: none;
+  }
+}
+.event-info-inner-ctn {
+  background: transparent !important;
+  color: #000 !important;
+}
+.event-info-name {
+  color: #000 !important;
+  text-transform: uppercase;
+  font-size: 20px !important;
+}
+.event-info-place {
+  color: #000 !important;
+}
+.event-info-place .cm-location {
+  margin-top: 5px;
+  display: inline-block;
+}
+@media only screen and (min-width: 992px) {
+  .event-info-ctn {
+    height: auto !important;
+  }
+}
+.event-info-date .event-info-date-day {
+  padding: 0;
+  font-weight: bold;
+  font-size: 20px;
+  background: transparent;
+}
+@media only screen and (min-width: 992px) {
+  .event-info-date-date {
+    border: none !important;
+    background: transparent !important;
+    font-weight: 400;
+    font-size: 15px;
+  }
+}
+.event-info-date .event-info-date-time,
+.event-info-date .event-info-date-date {
+  font-weight: 400;
+  font-size: 15px;
+  background: transparent !important;
+  border: none !important;
+  color: #000 !important;
+  padding: 0 0 5px 0;
+}
+.event-info-guarantee-show {
+  color: #000 !important;
+  font-weight: 700;
+  font-size: 20px !important;
+}
+.event-info-disclaimer ul {
+  padding: 0;
+}
+.event-info-disclaimer ul li {
+  color: #000 !important;
+  font-size: 13px !important;
+  padding: 2px 0 0 17px;
+  background: url(../../img/icon4.png) no-repeat 0 3px;
+}
+.event-info-date-ctn {
+  width: 15%;
+}
+.event-info-details-ctn {
+  width: 45%;
+}
+.event-info-right-col {
+  width: 35%;
+}
+@media only screen and (max-width: 740px) {
+  .event-info-date-ctn,
+  .event-info-details-ctn,
+  .event-info-right-col {
+    width: 100%;
+    float: none;
+  }
+}
+.sea-marketing-header,
+.sea-marketing-html-map {
+  display: none !important;
+}
+.event-info-left-col,
+.mobile-event-info-right-col,
+.event-info-date-time-span {
+  display: none !important;
+}
+.filters-qty-filter .btn.active,
+.filters-qty-filter .sea-btn:hover {
+  border: 1px solid #ef495e;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #ff5566;
+}
+.filters-qty-filter .sea-btn.active,
+.filters-qty-filter .sea-btn.sea-active {
+  border: 1px solid #ef495e;
+  background: #ff5566;
+  color: #ffffff;
+}
+#sea-quantity-modal-skip,
+.sea-quantity-modal-skip {
+  color: #ef495e !important;
+}
+
+.sea-filterCard-parent #sea-filterCard-submit-ctn #sea-filterCard-submit-btn,
+.sea-quantity-items li:hover,
+.sea-quantity-items .sea-selected {
+  background: #ff5566;
+  border: 1px solid #ef495e;
+}
+.sea-filterCard-parent
+  #sea-filterCard-wrapper
+  .sea-deliveryTypeCnt
+  li.active
+  .slider:before {
+  background-color: #ff5566;
+}
+.sea-header-disclosure {
+  position: relative;
+}
+@media screen and (max-width: 991px) {
+  .list-ctn {
+    position: relative;
+    /*top: 350px !important;*/
+  }
+}
+@media screen and (max-width: 991px) {
+  /* .hideMapFull .venue-map {
+                    top: -60% !important;
+                }*/
+  /* .hideMapFull #map-ctn {
+                    position: relative;
+                }
+                .venue-map {
+                    position: relative !important;
+                }*/
+  /*.logo_area {
+                    display: none;
+                }
+                */
+}
+
+.venue-ticket-list-cta-col {
+  line-height: 20px;
+}
+.desktop-precheckout-qty-text {
+  color: #8e8e93;
+  margin-right: 12px;
+}
+.desktop-precheckout-qty-select {
+  width: 110px;
+  padding: 5px;
+}
+span.icon-star::before {
+  font-size: 9px;
+  color: #58595b;
+}
+.maps-legend-checkbox.icon-ok:before {
+  font-size: 12px;
+}
+#venue-map-zoom-in::before,
+#venue-map-zoom-out::before {
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+.venue-map-zoom-out {
+  padding: 7px 0px;
+}
+.venue-map-zoom-controls-top {
+  border-bottom: 1px solid rgb(142, 142, 147);
+  padding: 7px 0px;
+}
+#list-ctn,
+ul.dropdown-list,
+.maps-legend .dropdown-default,
+#venue-map-zoom-controls {
+  box-shadow: 0px 0.5px 4px 0px rgba(37, 37, 37, 0.4);
+}
+.filters-type-cnt-active .filters-type-arrow,
+#filters > div:hover .filters-type-arrow,
+.venue-ticket-list-section-row-text,
+.seatics,
+.sort-type-label,
+.maps-legend {
+  color: #58595b;
+}
+#sort-hidden-label,
+.event-info-disclaimer,
+.venue-ticket-list-quantity,
+.venue-ticket-list-cta-amt-suffix {
+  color: #808285;
+}
+div#wrap {
+  margin-top: 0px !important;
+  padding: 0;
+}
+#footer-wrap,
+#header,
+#side-nav,
+#smallHeader,
+.content-title,
+#footer-wrap,
+#footer,
+#top-nav-links > li:nth-child(1),
+.sticky,
+div#top-search {
+  display: none;
+}
+#wrap,
+#tn-maps,
+#top-nav,
+#content,
+#top-nav-links {
+  max-width: 1500px;
+  width: 100%;
+  float: none;
+  padding: 0;
+}
+
+#pre-checkout-map-toggle {
+  border: none;
+}
+.filter-tg-type-cell.active:hover,
+.filters-price-slider .noUi-connect,
+.pre-checkout-price-cta,
+button.desktop-precheckout-cta-btn,
+#pre-checkout-map-toggle {
+  background-color: #ef495e;
+}
+.btn.btn-primary.active:hover,
+.filter-tg-type .btn.active,
+.sort-cnt .btn.active .sort-opt-label,
+.sort-cnt .btn.active,
+.venue-ticket-list-cta-amt {
+  color: #ef495e;
+}
+#pre-checkout-price-cta:hover,
+.desktop-precheckout-cta-btn:hover {
+  background: rgb(213, 65, 84);
+  color: white;
+}
+.btn.btn-primary:hover {
+  background: transparent;
+  color: inherit;
+}
+.sort-cnt {
+  background-color: rgb(242, 243, 243);
+  border-bottom: 1px solid #ddd;
+}
+.venue-ticket-list-row.desktop-precheckout-ctn-open,
+.venue-ticket-list-tbl tbody .venue-ticket-list-highlighted,
+.filters-type-cnt-active,
+.filters-dropdown {
+  background-color: #f1f2f2;
+}
+.venue-ticket-list-row {
+  border-bottom: 1px solid #808285;
+}
+.venue-ticket-list-row.desktop-precheckout-ctn-open {
+  border-color: transparent;
+}
+.footer,
+.venue-ticket-list-section-row-text {
+  line-height: 1.5;
+}
+#container {
+  height: 100vh;
+}
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
+  div#container {
+    height: calc(100vh - 58px);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .event-info-disclaimer {
+    padding-top: 5px;
+  }
+  #wrap,
+  #content {
+    height: 100%;
+  }
+  #wrap {
+    max-height: calc(100% - 40px);
+  }
+  #top-nav-links div {
+    z-index: 1111;
+  }
+
+  .event-info-date {
+    border: none;
+  }
+
+  .venue-ticket-list-cta-arrow {
+    color: #808285;
+  }
+  .filters-type-label,
+  .filters-selected-label,
+  .venue-ticket-list {
+    line-height: 1.2;
+  }
+  .venue-ticket-list-row {
+    color: #58595b;
+  }
+  .desktop-precheckout-note-ctn {
+    line-height: 150%;
+  }
+  #tickets-table
+    select.desktop-precheckout-qty-select-js.desktop-precheckout-qty-select {
+    height: initial;
+    padding: initial;
+    box-shadow: none;
+  }
+
+  .desktop-precheckout-row.venue-ticket-list-highlighted {
+    border-bottom: 1px solid #808285;
+  }
+  .maps-legend {
+    left: 0px;
+  }
+  .maps-legend [class^="icon-"]::before,
+  [class*=" icon-"]::before {
+    font-size: 18px;
+  }
+  .maps-legend .dropdown-default {
+    padding-left: 5px;
+  }
+  .venue-map-zoom-controls {
+    left: 0px;
+    right: initial;
+  }
+  div.venue-map-reset {
+    right: auto;
+    left: 2px;
+    top: 75px;
+  }
+  .venue-map-branding {
+    right: 5px;
+    position: absolute;
+    top: 1px;
+  }
+  #small-logo {
+    display: block;
+    float: left;
+  }
+
+  #top-nav-links > li > a {
+    font-size: 14px;
+    font-family: arial;
+  }
+
+  #nav-phone {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 55px;
+  }
+
+  #nav-phone i {
+    font-size: 23px;
+    vertical-align: middle;
+    color: rgb(255, 255, 255);
+  }
+
+  #nav-phone span {
+    color: rgb(255, 255, 255);
+    font-size: 19px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  div#top-search {
+    position: absolute;
+    z-index: 100;
+    top: 40px;
+    right: 0px;
+    width: 50%;
+    padding: 7px 0px;
+    border-radius: 0px 0px 3px 3px;
+    background-color: rgb(62, 62, 62);
+    max-width: 500px;
+    z-index: 1111;
+  }
+
+  #search {
+    text-align: center;
+  }
+
+  div#small-search {
+    right: 10px;
+    display: block;
+  }
+
+  #small-logo img {
+    max-height: 27px;
+    margin: 6px 10px 0px;
+  }
+}
+
+#map-list-holder {
+  height: 750px !important;
+  overflow: visible;
+}
+
+tr:nth-child(even) {
+  background: #f8f8f8;
+}
+tr:nth-child(odd) {
+  background: #f8f8f8;
+}
+tr:hover {
+  background: #eeeeee;
+}
+.header_text_area2 h1,
+h4 {
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  overflow: visible;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  #top-nav-links > li > a {
+    padding: 11px 15px;
+    font-size: 13px;
+  }
+  #nav-phone span {
+    font-size: 16px;
+  }
+  #top-nav-links li:last-child div {
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  /* Mobile version */
+  .event-info-name {
+    font-size: 14px;
+  }
+
+  .header-container {
+    position: static !important;
+    display: block !important;
+  }
+  #event-info-cnt > div {
+    vertical-align: middle;
+  }
+
+  #header-wrap {
+    display: block;
+  }
+
+  #tn-maps {
+    max-height: 100%;
+  }
+
+  #mobile-logo img {
+    max-height: 50px;
+    margin-top: 6px;
+    padding-left: 8px;
+  }
+
+  #mobile-phone,
+  li#nav-phone {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  #mobile-logo,
+  #mobile-phone {
+    display: block;
+  }
+
+  #mobile-logo {
+    float: left;
+  }
+
+  #mobile-phone {
+    padding: 6px 12px;
+    font-size: 28px;
+    color: white;
+    background: #ef495e;
+    box-sizing: border-box;
+    float: right;
+    margin-right: 10px;
+    border-radius: 3px;
+    line-height: 1;
+  }
+
+  #mobile-phone:hover {
+    background: rgb(213, 65, 84);
+  }
+
+  .filters-type-label,
+  .pre-checkout-delivery-note-prefix,
+  .pre-checkout-delivery-label {
+    font-size: 12px;
+  }
+
+  #pre-checkout-scrollable,
+  #pre-checkout-vfs-tg-info * {
+    line-height: 1.2;
+  }
+}
+
+#event-info-area {
+  background: #003b8f !important;
+  color: #fff !important;
+}
+#event-info-area div {
+  color: #fff !important;
+}
+#event-info-area h1 {
+  color: #fff !important;
+}
+#event-info-area h2 {
+  color: #fff !important;
+}
+#event-info-area li {
+  color: #fff !important;
+  background: #003b8f !important;
+}
+#event-info-area #event-info-guarantee-show {
+  color: #fff !important;
+}
+.event-info-date-time-span {
+  display: none !important;
+}
+/*     @media only screen and (max-width: 766px) */
+/*        {*/
+
+/*.venue-map-toggle-button {*/
+/*    display: block!important;height:50px!important;*/
+/*}*/
+
+/*}*/
+/*    @media only screen and (max-width: 991px) */
+/*        {*/
+
+/*.venue-map-toggle-button {*/
+/*    display: block!important;height:50px!important;*/
+/*}*/
+
+/*}*/
+
+.box-table .search-item .name-location {
+  width: 100% !important;
+  margin-left: 2%;
+}
+.box-table .search-item .date .day {
+  min-width: 100px;
+}
+.box-table .search-item .buy-ticket {
+  display: flex !important;
+}
+.buy-ticket .btn-pink {
+  min-width: 150px !important;
+}
+.search-item .div-link {
+  display: flex !important;
+}
+@media only screen and (max-width: 767px) {
+  .event-info-date-time-span {
+    display: block !important;
+  }
+  .body_contanear {
+    padding: 1px;
+  }
+  .search-item .div-link {
+    display: flex !important;
+  }
+  .box-table .search-item span {
+    font-size: 14px !important;
+    min-width: 65px !important;
+    text-align: center !important;
+    width: 65px !important;
+  }
+  .buy-ticket .btn-pink {
+    min-width: fit-content !important;
+  }
+  .box-table .search-item .dateInfo {
+    width: 65px !important;
+    min-width: 65px !important;
+  }
+  .box-table .dateInfo .day {
+    color: #333 !important;
+    text-align: center !important;
+    padding: 0px !important;
+    text-align: center;
+    background: #fff !important;
+  }
+  .box-table .dateInfo .month-time {
+    min-width: 65px !important;
+    color: #333 !important;
+    text-align: center !important;
+    padding: 0px !important;
+    text-align: center;
+    background: #fff !important;
+  }
+  .box-table .search-item .buy-ticket {
+    margin-bottom: 10px;
+    display: block !important;
+    text-align: center;
+  }
+  .country_folk_left_area_3 {
+    width: 100%;
+  }
+  .box-table .search-item {
+    padding-right: 0px;
+  }
+
+  .box-table .search-item .date {
+    display: block;
+  }
+  .box-table .search-item .name-location .name {
+    font-size: 15px;
+    color: #07f !important;
+  }
+  .box-table .search-item .name-location .location {
+    font-size: 13px;
+  }
+}
+
+#search_key_box1 {
+  width: 385px;
+}
+@media only screen and (max-width: 760px) {
+  .visible-xs {
+    display: block !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #search_key_box1 {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .top_main_area h1 {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 660px) {
+  .top_main_area h1 {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .top_main_area h1 {
+    width: 70%;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer_contanear {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer_contanear ul {
+    border: 2px solid #ddd;
+    padding: 2%;
+  }
+}

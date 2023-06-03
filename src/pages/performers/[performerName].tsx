@@ -35,21 +35,23 @@ const PerformerPage: React.FC = () => {
   console.log(performerImage);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetchGetEvents({
-          //performerName: capitalizeString(performerTitle),
-          numberOfEvents: eventNumber,
-          // orderByClause: "Date%20DESC",
-        });
-        setEvents(response || []);
-        console.log(response || []);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchEvents();
-  }, [eventNumber]);
+    if (performerTitle) {
+      const fetchEvents = async () => {
+        try {
+          const response = await fetchGetEvents({
+            performerName: capitalizeString(performerTitle),
+            numberOfEvents: eventNumber,
+            // orderByClause: "Date%20DESC",
+          });
+          setEvents(response || []);
+          console.log(response || []);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchEvents();
+    }
+  }, [eventNumber, performerTitle]);
   return (
     <>
       <Head>
