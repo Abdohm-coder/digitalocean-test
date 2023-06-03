@@ -143,7 +143,7 @@ export const siteSettings = {
     },
     {
       title: "Theater",
-      id: 2,
+      id: 3,
       link: "/theater-tickets",
       top_events: [
         {

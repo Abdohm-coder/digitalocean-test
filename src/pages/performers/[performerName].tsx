@@ -18,6 +18,7 @@ const PerformerPage: React.FC = () => {
   const performerName = query.performerName as string;
   const [performerTitle, setPerformerTitle] = useState("");
   const [performerImage, setPerformerImage] = useState<string | null>(null);
+  const [performerID, setPerformerID] = useState<string>("");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
 
@@ -34,26 +35,41 @@ const PerformerPage: React.FC = () => {
 
   console.log(performerImage);
 
-  useEffect(() => {
-    if (performerTitle) {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchGetEvents({
-            performerName: capitalizeString(performerTitle),
-            // numberOfEvents: eventNumber,
-            // orderByClause: "Date%20DESC",
-          });
-          setEvents(response || []);
-          console.log(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchEvents();
-    } else {
-      console.log("error event id");
+  const fetchEvents = async () => {
+    try {
+      const response = await fetchGetEvents({
+        performerName: capitalizeString(performerTitle),
+        performerID: +performerID,
+        // numberOfEvents: eventNumber,
+        // orderByClause: "Date%20DESC",
+      });
+      setEvents(response || []);
+      console.log(response || []);
+    } catch (error) {
+      console.error("Error:", error);
     }
-  }, [performerTitle]);
+  };
+
+  // useEffect(() => {
+  //   if (performerTitle && +performerID !== 0) {
+  //     const fetchEvents = async () => {
+  //       try {
+  //         const response = await fetchGetEvents({
+  //           performerName: capitalizeString(performerTitle),
+  //           // numberOfEvents: eventNumber,
+  //           // orderByClause: "Date%20DESC",
+  //         });
+  //         setEvents(response || []);
+  //         console.log(response || []);
+  //       } catch (error) {
+  //         console.error("Error:", error);
+  //       }
+  //     };
+  //     fetchEvents();
+  //   } else {
+  //     console.log("error event id");
+  //   }
+  // }, [performerTitle]);
   return (
     <>
       <Head>
@@ -61,6 +77,13 @@ const PerformerPage: React.FC = () => {
           {capitalizeString(performerTitle)} Tickets | {siteSettings.site_name}
         </title>
       </Head>
+      <input
+        type="text"
+        placeholder="Enter ID"
+        value={performerID}
+        onChange={(e) => setPerformerID(e.target.value)}
+      />
+      <button onClick={fetchEvents}>Fetch</button>
       <main className="container">
         <div className="position-relative my-5">
           {performerImage ? (
