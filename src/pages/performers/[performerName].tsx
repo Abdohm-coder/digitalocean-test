@@ -38,7 +38,7 @@ const PerformerPage: React.FC = () => {
   const fetchEvents = async () => {
     try {
       const response = await fetchGetEvents({
-        performerName: capitalizeString(performerTitle),
+        // performerName: capitalizeString(performerTitle),
         performerID: +performerID,
         // numberOfEvents: eventNumber,
         // orderByClause: "Date%20DESC",
