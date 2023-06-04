@@ -21,7 +21,7 @@ const PerformerPage: React.FC = () => {
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [loading, setLoading] = useState<number | null>(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (performerName) {
@@ -86,8 +86,8 @@ const PerformerPage: React.FC = () => {
           </h1>
         </div>
 
-        {loading && loading < 100 ? (
-          <Loading progress={loading} />
+        {loading ? (
+          <Loading />
         ) : (
           <EventList
             eventNumber={eventNumber}

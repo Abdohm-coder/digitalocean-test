@@ -62,6 +62,9 @@ const Hero = () => {
       };
       fetchData();
       fetchPerformers();
+    } else {
+      setPerformers([]);
+      setEvents([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

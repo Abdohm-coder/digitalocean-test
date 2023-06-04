@@ -27,7 +27,8 @@ const CategoryPage: React.FC = () => {
   const categoryName = query.categoryName as string;
   const [categoryTitle, setCategoryTitle] = useState("");
 
-  const [loading, setLoading] = useState<number | null>(0);
+  const [loading, setLoading] = useState(true);
+
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
@@ -118,8 +119,8 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {loading && loading < 100 ? (
-                <Loading progress={loading} />
+              {loading ? (
+                <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}

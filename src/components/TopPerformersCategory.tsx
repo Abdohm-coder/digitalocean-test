@@ -21,7 +21,7 @@ interface props {
 
 const Events: React.FC<props> = ({ title, link, id }) => {
   const { images } = useDataContext();
-  const [loading, setLoading] = useState<number | null>(0);
+  const [loading, setLoading] = useState(true);
 
   const swiperRef = useRef<SwiperType>();
   const breakpoints = {
@@ -79,8 +79,8 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         </a>
       </div>
       <div className="mt-3 position-relative">
-        {loading && loading < 100 ? (
-          <Loading progress={loading} />
+        {loading ? (
+          <Loading />
         ) : (
           <Swiper
             spaceBetween={25}

@@ -104,56 +104,6 @@ const Footer: React.FC = () => {
               </div>{" "}
               <p> {siteSettings.phone_number}</p>
             </a>
-            <a
-              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
-              className="text-white d-flex gap-2"
-              target="_blank"
-              rel="noreferrer">
-              <div>
-                <BsFacebook />
-              </div>
-              <p>{siteSettings.social_media_links.facebook}</p>
-            </a>
-            <a
-              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
-              className="text-white d-flex gap-2"
-              target="_blank"
-              rel="noreferrer">
-              <div>
-                <BsInstagram />
-              </div>
-              <p>{siteSettings.social_media_links.instagram}</p>
-            </a>
-            <a
-              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
-              className="text-white d-flex gap-2"
-              target="_blank"
-              rel="noreferrer">
-              <div>
-                <BsTwitter />
-              </div>
-              <p>{siteSettings.social_media_links.twitter}</p>
-            </a>
-            <a
-              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
-              className="text-white d-flex gap-2"
-              target="_blank"
-              rel="noreferrer">
-              <div>
-                <BsYoutube />
-              </div>
-              <p>{siteSettings.social_media_links.youtube}</p>
-            </a>
-            <a
-              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
-              className="text-white d-flex gap-2"
-              target="_blank"
-              rel="noreferrer">
-              <div>
-                <BsPinterest />
-              </div>
-              <p>{siteSettings.social_media_links.pinterest}</p>
-            </a>
           </div>
         </div>
         <hr />
@@ -162,20 +112,30 @@ const Footer: React.FC = () => {
             Copyright © <span className="text-primary">TicketJewel</span> | All
             Rights Reserved
           </p>
-          <div className="d-flex fs-2 gap-3">
-            <a href="#" className="link-light">
+          <div className="d-flex fs-4 gap-3">
+            <a
+              href={siteSettings.social_media_links.facebook}
+              className="link-light">
               <BsFacebook />
             </a>
-            <a href="#" className="link-light">
+            <a
+              href={siteSettings.social_media_links.twitter}
+              className="link-light">
               <BsTwitter />
             </a>
-            <a href="#" className="link-light">
+            <a
+              href={siteSettings.social_media_links.pinterest}
+              className="link-light">
               <BsPinterest />
             </a>
-            <a href="#" className="link-light">
+            <a
+              href={siteSettings.social_media_links.youtube}
+              className="link-light">
               <BsYoutube />
             </a>
-            <a href="#" className="link-light">
+            <a
+              href={siteSettings.social_media_links.instagram}
+              className="link-light">
               <BsInstagram />
             </a>
           </div>

@@ -11,7 +11,8 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
   // const [show, setShow] = useState(false);
   useEffect(() => {
     const button = document.createElement("button");
-    button.classList.add("btn-buy venue-ticket-list-checkout-trigger-js");
+    button.classList.add("btn-buy");
+    button.classList.add("venue-ticket-list-checkout-trigger-js");
     button.textContent = "Continue";
     document
       .querySelector(".sea-ticket-list-default-cta-js")
@@ -27,7 +28,8 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
         type="text/javascript"></Script>
       <Script
         src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="></Script>
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+        crossOrigin="anonymous"></Script>
       {/* <div> */}
       <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
       {/* </div> */}

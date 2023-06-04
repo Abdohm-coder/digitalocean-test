@@ -67,6 +67,8 @@ const Navbar: React.FC<{
       // };
       fetchData();
       // fetchPerformers();
+    } else {
+      setEvents([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +126,12 @@ const Navbar: React.FC<{
             selectedSubMenu
           ].performers.length - 1;
         return (
-          <li key={i} className={`list-group-item list-group-item-action`}>
+          <li
+            key={i}
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu"
+            aria-controls="mobileMenu"
+            className={`list-group-item list-group-item-action`}>
             <Link
               className={`nav-link active ${
                 i === lastItem ? "view-all" : "item"
@@ -162,22 +169,31 @@ const Navbar: React.FC<{
         )
       );
     }
-    return siteSettings.main_categories.map(({ title }, i) => (
-      <li
-        key={`${i}: ${title}`}
-        className="list-group-item list-group-item-action"
-        onClick={() => {
-          setSelectedMenu(i);
-          setMobileMenuView(1);
-        }}>
-        <Link
-          className="nav-link active"
-          aria-current="page"
-          href={`/${convertTitleToPath(title)}`}>
-          {title} <BsChevronRight className="float-end" />
-        </Link>
-      </li>
-    ));
+    return (
+      <>
+        {siteSettings.main_categories.map(({ title }, i) => (
+          <li
+            key={`${i}: ${title}`}
+            className="list-group-item list-group-item-action"
+            onClick={() => {
+              setSelectedMenu(i);
+              setMobileMenuView(1);
+            }}>
+            <Link
+              className="nav-link active"
+              aria-current="page"
+              href={`/${convertTitleToPath(title)}`}>
+              {title} <BsChevronRight className="float-end" />
+            </Link>
+          </li>
+        ))}
+        <a
+          className="btn btn-sm w-50 btn-primary text-white rounded-pill px-1 ms-2 mt-4 text-nowrap"
+          href={`tel:${siteSettings.phone_number}`}>
+          <BsTelephoneFill /> CALL US
+        </a>
+      </>
+    );
   };
   return (
     <header>

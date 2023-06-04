@@ -29,13 +29,16 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             !searchNavbarRef.current?.contains(e.target) &&
             searchNavbarRef.current
           ) {
-            searchNavbarRef.current.children[1].style.display = "none";
+            searchNavbarRef.current.children[1].classList.add("search-none");
+          } else {
+            searchNavbarRef.current?.children[1].classList.remove("search-none");
           }
-          if (
-            !searchHeroRef.current?.contains(e.target) &&
-            searchHeroRef.current
-          ) {
-            searchHeroRef.current.children[1].style.display = "none";
+          if (!searchHeroRef.current?.contains(e.target)) {
+            console.log("2", searchHeroRef.current?.children[1].classList);
+            searchHeroRef.current?.children[1].classList.add("search-none");
+          } else {
+            searchHeroRef.current.children[1].classList.remove("search-none");
+            console.log("te");
           }
         }}>
         <ScrollToTop />

@@ -613,26 +613,28 @@ export const fetchHighSalesPerformers = async (
 
 export const fetchHighInventoryPerformers = async (
   params: GetHighInventoryPerformersInput,
-  setLoading?: React.Dispatch<React.SetStateAction<number | null>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const response = await axios.post(
       "/api/GetHighInventoryPerformers",
       params,
       {
-        onUploadProgress: (progressEvent) => {
+        onDownloadProgress: (progressEvent) => {
           let percentCompleted = progressEvent.total
             ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
             : null;
-          if (setLoading) setLoading(percentCompleted);
+          console.log(percentCompleted);
         },
       }
     );
     const data =
       response.data.GetHighInventoryPerformersResult.PerformerPercent;
+    setLoading(false);
     return data;
   } catch (error) {
     console.error("Error:", error);
+    setLoading(false);
   }
 };
 
@@ -670,22 +672,23 @@ export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
 
 export const fetchGetEvents = async (
   params: GetEventsInput,
-  setLoading?: React.Dispatch<React.SetStateAction<number | null>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const response = await axios.post("/api/GetEvents", params, {
-      onUploadProgress: (progressEvent) => {
+      onDownloadProgress: (progressEvent) => {
         let percentCompleted = progressEvent.total
           ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
           : null;
         console.log(progressEvent, percentCompleted);
-        if (setLoading) setLoading(percentCompleted);
       },
     });
     const data = response.data.GetEventsResult?.Event;
+    setLoading(false);
     return data;
   } catch (error) {
     console.error("Error:", error);
+    setLoading(false);
   }
 };
 

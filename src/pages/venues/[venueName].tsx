@@ -18,7 +18,7 @@ const VenuePage: React.FC = () => {
   const [venueTitle, setVenueTitle] = useState("");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [loading, setLoading] = useState<number | null>(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (venueName) {
@@ -66,8 +66,8 @@ const VenuePage: React.FC = () => {
         <div className="position-relative my-5">
           <Hero title={venueTitle} />
         </div>
-        {loading && loading < 100 ? (
-          <Loading progress={loading} />
+        {loading ? (
+          <Loading />
         ) : (
           <EventList
             eventNumber={eventNumber}

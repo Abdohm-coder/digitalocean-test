@@ -27,7 +27,7 @@ const CategoriesPage: React.FC = () => {
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
     []
   );
-  const [loading, setLoading] = useState<number | null>(0);
+  const [loading, setLoading] = useState(true);
 
   const categoryData = useMemo(() => {
     return categories.filter(({ ParentCategoryDescription }) =>
@@ -96,8 +96,8 @@ const CategoriesPage: React.FC = () => {
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {loading && loading < 100 ? (
-                <Loading progress={loading} />
+              {loading ? (
+                <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}

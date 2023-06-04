@@ -1,16 +1,10 @@
 import React from "react";
 
-const Loading = ({ progress }: { progress: number }) => {
+const Loading = () => {
   return (
-    <div className="loading-wrapper">
-      <div className="progress-bar">
-        <span
-          style={{ width: `${progress}%` }}
-          className="progess-bar-fill"></span>
-      </div>
-      <span className="progress-text">
-        {progress === 0 ? "Loading..." : `${progress}%`}
-      </span>
+    <div className="lds-ripple">
+      <div></div>
+      <div></div>
     </div>
   );
 };
