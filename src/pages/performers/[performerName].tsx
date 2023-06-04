@@ -10,7 +10,7 @@ import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
 import { convertQueryToTitle } from "@/utils/query-to-title";
 import { useDataContext } from "@/context/data.context";
-import Hero from "@/components/Categories/Hero";
+import DefaultImage from "@/assets/images/default.jpg";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();
@@ -61,24 +61,18 @@ const PerformerPage: React.FC = () => {
       </Head>
       <main className="container">
         <div className="position-relative my-5">
-          {performerImage ? (
-            <>
-              <Image
-                src={performerImage}
-                alt={`${performerTitle} image`}
-                width={1200}
-                height={300}
-                className="w-100 rounded-5 object-cover"
-              />
-              <h1
-                className="text-white m-0 fw-bold position-absolute text-capitalize"
-                style={{ left: "16px", bottom: "16px" }}>
-                {capitalizeString(performerTitle)} Tickets
-              </h1>
-            </>
-          ) : (
-            <Hero title={performerTitle} />
-          )}
+          <Image
+            src={performerImage ?? DefaultImage}
+            alt={`${performerTitle} image`}
+            width={1200}
+            height={300}
+            className="w-100 rounded-5 object-cover"
+          />
+          <h1
+            className="text-white m-0 fw-bold position-absolute text-capitalize"
+            style={{ left: "16px", bottom: "16px" }}>
+            {capitalizeString(performerTitle)} Tickets
+          </h1>
         </div>
         <EventList
           eventNumber={eventNumber}

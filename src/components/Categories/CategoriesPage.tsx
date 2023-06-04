@@ -26,10 +26,6 @@ const CategoriesPage: React.FC = () => {
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
     []
   );
-  const [clause, setClause] = useState({
-    orderBy: "",
-    whereBy: "",
-  });
 
   const categoryData = useMemo(() => {
     return categories.filter(({ ParentCategoryDescription }) =>
@@ -39,28 +35,14 @@ const CategoriesPage: React.FC = () => {
 
   console.log(categoryData);
 
-  const fetchEvents = async () => {
-    try {
-      const response = await fetchGetEvents({
-        parentCategoryID: categoryData[0]?.ParentCategoryID,
-        orderByClause: clause.orderBy,
-        whereClause: clause.whereBy,
-        // numberOfEvents: eventNumber,
-      });
-      setEvents(response || []);
-      console.log(response || []);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   useEffect(() => {
     if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
           const response = await fetchGetEvents({
             parentCategoryID: categoryData[0]?.ParentCategoryID,
-            orderByClause: "endDate%20ASC",
+            orderByClause: "Date ASC",
+            whereClause: "",
             // numberOfEvents: eventNumber,
           });
           setEvents(response || []);
@@ -96,23 +78,6 @@ const CategoriesPage: React.FC = () => {
   return (
     <>
       <main className="bg-light">
-        <input
-          type="text"
-          placeholder="Enter OrderBy"
-          value={clause.orderBy}
-          onChange={(e) =>
-            setClause((state) => ({ ...state, orderBy: e.target.value }))
-          }
-        />
-        <input
-          type="text"
-          placeholder="Enter WhereBy"
-          value={clause.whereBy}
-          onChange={(e) =>
-            setClause((state) => ({ ...state, whereBy: e.target.value }))
-          }
-        />
-        <button onClick={fetchEvents}>Submit</button>
         <Hero title={categoryTitle} />
         <div className="container">
           <Categories categories={categoryData?.slice(0, 8)} />

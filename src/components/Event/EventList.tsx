@@ -1,10 +1,9 @@
 import React from "react";
 import { BsChevronRight } from "react-icons/bs";
 import { GetEventsProps } from "../../types/data-types";
-import Link from "next/link";
 import dayjs from "dayjs";
-import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(LocalizedFormat);
 
 const EventList: React.FC<{
@@ -22,37 +21,30 @@ const EventList: React.FC<{
             Venue,
             City,
             StateProvince,
-            DisplayDate,
             Date: DateTime,
           }: GetEventsProps) => (
-            <Link
+            <a
               key={ID}
               href={`/tickets/${ID}`}
               className="list-group-item list-group-item-action event-item">
               <div className="d-flex gap-3 align-items-center w-100">
                 <div className="text-center border-end pe-3">
-                  {DisplayDate.includes("TBA") ? (
-                    <h6 className="mb-1 text-primary text-uppercase">TBA</h6>
-                  ) : (
-                    <>
-                      <h6 className="mb-1 text-primary text-uppercase">
-                        {new Date(DateTime).toLocaleString("en-US", {
-                          weekday: "short",
-                        })}
-                      </h6>
-                      <p className="m-0 small text-muted text-uppercase">
-                        {`${new Date(DateTime).toLocaleString("en-US", {
-                          day: "2-digit",
-                        })}
+                  <h6 className="mb-1 text-primary text-uppercase">
+                    {new Date(DateTime).toLocaleString("en-US", {
+                      weekday: "short",
+                    })}
+                  </h6>
+                  <p className="m-0 small text-muted text-uppercase">
+                    {`${new Date(DateTime).toLocaleString("en-US", {
+                      day: "2-digit",
+                    })}
                       ${new Date(DateTime).toLocaleString("en-US", {
                         month: "short",
                       })}`}
-                      </p>
-                      <p className="m-0 small text-muted text-uppercase">
-                        {dayjs(DateTime).format("LT")}
-                      </p>
-                    </>
-                  )}
+                  </p>
+                  <p className="m-0 small text-muted text-uppercase">
+                    {dayjs(DateTime).format("LT")}
+                  </p>
                 </div>
                 <div className="flex-fill">
                   <h5 className="mb-1 text-muted">
@@ -60,12 +52,14 @@ const EventList: React.FC<{
                   </h5>
                   <p className="m-0 text-muted">{Name}</p>
                 </div>
-                <button className="m-0 ms-auto px-3 py-1 rounded-pill event-button bg-info text-white fw-semibold d-none d-md-block">
+                <button
+                  style={{ whiteSpace: "nowrap" }}
+                  className="m-0 ms-auto px-3 py-1 rounded-pill event-button bg-info text-white fw-semibold d-none d-md-block">
                   See Tickets
                 </button>
                 <BsChevronRight className=" d-block d-md-none text-primary" />
               </div>
-            </Link>
+            </a>
           )
         )}
         {events.length === 0 && (

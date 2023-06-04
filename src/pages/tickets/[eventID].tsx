@@ -53,11 +53,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 Seatics.config.tgGuaranteeNoteHtml = '';
                 Seatics.config.tgMarkTooltipText = 'These tickets are featured as a great value.';
 Seatics.config.enableHeaderLowerLegalDisclosureMobile = false; 
-Seatics.config.smallScreenMapLayout =
-Seatics.SmallScreenMapOptions.FullyHidden;
-               Seatics.config.eventInfoLeftCol = '<a href="/"><img src=https://ticketiron.com/images/Tg_logo_small2xc.jpg height="55px" width="55px" style="padding:5px; vertical-align:top;" /></a>',
-               Seatics.config.eventInfoRightCol = '<a href="tel:8337832310"><span style="font-size:40px; vertical-align:top; padding:5px;" class="glyphicon glyphicon-earphone"></span></a>';
-
+Seatics.config.eventInfoLeftCol = '',
+                Seatics.config.eventInfoRightCol = '',
+                Seatics.config.zoomOnSelection = !1,
+                Seatics.config.showZoomControls = true,                           
+                Seatics.config.ticketListOnRight = true;	
+    			Seatics.config.enableListMarketingMobile = false; 
+    			Seatics.config.smallScreenMapLayout = Seatics.SmallScreenMapOptions.FullyHidden;
+    			Seatics.config.legendExpanded = false; 
+    			Seatics.config.enableFeedBack = false; 
+    			Seatics.config.enableMapMarketing = false;
+    			Seatics.config.enableListMarketingDesktop = false;
  Seatics.config.mapFinishedRenderingHandler = function(){
                     $('#tn-maps').addClass('completed');                
                     Seatics.config.ticketSeparationOptions = {

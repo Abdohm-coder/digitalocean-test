@@ -10,6 +10,7 @@ import { GetHighInventoryPerformersProps } from "@/types/data-types";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
+import { sortArray } from "@/utils/sort-array";
 
 interface props {
   title: string;
@@ -33,12 +34,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     },
   };
 
-  const [isStart, setIsStart] = useState(true);
-  const [isLast, setIsLast] = useState(false);
-  function sliderChange(swiper: SwiperType) {
-    setIsStart(swiper.isBeginning);
-    setIsLast(swiper.isEnd);
-  }
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [data, setData] = useState<GetHighInventoryPerformersProps[]>([]);
   useEffect(() => {
@@ -60,6 +55,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   useEffect(() => {
     images.forEach((el) => {
       data.forEach(({ Description }) => {
+        console.log(Description, el[1]);
         if (Description.toLowerCase().includes(el[1].toLowerCase()))
           setPerformerImage(el[2]);
       });
@@ -80,9 +76,8 @@ const Events: React.FC<props> = ({ title, link, id }) => {
           // modules={[Navigation]}
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
-          }}
-          onSlideChange={sliderChange}>
-          {data.map(({ Description, ID }) => (
+          }}>
+          {sortArray(data, "Percent").map(({ Description, ID }) => (
             <SwiperSlide key={ID}>
               <div className="position-relative overlay up">
                 <Image

@@ -1,4 +1,4 @@
-import Events from "@/components/Events";
+import Events from "@/components/TopPerformersCategory";
 import Hero from "@/components/Home/Hero";
 import TopEvents from "@/components/Home/TopEvents";
 import NewsLetterForm from "@/components/NewsLetterForm";
