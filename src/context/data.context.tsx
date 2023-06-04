@@ -18,6 +18,7 @@ export const DataContext = createContext<{
   images: Array<string[]>;
   performerID: number | null;
   setPerformerID: React.Dispatch<React.SetStateAction<number | null>>;
+  searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
   categories: [],
   performers: [],
@@ -25,11 +26,13 @@ export const DataContext = createContext<{
   images: [],
   performerID: null,
   setPerformerID: () => {},
+  searchHeroRef: { current: null },
 });
 
-export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const DataProvider: React.FC<{
+  children: React.ReactNode;
+  searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
+}> = ({ searchHeroRef, children }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
   const [performerID, setPerformerID] = useState<number | null>(null);
@@ -128,6 +131,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({
         images,
         performerID,
         setPerformerID,
+        searchHeroRef,
       }}>
       {children}
     </DataContext.Provider>

@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import GooglePlay from "@/assets/images/googleplay.png";
-// import AppShrefre from "@/assets/images/appshrefre.png";
 import {
-  BsEnvelopeFill,
   BsFacebook,
   BsInstagram,
   BsPinterest,
@@ -11,9 +8,28 @@ import {
   BsTwitter,
   BsYoutube,
 } from "react-icons/bs";
-import Image from "next/image";
+import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
+import { GetEventsProps } from "@/types/data-types";
 
 const Footer: React.FC = () => {
+  const [events, setEvents] = useState<GetEventsProps[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetchGetEvents({
+          numberOfEvents: 12,
+          orderByClause: "Clicks",
+          whereClause: "",
+        });
+        setEvents(response || []);
+        console.log(response || []);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchEvents();
+  }, []);
   return (
     <footer className="pt-5 pb-3 bg-info text-light">
       <div className="container-lg">
@@ -22,28 +38,23 @@ const Footer: React.FC = () => {
             <h5 className="fw-semibold ps-3">INFORMATION</h5>
             <ul className="nav flex-column ">
               <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
+                <Link className="nav-link link-light" href="/">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="/concerts-ticekts">
+                <Link className="nav-link link-light" href="/concerts-tickets">
                   Concerts
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="/sports-ticekts">
+                <Link className="nav-link link-light" href="/sports-tickets">
                   Sports
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="/theatre-ticekts">
+                <Link className="nav-link link-light" href="/theatre-tickets">
                   Theatre
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  City
                 </Link>
               </li>
               <li className="nav-item">
@@ -54,94 +65,95 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <h5 className="fw-semibold ps-3">hrefP EVENTS</h5>
+            <h5 className="fw-semibold ps-3">TOP EVENTS</h5>
             <ul className="nav flex-column ">
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  2024 Rose Parade
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  V - The Ultimate Variety Show
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Mrs. Doubtfire - The Musical
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Sugar Bowl - College Football Playoff Semifinal
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Rose Bowl - College Football Playoff Semifinal
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  NHL Winter Classic: Seattle Kraken vs. Vegas Golden Knights
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  PARKING: Rose Bowl - College Football Playoff Semifinal
-                </Link>
-              </li>
+              {events.slice(0, 6).map(({ ID, Name }) => (
+                <li key={ID} className="nav-item">
+                  <a className="nav-link link-light" href={`/tickets/${ID}`}>
+                    {Name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h5 className="fw-semibold ps-3"></h5>
             <ul className="nav flex-column ">
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Cothrefn Bowl
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Powerglove & Immortal Guardian
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Tchami
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  New Impressionz
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link link-light" href="#">
-                  Matilda - The Musical
-                </Link>
-              </li>
-              <li className="nav-item">
-                <h5 className="fw-semibold ps-3">Get The App :</h5>
-              </li>
-              <li className="nav-item">
-                <div className="d-flex gap-2 ps-3 mt-2">
-                  <Image src={GooglePlay} alt="Google Play" height={40} />
-                  {/* <Image src={AppShrefre} alt="App Shrefre" height={40} /> */}
-                </div>
-              </li>
+              {events.slice(6, 12).map(({ ID, Name }) => (
+                <li key={ID} className="nav-item">
+                  <a className="nav-link link-light" href={`/tickets/${ID}`}>
+                    {Name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h5 className="fw-semibold">CONTACTS</h5>
-            <p>Have a question or concern about your order ticketjewel.com?</p>
+            <p>
+              Have a question or concern about your order{" "}
+              {siteSettings.site_name}?
+            </p>
             <p>TicketJewel 8345 NW 66TH ST #3048 MIAMI FL 33166 USA</p>
-            <p>
-              <BsTelephoneFill /> Call us at: (844) 425-6941
-            </p>
-            <p>
-              <BsEnvelopeFill /> care@ticketjewel.com
-            </p>
+            <a
+              style={{ textDecoration: "none" }}
+              className="text-white d-flex gap-2"
+              href={`tel:${siteSettings.phone_number}`}>
+              <div>
+                <BsTelephoneFill />
+              </div>{" "}
+              <p> {siteSettings.phone_number}</p>
+            </a>
+            <a
+              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
+              className="text-white d-flex gap-2"
+              target="_blank"
+              rel="noreferrer">
+              <div>
+                <BsFacebook />
+              </div>
+              <p>{siteSettings.social_media_links.facebook}</p>
+            </a>
+            <a
+              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
+              className="text-white d-flex gap-2"
+              target="_blank"
+              rel="noreferrer">
+              <div>
+                <BsInstagram />
+              </div>
+              <p>{siteSettings.social_media_links.instagram}</p>
+            </a>
+            <a
+              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
+              className="text-white d-flex gap-2"
+              target="_blank"
+              rel="noreferrer">
+              <div>
+                <BsTwitter />
+              </div>
+              <p>{siteSettings.social_media_links.twitter}</p>
+            </a>
+            <a
+              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
+              className="text-white d-flex gap-2"
+              target="_blank"
+              rel="noreferrer">
+              <div>
+                <BsYoutube />
+              </div>
+              <p>{siteSettings.social_media_links.youtube}</p>
+            </a>
+            <a
+              style={{ textDecoration: "none", overflowWrap: "anywhere" }}
+              className="text-white d-flex gap-2"
+              target="_blank"
+              rel="noreferrer">
+              <div>
+                <BsPinterest />
+              </div>
+              <p>{siteSettings.social_media_links.pinterest}</p>
+            </a>
           </div>
         </div>
         <hr />

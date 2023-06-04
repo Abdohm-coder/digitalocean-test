@@ -21,7 +21,7 @@ const Hero = () => {
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
   const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
 
-  const { venues } = useDataContext();
+  const { venues, searchHeroRef } = useDataContext();
 
   const searchVenues = useMemo(
     () =>
@@ -74,7 +74,9 @@ const Hero = () => {
       <div className="container-lg border-light border-top"></div>
       <h1 className="mt-auto">{siteSettings.hero_text.title}</h1>
       <h3>{siteSettings.hero_text.p}</h3>
-      <div className="position-relative mt-3 col-11 col-md-8 col-lg-6 col-xl-4 mb-auto">
+      <div
+        ref={searchHeroRef}
+        className="position-relative mt-3 col-11 col-md-8 col-lg-6 col-xl-4 mb-auto">
         <input
           type="text"
           className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-gray"

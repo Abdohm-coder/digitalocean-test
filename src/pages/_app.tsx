@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AppProps } from "next/app";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
@@ -16,15 +16,33 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
+  const searchNavbarRef = useRef<HTMLDivElement | null>(null);
+  const searchHeroRef = useRef<HTMLDivElement | null>(null);
   return (
-    <DataProvider>
+    <DataProvider searchHeroRef={searchHeroRef}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <ScrollToTop />
-      <Navbar />
-      <Component {...pageProps} />
-      {!pathname?.includes("/tickets") && <Footer />}
+      <div
+        onClick={(e) => {
+          if (
+            !searchNavbarRef.current?.contains(e.target) &&
+            searchNavbarRef.current
+          ) {
+            searchNavbarRef.current.children[1].style.display = "none";
+          }
+          if (
+            !searchHeroRef.current?.contains(e.target) &&
+            searchHeroRef.current
+          ) {
+            searchHeroRef.current.children[1].style.display = "none";
+          }
+        }}>
+        <ScrollToTop />
+        <Navbar searchNavbarRef={searchNavbarRef} />
+        <Component {...pageProps} />
+        {!pathname?.includes("/tickets") && <Footer />}
+      </div>
     </DataProvider>
   );
 };

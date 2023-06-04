@@ -30,6 +30,14 @@ export const siteSettings = {
     title: "Meet your favorite",
     p: "Artists, sport teams and parties",
   },
+  social_media_links: {
+    facebook: "https://www.facebook.com/TicketFront1/",
+    twitter: "https://twitter.com/TicketFront1",
+    pinterest: "https://www.pinterest.com/TicketFront/",
+    youtube: "https://www.youtube.com/channel/UCx764oTSrS3xqOhYk7vpehQ",
+    instagram: "https://www.instagram.com/ticketfront/",
+  },
+  phone_number: "+18444256941",
   main_categories: [
     {
       title: "Concerts",
@@ -612,7 +620,7 @@ export const fetchHighInventoryPerformers = async (
       "/api/GetHighInventoryPerformers",
       params,
       {
-        onDownloadProgress: (progressEvent) => {
+        onUploadProgress: (progressEvent) => {
           let percentCompleted = progressEvent.total
             ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
             : null;
@@ -666,10 +674,11 @@ export const fetchGetEvents = async (
 ) => {
   try {
     const response = await axios.post("/api/GetEvents", params, {
-      onDownloadProgress: (progressEvent) => {
+      onUploadProgress: (progressEvent) => {
         let percentCompleted = progressEvent.total
           ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
           : null;
+        console.log(progressEvent, percentCompleted);
         if (setLoading) setLoading(percentCompleted);
       },
     });

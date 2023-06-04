@@ -75,7 +75,7 @@ const CategoryPage: React.FC = () => {
             {
               parentCategoryID: categoryData[0].ParentCategoryID,
               childCategoryID: categoryData[0].ChildCategoryID,
-              orderByClause: "Date ASC",
+              orderByClause: "Date",
               whereClause: "",
               numberOfEvents: eventNumber,
             },

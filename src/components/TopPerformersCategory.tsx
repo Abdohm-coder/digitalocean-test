@@ -58,13 +58,17 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   }, [id]);
 
   useEffect(() => {
+    let isThereImage = false;
     images.forEach((el) => {
       data.forEach(({ Description }) => {
         console.log(Description, el[1]);
-        if (Description.toLowerCase().includes(el[1].toLowerCase()))
+        if (Description.toLowerCase().includes(el[1].toLowerCase())) {
           setPerformerImage(el[2]);
+          isThereImage = true;
+        }
       });
     });
+    if (!isThereImage) setPerformerImage(null);
   }, [data, images]);
   return (
     <section className="pt-5">

@@ -16,7 +16,9 @@ import { SearchEventsProps } from "@/types/data-types";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{
+  searchNavbarRef: React.MutableRefObject<HTMLDivElement | null>;
+}> = ({ searchNavbarRef }) => {
   const [show, setShow] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<number>(0);
   const [selectedSubMenu, setSelectedSubMenu] = useState<number>(0);
@@ -196,7 +198,9 @@ const Navbar: React.FC = () => {
             aria-controls="mobileMenu">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="position-relative row w-100 mt-3 mt-lg-0">
+          <div
+            ref={searchNavbarRef}
+            className="position-relative row w-100 mt-3 mt-lg-0">
             <div className="col-12 col-xl-10 col-xxl-8">
               <div className="input-group input-group-sm">
                 <span className="input-group-text bg-white">
@@ -212,8 +216,8 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div
-              style={{ zIndex: 9999 }}
-              className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
+              style={{ zIndex: 9999, marginTop: "3.5rem" }}
+              className="position-absolute bg-white text-dark rounded-2 d-flex flex-column justify-content-center container-fluid">
               {/* {performers.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
@@ -379,11 +383,11 @@ const Navbar: React.FC = () => {
                 </div>
               )}
             </ul>
-            <Link
+            <a
               className="btn btn-sm btn-primary text-white rounded-pill px-3 ms-4 text-nowrap"
-              href="#">
+              href={`tel:${siteSettings.phone_number}`}>
               <BsTelephoneFill /> CALL US
-            </Link>
+            </a>
           </div>
         </div>
       </nav>

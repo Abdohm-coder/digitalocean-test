@@ -11,6 +11,7 @@ import { capitalizeString } from "@/utils/capitalize-string";
 import { convertQueryToTitle } from "@/utils/query-to-title";
 import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
+import Loading from "@/components/Loading";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();
@@ -20,14 +21,20 @@ const PerformerPage: React.FC = () => {
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
+  const [loading, setLoading] = useState<number | null>(0);
 
   useEffect(() => {
     if (performerName) {
       const name = convertQueryToTitle(performerName);
+      let isThereImage = false;
       images.forEach((el) => {
         console.log(el);
-        if (el[1].toLowerCase().includes(name)) setPerformerImage(el[2]);
+        if (el[1].toLowerCase().includes(name)) {
+          setPerformerImage(el[2]);
+          isThereImage = true;
+        }
       });
+      if (!isThereImage) setPerformerImage(null);
       setPerformerTitle(name);
     }
   }, [performerName, images]);
@@ -38,11 +45,15 @@ const PerformerPage: React.FC = () => {
     if (performerTitle) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents({
-            performerName: capitalizeString(performerTitle),
-            numberOfEvents: eventNumber,
-            // orderByClause: "Date%20DESC",
-          });
+          const response = await fetchGetEvents(
+            {
+              performerName: capitalizeString(performerTitle),
+              numberOfEvents: eventNumber,
+              orderByClause: "Date",
+              whereClause: "",
+            },
+            setLoading
+          );
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {
@@ -74,11 +85,16 @@ const PerformerPage: React.FC = () => {
             {capitalizeString(performerTitle)} Tickets
           </h1>
         </div>
-        <EventList
-          eventNumber={eventNumber}
-          setEventNumber={setEventNumber}
-          events={events}
-        />
+
+        {loading && loading < 100 ? (
+          <Loading progress={loading} />
+        ) : (
+          <EventList
+            eventNumber={eventNumber}
+            setEventNumber={setEventNumber}
+            events={events}
+          />
+        )}
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
         <Details performerTitle={capitalizeString(performerTitle)} />

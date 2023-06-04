@@ -77,7 +77,8 @@
   color: #3683fc;
 }
 
-.view-all {
+.view-all,
+.item:hover {
   color: #3683fc !important;
 }
 

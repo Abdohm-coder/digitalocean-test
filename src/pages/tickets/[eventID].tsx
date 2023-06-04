@@ -5,9 +5,18 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { siteSettings } from "@/settings/site.settings";
 import Script from "next/script";
+import { useEffect } from "react";
 
 const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
   // const [show, setShow] = useState(false);
+  useEffect(() => {
+    const button = document.createElement("button");
+    button.classList.add("btn-buy venue-ticket-list-checkout-trigger-js");
+    button.textContent = "Continue";
+    document
+      .querySelector(".sea-ticket-list-default-cta-js")
+      ?.appendChild(button);
+  }, []);
   return (
     <div>
       <Head>
