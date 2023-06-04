@@ -79,9 +79,9 @@ const CategoryPage: React.FC = () => {
               orderByClause: "Date",
               whereClause: "",
               numberOfEvents: eventNumber,
-            },
-            setLoading
+            }
           );
+          setLoading(false);
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {

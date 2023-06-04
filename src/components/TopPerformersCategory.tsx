@@ -41,13 +41,11 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchHighInventoryPerformers(
-          {
-            // numReturned: 12,
-            parentCategoryID: id,
-          },
-          setLoading
-        );
+        const response = await fetchHighInventoryPerformers({
+          // numReturned: 12,
+          parentCategoryID: id,
+        });
+        setLoading(false);
         setData(response || []);
         console.log(response || []);
       } catch (error) {

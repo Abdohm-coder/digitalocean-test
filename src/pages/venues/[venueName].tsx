@@ -35,15 +35,13 @@ const VenuePage: React.FC = () => {
     if (venueData) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents(
-            {
-              venueID: venueData.ID,
-              orderByClause: "Date ASC",
-              whereClause: "",
-              // numberOfEvents: eventNumber,
-            },
-            setLoading
-          );
+          const response = await fetchGetEvents({
+            venueID: venueData.ID,
+            orderByClause: "Date ASC",
+            whereClause: "",
+            // numberOfEvents: eventNumber,
+          });
+          setLoading(false);
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {

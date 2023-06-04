@@ -613,7 +613,6 @@ export const fetchHighSalesPerformers = async (
 
 export const fetchHighInventoryPerformers = async (
   params: GetHighInventoryPerformersInput,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const response = await axios.post(
@@ -630,11 +629,9 @@ export const fetchHighInventoryPerformers = async (
     );
     const data =
       response.data.GetHighInventoryPerformersResult.PerformerPercent;
-    setLoading(false);
     return data;
   } catch (error) {
     console.error("Error:", error);
-    setLoading(false);
   }
 };
 
@@ -672,7 +669,6 @@ export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
 
 export const fetchGetEvents = async (
   params: GetEventsInput,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const response = await axios.post("/api/GetEvents", params, {
@@ -684,11 +680,9 @@ export const fetchGetEvents = async (
       },
     });
     const data = response.data.GetEventsResult?.Event;
-    setLoading(false);
     return data;
   } catch (error) {
     console.error("Error:", error);
-    setLoading(false);
   }
 };
 

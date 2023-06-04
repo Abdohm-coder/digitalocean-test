@@ -51,9 +51,9 @@ const PerformerPage: React.FC = () => {
               numberOfEvents: eventNumber,
               orderByClause: "Date",
               whereClause: "",
-            },
-            setLoading
+            }
           );
+          setLoading(false);
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {

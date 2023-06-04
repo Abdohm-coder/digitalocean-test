@@ -117,6 +117,7 @@ div.position-absolute.search-none {
   position: relative;
   width: 80px;
   height: 80px;
+  margin: 150px auto;
 }
 .lds-ripple div {
   position: absolute;

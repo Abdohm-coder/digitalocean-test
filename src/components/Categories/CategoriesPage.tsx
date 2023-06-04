@@ -45,9 +45,9 @@ const CategoriesPage: React.FC = () => {
               orderByClause: "Date ASC",
               whereClause: "",
               // numberOfEvents: eventNumber,
-            },
-            setLoading
+            }
           );
+          setLoading(false);
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {
