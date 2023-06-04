@@ -75,7 +75,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         </a>
       </div>
       <div className="mt-3 position-relative">
-        {loading === 0 ? (
+        {loading && loading < 100 ? (
           <Loading progress={loading} />
         ) : (
           <Swiper

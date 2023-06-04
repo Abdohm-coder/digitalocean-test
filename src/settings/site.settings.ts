@@ -33,166 +33,558 @@ export const siteSettings = {
   main_categories: [
     {
       title: "Concerts",
-      id: 2,
       link: "/concerts-tickets",
-      top_events: [
+      id: 2,
+      sub_category: [
         {
-          event_title: "Maluma",
-          event_link: "/performers/Maluma",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/62059/62059-300x300.jpg",
+          title: "Festivals",
+          performers: [
+            {
+              title: "Lollapalooza",
+            },
+            {
+              title: "Bottlerock Festival",
+            },
+            {
+              title: "Austin City Limits",
+            },
+            {
+              title: "CMA Music Festival",
+            },
+            {
+              title: "EDC Las Vegas",
+            },
+            {
+              title: "Bonnaroo",
+            },
+            {
+              title: "California Roots Festival",
+            },
+            {
+              title: "Summer Camp Music Festival",
+            },
+            {
+              title: "Ultra Music Festival",
+            },
+            {
+              title: "View All Festivals",
+            },
+          ],
         },
         {
-          event_title: "Billy Idol",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/119/119-300x300.jpg",
+          title: "Country",
+          performers: [
+            {
+              title: "Carrie Underwood",
+            },
+            {
+              title: "Dan + Shay",
+            },
+            {
+              title: "Luke Combs",
+            },
+            {
+              title: "Luke Bryan",
+            },
+            {
+              title: "Kane Brown",
+            },
+            {
+              title: "Chris Young",
+            },
+            {
+              title: "Zac Brown Band",
+            },
+            {
+              title: "Blake Shelton",
+            },
+            {
+              title: "Florida Georgia Line",
+            },
+            {
+              title: "Thomas Rhett",
+            },
+            {
+              title: "View All Country",
+            },
+          ],
         },
         {
-          event_title: "Jackson Browne",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/1531/1531-300x300.jpg",
+          title: "Pop",
+          performers: [
+            {
+              title: "Alanis Morissette",
+            },
+            {
+              title: "Billie Eilish",
+            },
+            {
+              title: "Matchbox Twenty",
+            },
+            {
+              title: "Justin Bieber",
+            },
+            {
+              title: "Taylor Swift",
+            },
+            {
+              title: "Billy Joel",
+            },
+            {
+              title: "Celine Dion",
+            },
+            {
+              title: "Maroon 5",
+            },
+            {
+              title: "The Weeknd",
+            },
+            {
+              title: "View All Pop",
+            },
+          ],
         },
         {
-          event_title: "Garth Brooks",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/391/391-300x300.jpg",
+          title: "Rock",
+          performers: [
+            {
+              title: "The Rolling Stones",
+            },
+            {
+              title: "Metallica",
+            },
+            {
+              title: "Aerosmith",
+            },
+            {
+              title: "KISS",
+            },
+            {
+              title: "Def Leppard",
+            },
+            {
+              title: "August Burns Red",
+            },
+            {
+              title: "Pearl Jam",
+            },
+            {
+              title: "Megadeth",
+            },
+            {
+              title: "Santana",
+            },
+            {
+              title: "View All Rock",
+            },
+          ],
         },
         {
-          event_title: "Niall Horan",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/102147/102147-300x300.jpg",
+          title: "Hip Hop",
+          performers: [
+            {
+              title: "Freddie Gibbs",
+            },
+            {
+              title: "Action Bronson",
+            },
+            {
+              title: "Run The Jewels",
+            },
+            {
+              title: "Watsky",
+            },
+            {
+              title: "Russ",
+            },
+            {
+              title: "Post Malone",
+            },
+            {
+              title: "Dave East",
+            },
+            {
+              title: "Jack Harlow",
+            },
+            {
+              title: "Stormzy",
+            },
+            {
+              title: "Lil Mosey",
+            },
+            {
+              title: "View All Hip Hop",
+            },
+          ],
         },
         {
-          event_title: "Stevie Nicks",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/3668/3668-300x300.jpg",
-        },
-        {
-          event_title: "Suicideboys",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/101554/101554-300x300.jpg",
-        },
-        {
-          event_title: "Romeo Santos",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/52131/52131-300x300.jpg",
+          title: "Comedy",
+          performers: [
+            {
+              title: "Deon Cole",
+            },
+            {
+              title: "Martin Lawrence",
+            },
+            {
+              title: "Michael Blackson",
+            },
+            {
+              title: "Bert Kreischer",
+            },
+            {
+              title: "DeRay Davis",
+            },
+            {
+              title: "Jerry Seinfeld",
+            },
+            {
+              title: "Jay Pharoah",
+            },
+            {
+              title: "Jeff Dunham",
+            },
+            {
+              title: "Sebastian Maniscalco",
+            },
+            {
+              title: "Jo Koy",
+            },
+            {
+              title: "View All Comedy",
+            },
+          ],
         },
       ],
     },
     {
       title: "Sports",
-      id: 1,
       link: "/sports-tickets",
-      top_events: [
+      id: 1,
+      sub_category: [
         {
-          event_title: "NFL Football",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/38219/38219-300x300.jpg",
+          title: "NFL",
+          performers: [
+            { title: "Arizona Cardinals" },
+            { title: "Atlanta Falcons" },
+            { title: "Baltimore Ravens" },
+            { title: "Buffalo Bills" },
+            { title: "Carolina Panthers" },
+            { title: "Chicago Bears" },
+            { title: "Cincinnati Bengals" },
+            { title: "Cleveland Browns" },
+            { title: "Dallas Cowboys" },
+            { title: "Denver Broncos" },
+            { title: "Detroit Lions" },
+            { title: "Green Bay Packers" },
+            { title: "Houston Texans" },
+            { title: "Indianapolis Colts" },
+            { title: "Jacksonville Jaguars" },
+            { title: "Kansas City Chiefs" },
+            { title: "Las Vegas Raiders" },
+            { title: "Los Angeles Chargers" },
+            { title: "Los Angeles Rams" },
+            { title: "Miami Dolphins" },
+            { title: "Minnesota Vikings" },
+            { title: "New England Patriots" },
+            { title: "New Orleans Saints" },
+            { title: "New York Giants" },
+            { title: "New York Jets" },
+            { title: "Philadelphia Eagles" },
+            { title: "Pittsburgh Steelers" },
+            { title: "San Francisco 49ers" },
+            { title: "Seattle Seahawks" },
+            { title: "Tampa Bay Buccaneers" },
+            { title: "Tennessee Titans" },
+            { title: "Washington Commanders" },
+            { title: "View All NFL" },
+          ],
         },
         {
-          event_title: "MLB Baseball",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/102180/102180-300x300.jpg",
+          title: "NBA",
+          performers: [
+            { title: "Atlanta Hawks" },
+            { title: "Boston Celtics" },
+            { title: "Brooklyn Nets" },
+            { title: "Charlotte Hornets" },
+            { title: "Chicago Bulls" },
+            { title: "Cleveland Cavaliers" },
+            { title: "Dallas Mavericks" },
+            { title: "Denver Nuggets" },
+            { title: "Detroit Pistons" },
+            { title: "Golden State Warriors" },
+            { title: "Houston Rockets" },
+            { title: "Indiana Pacers" },
+            { title: "Los Angeles Clippers" },
+            { title: "Los Angeles Lakers" },
+            { title: "Memphis Grizzlies" },
+            { title: "Miami Heat" },
+            { title: "Milwaukee Bucks" },
+            { title: "Minnesota Timberwolves" },
+            { title: "New Orleans Pelicans" },
+            { title: "New York Knicks" },
+            { title: "Oklahoma City Thunder" },
+            { title: "Orlando Magic" },
+            { title: "Philadelphia 76ers" },
+            { title: "Phoenix Suns" },
+            { title: "Portland Trail Blazers" },
+            { title: "Sacramento Kings" },
+            { title: "San Antonio Spurs" },
+            { title: "Toronto Raptors" },
+            { title: "Utah Jazz" },
+            { title: "Washington Wizards" },
+            { title: "View All NBA" },
+          ],
         },
         {
-          event_title: "NBA Basketball",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/7535/7535-300x300.jpg",
+          title: "MLB",
+          performers: [
+            { title: "Arizona Diamondbacks" },
+            { title: "Atlanta Braves" },
+            { title: "Baltimore Orioles" },
+            { title: "Boston Red Sox" },
+            { title: "Chicago Cubs" },
+            { title: "Chicago White Sox" },
+            { title: "Cincinnati Reds" },
+            { title: "Cleveland Guardians" },
+            { title: "Colorado Rockies" },
+            { title: "Detroit Tigers" },
+            { title: "Houston Astros" },
+            { title: "Kansas City Royals" },
+            { title: "Los Angeles Angels" },
+            { title: "Los Angeles Dodgers" },
+            { title: "Miami Marlins" },
+            { title: "Milwaukee Brewers" },
+            { title: "Minnesota Twins" },
+            { title: "New York Mets" },
+            { title: "New York Yankees" },
+            { title: "Oakland Athletics" },
+            { title: "Philadelphia Phillies" },
+            { title: "Pittsburgh Pirates" },
+            { title: "San Diego Padres" },
+            { title: "San Francisco Giants" },
+            { title: "Seattle Mariners" },
+            { title: "St. Louis Cardinals" },
+            { title: "Tampa Bay Rays" },
+            { title: "Texas Rangers" },
+            { title: "Toronto Blue Jays" },
+            { title: "Washington Nationals" },
+            { title: "View All MLB" },
+          ],
         },
         {
-          event_title: "NHL Hockey",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/32013/32013-300x300.jpg",
+          title: "NHL",
+          performers: [
+            { title: "Anaheim Ducks" },
+            { title: "Arizona Coyotes" },
+            { title: "Boston Bruins" },
+            { title: "Buffalo Sabres" },
+            { title: "Calgary Flames" },
+            { title: "Carolina Hurricanes" },
+            { title: "Chicago Blackhawks" },
+            { title: "Colorado Avalanche" },
+            { title: "Columbus Blue Jackets" },
+            { title: "Dallas Stars" },
+            { title: "Detroit Red Wings" },
+            { title: "Edmonton Oilers" },
+            { title: "Florida Panthers" },
+            { title: "Los Angeles Kings" },
+            { title: "Minnesota Wild" },
+            { title: "Montreal Canadiens" },
+            { title: "Nashville Predators" },
+            { title: "New Jersey Devils" },
+            { title: "New York Islanders" },
+            { title: "New York Rangers" },
+            { title: "Ottawa Senators" },
+            { title: "Philadelphia Flyers" },
+            { title: "Pittsburgh Penguins" },
+            { title: "San Jose Sharks" },
+            { title: "Seattle Kraken" },
+            { title: "St. Louis Blues" },
+            { title: "Tampa Bay Lightning" },
+            { title: "Toronto Maple Leafs" },
+            { title: "Vancouver Canucks" },
+            { title: "Washington Capitals" },
+            { title: "Winnipeg Jets" },
+            { title: "Vegas Golden Knights" },
+            { title: "View All NHL" },
+          ],
         },
         {
-          event_title: "Monster Jam",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/2541/2541-300x300.jpg",
-        },
-        {
-          event_title: "Soccer Champions Tour",
-          event_link: "/",
-          event_image_src:
-            "https://d3b7ca3kks92i5.cloudfront.net/performer/196893/196893-300x300.jpg",
-        },
-        {
-          event_title: "CONCACAF Gold Cup",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/71297/71297-300x300.jpg",
-        },
-        {
-          event_title: "US Open Tennis Championship",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/10217/10217-300x300.jpg",
+          title: "MLS",
+          performers: [
+            { title: "Atlanta United FC" },
+            { title: "Chicago Fire" },
+            { title: "FC Cincinnati" },
+            { title: "Colorado Rapids" },
+            { title: "Columbus Crew SC" },
+            { title: "D.C. United" },
+            { title: "FC Dallas" },
+            { title: "Houston Dynamo" },
+            { title: "Inter Miami CF" },
+            { title: "LAFC" },
+            { title: "LA Galaxy" },
+            { title: "Minnesota United FC" },
+            { title: "Montreal Impact" },
+            { title: "Nashville SC" },
+            { title: "New England Revolution" },
+            { title: "New York City FC" },
+            { title: "New York Red Bulls" },
+            { title: "Orlando City SC" },
+            { title: "Philadelphia Union" },
+            { title: "Portland Timbers" },
+            { title: "Real Salt Lake" },
+            { title: "San Jose Earthquakes" },
+            { title: "Seattle Sounders FC" },
+            { title: "Sporting Kansas City" },
+            { title: "Toronto FC" },
+            { title: "Vancouver Whitecaps FC" },
+            { title: "View All MLS" },
+          ],
         },
       ],
     },
     {
       title: "Theatre",
-      id: 3,
-      link: "/theatre-tickets",
-      top_events: [
+      link: "theatre-tickets",
+      id: 2,
+      sub_category: [
         {
-          event_title: "Hamilton",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/68098/68098-300x300.jpg",
+          title: "Broadway",
+          performers: [
+            {
+              title: "Hamilton",
+            },
+            {
+              title: "Wicked",
+            },
+            {
+              title: "The Phantom Of The Opera",
+            },
+            {
+              title: "The Book Of Mormon",
+            },
+            {
+              title: "Dear Evan Hansen",
+            },
+            {
+              title: "Chicago - The Musical",
+            },
+            {
+              title: "Mrs Doubtfire",
+            },
+            {
+              title: "Jagged Little Pill",
+            },
+            {
+              title: "Jersey Boys",
+            },
+            {
+              title: "Aladdin",
+            },
+            {
+              title: "View All Broadway",
+            },
+          ],
         },
         {
-          event_title: "The Lion King",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/3160/3160-300x300.jpg",
+          title: "Family",
+          performers: [
+            {
+              title: "Baby Shark Live",
+            },
+            {
+              title: "Paw Patrol",
+            },
+            {
+              title: "Trolls Live",
+            },
+            {
+              title: "JoJo Siwa",
+            },
+            {
+              title: "Disney on Ice",
+            },
+            {
+              title: "Frozen - The Musical",
+            },
+            {
+              title: "Mini Pops Kids",
+            },
+            {
+              title: "Family",
+            },
+          ],
         },
         {
-          event_title: "Disney on Ice",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/17332/17332-300x300.jpg",
+          title: "On Tour",
+          performers: [
+            {
+              title: "Hamilton",
+            },
+            {
+              title: "The Band's Visit",
+            },
+            {
+              title: "Frozen",
+            },
+            {
+              title: "Hadestown",
+            },
+            {
+              title: "The Illusionists",
+            },
+            {
+              title: "Jersey Boys",
+            },
+            {
+              title: "Jesus Christ Superstar",
+            },
+            {
+              title: "My Fair Lady",
+            },
+            {
+              title: "Moulin Rouge",
+            },
+            {
+              title: "What The Constitution Means To Me",
+            },
+            {
+              title: "View All Broadway-Tour",
+            },
+          ],
         },
         {
-          event_title: "The Music Man",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/104478/104478-300x300.jpg",
-        },
-        {
-          event_title: "The Phantom Of The Opera",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/811/811-300x300.jpg",
-        },
-        {
-          event_title: "Wicked",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/1145/1145-300x300.jpg",
-        },
-        {
-          event_title: "Moulin Rouge!",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/28869/28869-300x300.jpg",
-        },
-        {
-          event_title: "Aladdin",
-          event_link: "/",
-          event_image_src:
-            "https://scorebig-brand.s3.amazonaws.com/images/performer/2785/2785-300x300.jpg",
+          title: "Musicals",
+          performers: [
+            {
+              title: "Waitress",
+            },
+            {
+              title: "The Addams Family",
+            },
+            {
+              title: "Saturday Night Fever",
+            },
+            {
+              title: "Shrek The Musical",
+            },
+            {
+              title: "A Bronx Tale",
+            },
+            {
+              title: "To Kill a Mockingbird",
+            },
+            {
+              title: "The Book of Mormon",
+            },
+            {
+              title: "Harry Potter and the Cursed Child",
+            },
+            {
+              title: "View All Musicals",
+            },
+          ],
         },
       ],
     },

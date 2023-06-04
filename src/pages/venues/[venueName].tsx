@@ -9,6 +9,7 @@ import { capitalizeString } from "@/utils/capitalize-string";
 import { convertQueryToTitle } from "@/utils/query-to-title";
 import { useDataContext } from "@/context/data.context";
 import Hero from "@/components/Categories/Hero";
+import Loading from "@/components/Loading";
 
 const VenuePage: React.FC = () => {
   const { query } = useRouter();
@@ -17,6 +18,7 @@ const VenuePage: React.FC = () => {
   const [venueTitle, setVenueTitle] = useState("");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
+  const [loading, setLoading] = useState<number | null>(0);
 
   useEffect(() => {
     if (venueName) {
@@ -33,11 +35,15 @@ const VenuePage: React.FC = () => {
     if (venueData) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents({
-            venueID: venueData.ID,
-            // numberOfEvents: eventNumber,
-            // orderByClause: "Date%20DESC",
-          });
+          const response = await fetchGetEvents(
+            {
+              venueID: venueData.ID,
+              orderByClause: "Date ASC",
+              whereClause: "",
+              // numberOfEvents: eventNumber,
+            },
+            setLoading
+          );
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {
@@ -60,11 +66,15 @@ const VenuePage: React.FC = () => {
         <div className="position-relative my-5">
           <Hero title={venueTitle} />
         </div>
-        <EventList
-          eventNumber={eventNumber}
-          setEventNumber={setEventNumber}
-          events={events}
-        />
+        {loading && loading < 100 ? (
+          <Loading progress={loading} />
+        ) : (
+          <EventList
+            eventNumber={eventNumber}
+            setEventNumber={setEventNumber}
+            events={events}
+          />
+        )}
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
         <NewsLetterForm />

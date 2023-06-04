@@ -18,6 +18,7 @@ import {
 } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
 import TopNationalEvents from "@/components/Categories/TopNationalEvents";
+import Loading from "@/components/Loading";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -26,8 +27,7 @@ const CategoryPage: React.FC = () => {
   const categoryName = query.categoryName as string;
   const [categoryTitle, setCategoryTitle] = useState("");
 
-  console.log(categoryTitle);
-
+  const [loading, setLoading] = useState<number | null>(0);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
@@ -71,12 +71,16 @@ const CategoryPage: React.FC = () => {
     if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents({
-            parentCategoryID: categoryData[0].ParentCategoryID,
-            childCategoryID: categoryData[0].ChildCategoryID,
-            // orderByClause: "Date%20DESC",
-             numberOfEvents: eventNumber,
-          });
+          const response = await fetchGetEvents(
+            {
+              parentCategoryID: categoryData[0].ParentCategoryID,
+              childCategoryID: categoryData[0].ChildCategoryID,
+              orderByClause: "Date ASC",
+              whereClause: "",
+              numberOfEvents: eventNumber,
+            },
+            setLoading
+          );
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {
@@ -114,11 +118,15 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList
-                eventNumber={eventNumber}
-                setEventNumber={setEventNumber}
-                events={events}
-              />
+              {loading && loading < 100 ? (
+                <Loading progress={loading} />
+              ) : (
+                <EventList
+                  eventNumber={eventNumber}
+                  setEventNumber={setEventNumber}
+                  events={events}
+                />
+              )}
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />

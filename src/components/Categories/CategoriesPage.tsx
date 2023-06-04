@@ -96,7 +96,7 @@ const CategoriesPage: React.FC = () => {
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {loading === 0 ? (
+              {loading && loading < 100 ? (
                 <Loading progress={loading} />
               ) : (
                 <EventList
