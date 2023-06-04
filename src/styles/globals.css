@@ -203,6 +203,11 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   text-indent: 0 !important;
   width: auto !important;
   margin-right: 10px !important;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  margin-top: 10px;
 }
 #sea-inventory-slider-with-filterBtn
   .sea-inventory-slider
@@ -246,6 +251,16 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 #sea-filterCard-wrapper .switch .filter-tg-type-text {
   display: inline-block;
   padding: 6px 0;
+}
+
+@media screen and (min-width: 992px) {
+  .pre-checkout-parent,
+  .sea-filterCard-parent {
+    position: absolute;
+    overflow-y: auto;
+    right: -360px;
+    width: 360px;
+  }
 }
 
 #sea-filterCard-wrapper .switch .slider {
@@ -450,6 +465,24 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   padding: 5px 7px;
 }
 
+.sea-btn {
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  text-align: center;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+}
+
 .sort-cnt .sea-btn:last-child {
   border: none;
 }
@@ -513,8 +546,27 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 .sea-btn.active .sort-opt-label {
   color: #008a17;
 }
+.pre-checkout-parent,
+.sea-filterCard-parent {
+  display: none;
+  top: 0;
+  background: #fff;
+  color: #333;
+  height: 100%;
+  overflow-x: hidden;
+  z-index: 99999;
+  transition: right 0.3s;
+}
 
 @media screen and (max-width: 991px) {
+  .pre-checkout-parent,
+  .sea-filterCard-parent {
+    position: fixed;
+    overflow-y: visible;
+    right: -85%;
+    width: 85%;
+  }
+
   #legend-ctn-mobile {
     display: block;
   }
@@ -1627,7 +1679,7 @@ th {
     justify-content: center;
   }
   .sea-map-inner {
-    display: none;
+    display: block !important;
   }
 }
 .event-info-inner-ctn {
@@ -1789,6 +1841,12 @@ th {
                 }
                 */
 }
+@media screen and (min-width: 992px) {
+  .sea-ticket-list-show-price-col-desktop .venue-ticket-list-cta-col {
+    text-align: center;
+    width: 70px;
+  }
+}
 
 .venue-ticket-list-cta-col {
   line-height: 20px;
@@ -1886,6 +1944,18 @@ div#top-search {
 button.desktop-precheckout-cta-btn,
 #pre-checkout-map-toggle {
   background-color: #ef495e;
+}
+.pre-checkout-price-cta {
+  background-color: #29c142;
+  border-radius: 2px;
+  color: #252525;
+  display: table-cell;
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  transition: 0.3s;
+  width: 100%;
 }
 .btn.btn-primary.active:hover,
 .filter-tg-type .btn.active,
@@ -2093,10 +2163,35 @@ h4 {
   }
 }
 
+.pre-checkout-delivery-note,
+.sea-pre-checkout-delivery-note-hdr {
+  font-size: 14px;
+  padding: 0 15px;
+}
+
+#sea-pre-checkout-disclaimer-ctn,
+.pre-checkout-delivery-ctn {
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#sea-pre-checkout-disclaimer-ctn {
+  padding: 0 15px 15px 15px;
+  line-height: 17px;
+}
+
+.pre-checkout-delivery-label {
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 991px) {
   /* Mobile version */
   .event-info-name {
     font-size: 14px;
+  }
+  #pre-checkout-delivery-note.pre-checkout-background {
+    background: none;
   }
 
   .header-container {
