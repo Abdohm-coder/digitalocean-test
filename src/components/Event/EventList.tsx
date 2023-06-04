@@ -47,10 +47,10 @@ const EventList: React.FC<{
                   </p>
                 </div>
                 <div className="flex-fill">
-                  <h5 className="mb-1 text-muted">
+                  <h5 className="mb-1 text-muted">{Name}</h5>
+                  <p className="m-0 text-muted">
                     {Venue} - {City}, {StateProvince}
-                  </h5>
-                  <p className="m-0 text-muted">{Name}</p>
+                  </p>
                 </div>
                 <button
                   style={{ whiteSpace: "nowrap" }}

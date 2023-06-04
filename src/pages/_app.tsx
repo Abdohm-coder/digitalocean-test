@@ -9,8 +9,10 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { DataProvider } from "@/context/data.context";
+import { usePathname } from "next/navigation";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const pathname = usePathname();
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
@@ -22,7 +24,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <ScrollToTop />
       <Navbar />
       <Component {...pageProps} />
-      <Footer />
+      {!pathname?.includes("/tickets") && <Footer />}
     </DataProvider>
   );
 };

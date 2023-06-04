@@ -1,3 +1,4 @@
+import { siteSettings } from "@/settings/site.settings";
 import React from "react";
 
 const TicketInfo: React.FC<{ categoryTitle: string }> = ({ categoryTitle }) => {
@@ -5,7 +6,7 @@ const TicketInfo: React.FC<{ categoryTitle: string }> = ({ categoryTitle }) => {
     <section className="py-5">
       <h4 className="text-capitalize">{categoryTitle} Ticket Info</h4>
       <p>
-        {`TicketNetwork is the best place to find tickets to that concert you want to cross off of your bucket list.
+        {`${siteSettings.site_name} is the best place to find tickets to that concert you want to cross off of your bucket list.
         Concert tickets are on our site for a discounted price, and a wide range of seats creates an extensive selection
         for you to choose from. Enjoy mainstream music? Taylor Swift's tickets will be popular once she announces her
         tour following the release of her new album! Want to see your favorite indie band that’s only touring at small
@@ -17,10 +18,10 @@ const TicketInfo: React.FC<{ categoryTitle: string }> = ({ categoryTitle }) => {
         {`Music festivals are also another way we bring you the best concert
         experiences, as these fun events host an assortment of artists from
         diverse genres. There is no limit to the music entertainment that
-        TicketNetwork provides for our customers.`}
+        ${siteSettings.site_name} provides for our customers.`}
       </p>
       <p>
-        {`Pushing past music, TicketNetwork also features some of the best
+        {`Pushing past music, ${siteSettings.site_name} also features some of the best
         stand-up comedians in the industry. Big names include Jeff Dunham and
         Amy Schumer. Entertainment is not a narrow concept at our company, and
         your version of a fun night out is just a few clicks away.`}

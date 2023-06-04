@@ -15,6 +15,7 @@ import {
   fetchGetEvents,
   fetchHighSalesPerformers,
 } from "@/settings/site.settings";
+import Loading from "../Loading";
 
 const CategoriesPage: React.FC = () => {
   const pathname = usePathname();
@@ -26,6 +27,7 @@ const CategoriesPage: React.FC = () => {
   const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
     []
   );
+  const [loading, setLoading] = useState<number | null>(0);
 
   const categoryData = useMemo(() => {
     return categories.filter(({ ParentCategoryDescription }) =>
@@ -33,18 +35,19 @@ const CategoriesPage: React.FC = () => {
     );
   }, [categories, categoryTitle]);
 
-  console.log(categoryData);
-
   useEffect(() => {
     if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents({
-            parentCategoryID: categoryData[0]?.ParentCategoryID,
-            orderByClause: "Date ASC",
-            whereClause: "",
-            // numberOfEvents: eventNumber,
-          });
+          const response = await fetchGetEvents(
+            {
+              parentCategoryID: categoryData[0]?.ParentCategoryID,
+              orderByClause: "Date ASC",
+              whereClause: "",
+              // numberOfEvents: eventNumber,
+            },
+            setLoading
+          );
           setEvents(response || []);
           console.log(response || []);
         } catch (error) {
@@ -93,11 +96,15 @@ const CategoriesPage: React.FC = () => {
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              <EventList
-                eventNumber={eventNumber}
-                setEventNumber={setEventNumber}
-                events={events}
-              />
+              {loading === 0 ? (
+                <Loading progress={loading} />
+              ) : (
+                <EventList
+                  eventNumber={eventNumber}
+                  setEventNumber={setEventNumber}
+                  events={events}
+                />
+              )}
             </div>
             <div className="col-4 d-none d-lg-block">
               <Guarantee />

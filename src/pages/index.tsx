@@ -15,7 +15,7 @@ const HomePage = () => {
       <main>
         <Hero />
         <div className="container">
-          <TopEvents count={3} title="Top Event In USA" />
+          <TopEvents title="Top Event In USA" />
           {siteSettings.main_categories.map((category) => (
             <Events key={`category: ${category.title}`} {...category} />
           ))}
