@@ -83,7 +83,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			Seatics.config = Seatics.config || {};
 
 			Seatics.config.enableLegalDisclosureMobile = true;
-			Seatics.config.listLegalDisclosure = '<div class="sea-list-marketing-inner">\ <span class="sea-list-marketing-label" id="sea-listdisclosurelabel" style="font-size:1.0em; font-family: Arial; font-weight:900; text-align:justify; width:100%;">As a resale marketplace, prices may be above face value.</span>\ </div><div id="sea-list-legal-close" class="sea-listmarketing-close cm-close"></div>';
 			Seatics.config.useC3 = true;
       Seatics.config.c3CheckoutDomain = "checkout.ticketfront.com";
 			Seatics.config.c3CurrencyCode = 'USD';
@@ -106,13 +105,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			Seatics.config.enableListMarketingMobile = false;
 			Seatics.config.smallScreenMapLayout = Seatics.SmallScreenMapOptions.FullyHidden;
 			Seatics.config.tgGuaranteeNoteHtml = '';
-      Seatics.config.eventInfoLeftCol = "<a href='" + seaticsBackUrl + "' class='back-category-js mobile-back-btn'><span class='icon arrow-right-small'></span> Back</a>";
 			Seatics.config.eventInfoRightCol = '<a id="headerPhoneNum" class="btn btn-default btn-sm" href="tel:8888913794"><i class="fa fa-phone"></i></a>';
 			Seatics.config.showZoomControls = true;
 			Seatics.config.enableFeedBack = false;
-			Seatics.config.enableHeaderMarketing = true;
-			Seatics.config.headerMarketingHtmlFilter = '<span class="sea-marketing-header-gift icon-gift"></span><div id="sea-marketing-header-close" class="sea-marketing-header-close icon-cancel"></div><span class="sea-marketing-header-label"><strong><em>Attend in Style</em></strong></span><span class="sea-marketing-header-label">Explore ticket packages for extra access, amenities & more.</span><span class="sea-marketing-header-label-show">Show Packages</span>';
-			Seatics.config.headerMarketingHtmlAll = '<span class="sea-marketing-header-gift icon-gift"></span><div id="sea-marketing-header-close" class="sea-marketing-header-close icon-cancel"></div><span class="sea-marketing-header-label"><strong><em>Attend in Style</em></strong></span><span class="sea-marketing-header-label">Explore ticket packages for extra access, amenities & more.</span><span class="sea-marketing-header-label-show">Hide Packages</span>';
+			Seatics.config.enableHeaderMarketing = false;
       Seatics.config.noTicketsHandler = function () {
         $('.pdp-blurbtext, .desktop-back-btn').hide();
         document.title = 'No Tickets Available';

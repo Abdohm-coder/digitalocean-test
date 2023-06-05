@@ -2004,18 +2004,23 @@ th {
   background: #fec63c;
 }
 @media screen and (max-width: 991px) {
+  .map-Fully-Hidden {
+    background: rgba(255, 255, 255, 0.7) !important;
+    color: #8e8e93 !important;
+  }
+
   #event-info-area {
     margin-top: 0;
   }
   /*-------------*/
   #list-ctn {
-    top: 16px;
+    top: -330px !important;
   }
   .sea-map-inner {
     display: block !important;
   }
 
-  #map-shower[aria-expanded=true] + #venue-map {
+  #map-shower[aria-expanded="true"] + #venue-map {
     top: 0 !important;
   }
 }
@@ -2175,7 +2180,7 @@ th {
   .list-ctn {
     position: relative;
     /*top: 350px !important;*/
-  }                                 
+  }
 }
 @media screen and (max-aspect-ratio: 13 / 9) and (max-width: 991px) {
   .hideMapFull #map-ctn {
