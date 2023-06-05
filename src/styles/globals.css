@@ -110,7 +110,6 @@ div.position-absolute.search-none {
   list-style: none;
 }
 
-
 .rounded-img {
   border-radius: 2rem;
 }
@@ -125,7 +124,7 @@ div.position-absolute.search-none {
   padding-left: 10px;
 }
 
-.event-info-disclaimer ul:first-child {
+.event-info-disclaimer ul li:nth-child(1) {
   padding-left: 7px;
 }
 
@@ -2008,19 +2007,12 @@ th {
   #list-ctn {
     top: 16px;
   }
-
-  .showMap #map-shower {
-    width: 100%;
-    text-align: center;
-    background: #000;
-    border-radius: 0;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   .sea-map-inner {
     display: block !important;
+  }
+
+  #map-shower[aria-expanded=true] + .venue-map {
+    top: 0 !important;
   }
 }
 .event-info-inner-ctn {
@@ -2091,13 +2083,9 @@ th {
   font-weight: 700;
   font-size: 20px !important;
 }
-.event-info-disclaimer ul {
-  padding: 0;
-}
 .event-info-disclaimer ul li {
   color: #000 !important;
   font-size: 13px !important;
-  padding: 2px 0 0 17px;
   list-style: none !important;
 }
 .event-info-date-ctn {
@@ -2183,6 +2171,17 @@ th {
   .list-ctn {
     position: relative;
     /*top: 350px !important;*/
+  }                                 
+}
+@media screen and (max-aspect-ratio: 13 / 9) and (max-width: 991px) {
+  .hideMapFull #map-ctn {
+    position: absolute;
+    top: -150px;
+    height: auto;
+  }
+  .hideMapFull #list-ctn,
+  .hideMapFull .legendDriven {
+    top: 50px !important;
   }
 }
 @media screen and (max-width: 991px) {
