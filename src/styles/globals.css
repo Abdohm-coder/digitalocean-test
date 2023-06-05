@@ -563,6 +563,9 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
     background-color: #1a1a1a;
     color: #fff;
   }
+  .venue-map {
+    position: relative !important;
+  }
   .sea-pre-checkout-wrapper {
     overflow-x: hidden;
     overflow-y: auto;
@@ -2021,6 +2024,7 @@ th {
 }
 .event-info-ctn {
   z-index: 1 !important;
+  position: relative !important;
 }
 @media only screen and (min-width: 992px) {
   .event-info-ctn {
@@ -2096,6 +2100,10 @@ th {
   }
 }
 @media screen and (max-width: 991px) {
+  .event-info-ctn {
+    position: relative !important;
+  }
+
   .event-info-right-col,
   .desktop-vfs-bg-overlay,
   .Sea-StaticMapMessage,
@@ -2282,7 +2290,7 @@ div#top-search {
   font-weight: bold !important;
   padding: 10px !important;
   transition: 0.3s !important;
-  width: 100 !important%;
+  width: 100% !important;
 }
 .filter-tg-type-cell.active:hover,
 .filters-price-slider .noUi-connect,

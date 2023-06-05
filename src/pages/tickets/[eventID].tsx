@@ -89,10 +89,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     </script>
   `;
 
-  const updatedWidgetHTML = widgetHTML.replace(
-    "</head>",
-    `${additionalScript}</head>`
-  );
+  const updatedWidgetHTML = widgetHTML + additionalScript;
+
   console.log(updatedWidgetHTML);
 
   return {
