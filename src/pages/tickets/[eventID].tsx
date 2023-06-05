@@ -42,8 +42,8 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const eventID = context.params?.eventID;
-  const userAgent = "something";
   const WBCID = 4626;
+  const userAgent = context.headers?.["user-agent"] || "something";
 
   const response = await axios.get(
     `https://mapwidget3.seatics.com/html?eventId=${eventID}&websiteConfigId=${WBCID}&userAgent=${userAgent}`
@@ -78,7 +78,7 @@ Seatics.SmallScreenMapOptions.FullyHidden;
               };
               
               Seatics.config.mapFinishedRenderingHandler = function(){
-                    $('#tn-maps').addClass('completed');                
+                    document.querySelector('#tn-maps').classList.add('completed');                
                     Seatics.config.ticketSeparationOptions = {
                       packages: Seatics.TicketGroupSeparationOptions.Separate,
                       parking: Seatics.TicketGroupSeparationOptions.Separate,
@@ -90,7 +90,7 @@ Seatics.SmallScreenMapOptions.FullyHidden;
                 
                 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                     console.log("dsd");
-                    setTimeout(function(){ $("#list-ctn").css({ top: '96px' }); }, 900);
+                    setTimeout(function(){ document.querySelector("#list-ctn").style.top = '96px'; }, 900);
                     
 }
                   };

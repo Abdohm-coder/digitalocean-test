@@ -171,7 +171,6 @@ div.position-absolute.search-none {
   /*width: 96% !important;*/
   padding-bottom: 40px !important;
   padding-top: 40px !important;
-  display: flex;
 }
 
 @media only screen and (min-width: 740px) {
@@ -225,10 +224,6 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   font-weight: bold;
 }
 
-.sea-precheckout-parent-active {
-  right: 0;
-}
-
 .sea-filterCard-parent {
   padding: 15px 20px 20px 20px;
 }
@@ -261,6 +256,10 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
     right: -360px;
     width: 360px;
   }
+}
+
+.sea-precheckout-parent-active {
+  right: 0;
 }
 
 #sea-filterCard-wrapper .switch .slider {
@@ -559,6 +558,292 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 }
 
 @media screen and (max-width: 991px) {
+  .map-Fully-Hidden {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+  .sea-pre-checkout-wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.sea-no-vfs-show-details .pre-checkout-back-row {
+  border-bottom: 1px #ccc solid;
+  height: 64px;
+  position: static;
+}
+
+.pre-checkout-back-to-list {
+  display: inline-block;
+  float: left;
+  height: 100%;
+  line-height: 35px;
+  text-align: left;
+  padding: 15px 0 15px 8px;
+  width: 55px;
+}
+.sea-accessible-button {
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.sea-countdown-parent {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  text-align: right;
+}
+
+.pre-checkout-back-row {
+  color: #252525;
+  font-size: 11px;
+  height: 50px;
+  opacity: 0.95;
+  padding: 0 7px;
+  position: absolute;
+  top: 0;
+  z-index: 9;
+}
+
+.pre-checkout-vfs-ctn {
+  background-color: #fefefe;
+  text-align: center;
+  height: auto;
+  top: 110px;
+  width: 100%;
+  left: 0;
+  display: table;
+}
+
+.pre-checkout-vfs-note-ctn {
+  position: relative;
+  display: table-cell;
+  width: 50%;
+}
+
+.sea-no-vfs-show-details .pre-checkout-vfs-ctn-img,
+.sea-no-vfs-show-details .pre-checkout-vfs-note,
+.sea-no-vfs-show-details .pre-checkout-vfs-tg-info-price {
+  display: none;
+}
+
+.pre-checkout-vfs-ctn-img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.sea-no-vfs-show-details .pre-checkout-vfs-tg-info {
+  border: none;
+  bottom: 10px;
+  left: 55px;
+}
+
+.pre-checkout-vfs-tg-info {
+  bottom: 0;
+  color: #fff;
+  display: table-cell;
+  position: absolute;
+  text-align: left;
+  vertical-align: top;
+  width: 100%;
+}
+
+@media only screen and (max-width: 991px) {
+  #pre-checkout-scrollable,
+  #pre-checkout-vfs-tg-info * {
+    line-height: 1.2;
+  }
+}
+.pre-checkout-vfs-tg-info-price #pre-checkout-tg-info-price {
+  color: #252525;
+}
+.sea-no-vfs-show-details .pre-checkout-vfs-tg-info-color {
+  height: 38px;
+}
+.sea-quantity-container fieldset {
+  border: 0;
+  min-inline-size: auto;
+}
+.sea-quantity-items {
+  margin: 0;
+  padding: 0 21px;
+}
+@media screen and (max-width: 991px) {
+  .sea-quantity-items {
+    padding: 0;
+  }
+  .sea-quantity-slider .slick-arrow {
+    display: none !important;
+  }
+  .sea-quantity-items .slick-list {
+    margin: 0;
+    width: 100%;
+  }
+}
+.sea-quantity-items li span {
+  display: table;
+  margin: 0 auto;
+}
+.sea-quantity-items li {
+  background-color: #fff;
+  border: solid 1px #d2d2d2;
+  border-radius: 50%;
+  color: #000;
+  cursor: pointer;
+  height: 52px;
+  margin-right: 8px;
+  outline: none;
+  padding: 15px 0;
+  width: 52px;
+  transition: 0.3s;
+}
+.sea-quantity-items .slick-next {
+  right: 0;
+  margin-top: -40px;
+}
+.pre-checkout-price-text-ctn {
+  display: block;
+  color: #252525;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+  padding: 0 15px;
+  height: 37px;
+  position: relative;
+}
+.vertical-align-middle {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.pre-checkout-est-section-50 {
+  float: left;
+  width: 42%;
+}
+.pre-checkout-est-section-50 strong {
+  color: #333;
+}
+.pre-checkout-est-section-30 {
+  float: left;
+  width: 30%;
+  text-align: center;
+}
+.pre-checkout-price-amt {
+  font-size: 14px;
+  font-weight: bold;
+  color: #252525;
+}
+.sea-precheckout-fees-parent {
+  padding: 0 15px;
+  color: #252525;
+  margin-bottom: 10px;
+  line-height: 11px;
+}
+.pre-checkout-price-ctn {
+  font-size: 12px;
+  padding: 0 10px;
+  position: relative;
+  width: 100%;
+  height: 55px;
+}
+.filter-tg-type-cell.active:hover,
+.filters-price-slider .noUi-connect,
+.pre-checkout-price-cta,
+button.desktop-precheckout-cta-btn,
+#pre-checkout-map-toggle {
+  background-color: #ef495e;
+}
+#sort-hidden-label,
+.event-info-disclaimer,
+.venue-ticket-list-quantity,
+.venue-ticket-list-cta-amt-suffix {
+  color: #808285;
+}
+.pre-checkout-est-section-20 {
+  float: left;
+  width: 28%;
+  text-align: right;
+}
+.seatics button,
+.seatics [role="button"],
+.seatics .btn,
+.seatics li.slick-slide {
+  outline-offset: -3px;
+}
+.pre-checkout-vfs-tg-info-color {
+  height: 100%;
+  position: absolute;
+  width: 5px;
+}
+.sea-quantity-items .slick-disabled {
+  color: #c4c4c4;
+  cursor: default;
+}
+.sea-quantity-items .slick-prev {
+  left: 0;
+  padding: 0;
+}
+.sea-quantity-items .slick-prev,
+.sea-quantity-items .slick-next {
+  color: #333;
+  cursor: pointer;
+  margin: 15px 0;
+  position: absolute;
+  width: 22px;
+  z-index: 9999;
+}
+.sea-quantity-items button {
+  background: none;
+  border: none;
+}
+
+.sea-no-vfs-show-details .pre-checkout-vfs-tg-info-text {
+  background: none;
+  color: #333;
+  padding-top: 0;
+  width: 275px;
+}
+.pre-checkout-vfs-tg-info-text {
+  background: #000;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #111, #000);
+  padding: 10px 0 0 15px;
+  width: 100%;
+}
+#sea-precheckout-section-tg-type-icon {
+  margin-right: 5px;
+}
+#pre-checkout-tg-info-section,
+#sea-precheckout-section-tg-type-icon {
+  float: left;
+  line-height: 12px;
+}
+#pre-checkout-tg-info-section,
+#pre-checkout-tg-info-row,
+#pre-checkout-tg-info-price {
+  color: #252525;
+  font-size: 12px;
+}
+.venue-ticket-list-section-row-text {
+  font-weight: bold;
+}
+#pre-checkout-tg-info-row {
+  bottom: 6px;
+  position: relative;
+  display: inline-block;
+}
+
+.sea-pre-checkout-wrapper {
+  height: auto;
+  position: relative;
+}
+
+@media screen and (max-width: 991px) {
   .pre-checkout-parent,
   .sea-filterCard-parent {
     position: fixed;
@@ -712,9 +997,30 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   text-transform: uppercase;
   pointer-events: none;
 }
+.pre-checkout-delivery-help-icon {
+  float: right;
+  text-align: center;
+}
+#pre-checkout-delivery-methods {
+  font-size: 14px;
+}
 
-.sea-precheckout-sold-out #pre-checkout-price-cta {
+.sea-precheckout-sold-out {
   display: none;
+}
+.pre-checkout-delivery-ctn {
+  padding: 15px;
+  border-top: 1px solid #e6e6e6;
+  clear: both;
+  cursor: pointer;
+  float: left;
+}
+.sea-pre-checkout-face-price-parent {
+  display: none;
+}
+.pre-checkout-delivery-desc {
+  float: left;
+  margin: 10px 0 0;
 }
 
 .sea-precheckout-sold-out #pre-checkout-sold-cta {
@@ -726,6 +1032,13 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 }
 
 @media screen and (max-width: 991px) {
+  .sea-pre-checkout-price-ctn-gradient {
+    bottom: 0;
+    display: block;
+    height: 20px;
+    position: fixed;
+    width: 280px;
+  }
   #sea-sold-alert-wrapper-desktop {
     display: none;
   }
@@ -1774,6 +2087,18 @@ th {
     float: none;
   }
 }
+@media screen and (max-width: 991px) {
+  .event-info-right-col,
+  .desktop-vfs-bg-overlay,
+  .Sea-StaticMapMessage,
+  .sea-marketing-header,
+  .sea-marketing-html-map,
+  #sea-feedback-btn,
+  .event-info-date,
+  .event-info-date-ctn {
+    display: none !important;
+  }
+}
 .sea-marketing-header,
 .sea-marketing-html-map {
   display: none !important;
@@ -2168,12 +2493,31 @@ h4 {
   font-size: 14px;
   padding: 0 15px;
 }
+.moreDeliverycontent {
+  display: inline-block;
+  line-height: 17px;
+  position: relative;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.moreDeliverycontent ul {
+  padding-left: 15px;
+}
+.moreDeliverycontent ul li {
+  word-wrap: break-word;
+}
 
 #sea-pre-checkout-disclaimer-ctn,
 .pre-checkout-delivery-ctn {
   border-bottom: 1px solid #e6e6e6;
   margin-bottom: 20px;
   width: 100%;
+}
+#sea-pre-checkout-disclaimer-heading,
+#sea-pre-checkout-delivery-note-hdr {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 #sea-pre-checkout-disclaimer-ctn {
