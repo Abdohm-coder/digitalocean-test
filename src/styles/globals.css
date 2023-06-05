@@ -585,9 +585,6 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 }
 
 @media screen and (max-width: 991px) {
-  .venue-map {
-    position: relative !important;
-  }
   .sea-pre-checkout-wrapper {
     overflow-x: hidden;
     overflow-y: auto;
@@ -2016,10 +2013,6 @@ th {
   #event-info-area {
     margin-top: 0;
   }
-  /*-------------*/
-  #list-ctn {
-    top: -411px !important;
-  }
   .sea-map-inner {
     display: block !important;
   }
@@ -2171,18 +2164,13 @@ th {
   position: relative;
 }
 .list-ctn {
-  z-index: 1;
+  z-index: 1001;
 }
 
 #list.list-inner-ctn {
   height: auto !important;
 }
-@media screen and (max-width: 991px) {
-  .list-ctn {
-    position: relative;
-    /*top: 350px !important;*/
-  }
-}
+
 @media screen and (max-aspect-ratio: 13 / 9) and (max-width: 991px) {
   .hideMapFull #map-ctn {
     position: absolute;
@@ -2191,7 +2179,7 @@ th {
   }
   .hideMapFull #list-ctn,
   .hideMapFull .legendDriven {
-    top: 50px !important;
+    top: 50px;
   }
 }
 @media screen and (max-width: 991px) {
