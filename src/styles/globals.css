@@ -117,6 +117,7 @@ div.position-absolute.search-none {
 @media screen and (max-width: 786px) {
   .rounded-img {
     border-radius: 0px !important;
+    object-fit: contain !important;
   }
 }
 
@@ -1063,6 +1064,9 @@ button.desktop-precheckout-cta-btn,
 }
 
 @media screen and (max-width: 991px) {
+  .map-ctn {
+    top: -200px !important;
+  }
   .sea-pre-checkout-price-ctn-gradient {
     bottom: 0;
     display: block;
@@ -2014,7 +2018,7 @@ th {
   }
   /*-------------*/
   #list-ctn {
-    top: -330px !important;
+    top: -411px !important;
   }
   .sea-map-inner {
     display: block !important;
@@ -2040,10 +2044,6 @@ th {
 .event-info-place .cm-location {
   margin-top: 5px;
   display: inline-block;
-}
-.event-info-ctn {
-  z-index: 1 !important;
-  position: relative !important;
 }
 @media only screen and (min-width: 992px) {
   .event-info-ctn {
@@ -2115,9 +2115,6 @@ th {
   }
 }
 @media screen and (max-width: 991px) {
-  .event-info-ctn {
-    position: relative !important;
-  }
 
   .event-info-right-col,
   .desktop-vfs-bg-overlay,
@@ -2175,6 +2172,10 @@ th {
 }
 .list-ctn {
   z-index: 1;
+}
+
+#list.list-inner-ctn {
+  height: auto !important;
 }
 @media screen and (max-width: 991px) {
   .list-ctn {
