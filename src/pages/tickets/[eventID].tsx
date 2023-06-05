@@ -3,13 +3,42 @@ import axios from "axios";
 // import { BsArrowsAngleContract, BsArrowsFullscreen } from "react-icons/bs";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { siteSettings } from "@/settings/site.settings";
+import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
+import { useEffect, useState } from "react";
+import { GetEventsProps } from "@/types/data-types";
 
-const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
+const TicketPage = ({
+  widgetHTML,
+  eventID,
+}: {
+  widgetHTML: string;
+  eventID: string;
+}) => {
+  const [events, setEvents] = useState<GetEventsProps[]>([]);
+
+  useEffect(() => {
+    if (+eventID) {
+      const fetchEvents = async () => {
+        try {
+          const response = await fetchGetEvents({
+            eventID: +eventID,
+          });
+          setEvents(response || []);
+          console.log(response || []);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchEvents();
+    }
+  }, [eventID]);
   return (
     <div>
       <Head>
-        <title>Map Widget | {siteSettings.site_name}</title>
+        <title>
+          {events[0]?.Name || "Map Widget"} {events[0]?.DisplayDate} |{" "}
+          {siteSettings.site_name}
+        </title>
       </Head>
       <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
     </div>
@@ -194,6 +223,7 @@ container.addClass('postponed')
   return {
     props: {
       widgetHTML: updatedWidgetHTML,
+      eventID,
     },
   };
 };

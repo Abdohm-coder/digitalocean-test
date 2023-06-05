@@ -29,7 +29,7 @@ const TopNationalEvents: React.FC<{
           alt={`${name} image`}
           height={200}
           width={1200}
-          className="w-100 object-cover"
+          className="w-100 object-cover rounded-img"
         />
         <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
           {name}

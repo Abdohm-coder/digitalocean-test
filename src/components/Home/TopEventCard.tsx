@@ -29,7 +29,7 @@ const TopEventCard = ({ ID, Name, Venue, City, Date }: GetEventsProps) => {
         alt="image"
         width={840}
         height={540}
-        className="w-100 h-100 object-cover"
+        className="w-100 h-100 object-cover rounded-img"
       />
       <div className="w-100 position-absolute bottom-0 d-flex justify-content-between align-items-end p-3 text-white">
         <div>

@@ -93,7 +93,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
                   <Image
                     src={performerImage || DefaultImage}
                     alt={`${Description} image`}
-                    className="w-100 object-cover"
+                    className="w-100 object-cover rounded-img"
                     width={300}
                     height={300}
                   />

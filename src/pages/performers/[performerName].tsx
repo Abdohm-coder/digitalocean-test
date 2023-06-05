@@ -77,7 +77,7 @@ const PerformerPage: React.FC = () => {
             alt={`${performerTitle} image`}
             width={1200}
             height={300}
-            className="w-100 rounded-5 object-cover"
+            className="w-100 object-cover rounded-img"
           />
           <h1
             className="text-white m-0 fw-bold position-absolute text-capitalize"

@@ -160,4 +160,26 @@ div.position-absolute.search-none {
   }
 }
 
+.rounded-img {
+  border-radius: 2rem;
+}
+
+@media screen and (max-width: 786px) {
+  .rounded-img {
+    border-radius: 0px !important;
+  }
+}
+
+.event-info-disclaimer ul {
+  padding-left: 10px;
+}
+
+.event-info-disclaimer ul:first-child {
+  padding-left: 7px;
+}
+
+#event-info-area li {
+  display: inline !important;
+}
+
 /* Customize Map Widget */

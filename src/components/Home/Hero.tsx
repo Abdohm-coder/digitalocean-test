@@ -110,7 +110,7 @@ const Hero = () => {
             <>
               <div className="search-result-title">Performers</div>
               {removeDuplicatedElements(events, "Name").map(({ ID, Name }) => (
-                <div key={ID}>
+                <div onClick={() => setSearch("")} key={ID}>
                   <Link
                     href={`/performers/${convertTitleToPath(Name)}`}
                     className="search-result-item">
@@ -124,7 +124,7 @@ const Hero = () => {
             <>
               <div className="search-result-title">Venues</div>
               {searchVenues.map(({ ID, Name }) => (
-                <div key={ID}>
+                <div onClick={() => setSearch("")} key={ID}>
                   <Link
                     href={`/performers/${convertTitleToPath(Name)}`}
                     className="search-result-item">
