@@ -142,9 +142,6 @@ Seatics.config.mapFinishedRenderingHandler = function(){
             $('.event-info-date-time').html('Postponed');
             $('.event-info-date-time-span').html("<span class='cm-time'></span>Currently Postponed");
           }
-        if (container.length > 0 && !$('.desktop-back-btn').length) {
-            container.append(seaticsBackLinkHTML);
-        }
       $("#map-shower").on("click", () => {
         if($("#map-resize-txt").html() === "Show Map"){ $("#venue-map").css("top", "0"); $("#list-ctn").css("top", "330px                                                                                                                                                                                                                                   ")}
       })
