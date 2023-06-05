@@ -146,7 +146,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       })
 
     };
-  }
+  });
     </script>
   `;
 
