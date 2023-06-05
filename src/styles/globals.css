@@ -248,6 +248,10 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   padding: 6px 0;
 }
 
+.sea-precheckout-parent-active {
+  right: 0 !important;
+}
+
 @media screen and (min-width: 992px) {
   .pre-checkout-parent,
   .sea-filterCard-parent {
@@ -256,10 +260,6 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
     right: -360px;
     width: 360px;
   }
-}
-
-.sea-precheckout-parent-active {
-  right: 0;
 }
 
 #sea-filterCard-wrapper .switch .slider {
@@ -558,10 +558,11 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 }
 
 @media screen and (max-width: 991px) {
-  .map-Fully-Hidden {
+  .map-Fully-Hidden,
+  .venue-map-toggle-button {
     background-color: #1a1a1a;
     color: #fff;
-}
+  }
   .sea-pre-checkout-wrapper {
     overflow-x: hidden;
     overflow-y: auto;
@@ -670,6 +671,12 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
 .sea-quantity-container fieldset {
   border: 0;
   min-inline-size: auto;
+}
+.sea-quantity-container fieldset legend {
+  padding-top: 10px;
+  margin: 15px 0;
+  padding-left: 12px;
+  font-weight: bold;
 }
 .sea-quantity-items {
   margin: 0;
@@ -1998,6 +2005,7 @@ th {
 .event-info-inner-ctn {
   background: transparent !important;
   color: #000 !important;
+  display: flex;
 }
 .event-info-name {
   color: #000 !important;
@@ -2263,24 +2271,25 @@ div#top-search {
 .no-tickets-msg-text-ctn {
   display: none;
 }
+
+.pre-checkout-price-cta {
+  background-color: #29c142;
+  border-radius: 2px !important;
+  color: #252525 !important;
+  display: table-cell !important;
+  float: right !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  padding: 10px !important;
+  transition: 0.3s !important;
+  width: 100 !important%;
+}
 .filter-tg-type-cell.active:hover,
 .filters-price-slider .noUi-connect,
 .pre-checkout-price-cta,
 button.desktop-precheckout-cta-btn,
 #pre-checkout-map-toggle {
-  background-color: #ef495e;
-}
-.pre-checkout-price-cta {
-  background-color: #29c142;
-  border-radius: 2px;
-  color: #252525;
-  display: table-cell;
-  float: right;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px;
-  transition: 0.3s;
-  width: 100%;
+  background-color: #ef495e !important;
 }
 .btn.btn-primary.active:hover,
 .filter-tg-type .btn.active,
@@ -2474,7 +2483,36 @@ h4 {
   overflow: visible;
   text-align: center;
 }
-
+legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  font-size: calc(1.275rem + 0.3vw);
+  line-height: inherit;
+}
+.sea-precheckout-fees-parent span {
+  color: #252525;
+  display: inline-block;
+}
+.pre-checkout-back-to-list .cm-close:before {
+  margin: 0;
+}
+.cm-close:before {
+  line-height: inherit;
+}
+.pre-checkout-back-to-list .cm-close {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 3px #999;
+  color: #333;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0px 7px;
+}
+.sea-no-vfs-show-details .pre-checkout-back-to-list .cm-close {
+  background: rgba(199, 199, 199, 0.5);
+}
 @media screen and (max-width: 1200px) {
   #top-nav-links > li > a {
     padding: 11px 15px;
