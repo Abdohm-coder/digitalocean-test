@@ -14,6 +14,27 @@ const TicketPage = ({
   widgetHTML: string;
   eventID: string;
 }) => {
+  useEffect(() => {
+    const addTableCell = () => {
+      const tableRow = document.querySelector(
+        "table.venue-ticket-list-tbl tbody tr"
+      );
+      if (tableRow) {
+        const tableData = document.createElement("td");
+        tableData.className =
+          "venue-ticket-list-cta-js venue-ticket-list-cta-col";
+
+        const button = document.createElement("button");
+        button.className = "btn-buy venue-ticket-list-checkout-trigger-js";
+        button.innerText = "Continue";
+
+        tableData.appendChild(button);
+        tableRow.appendChild(tableData);
+      }
+    };
+
+    addTableCell();
+  }, []);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
 
   useEffect(() => {
@@ -32,6 +53,7 @@ const TicketPage = ({
       fetchEvents();
     }
   }, [eventID]);
+
   return (
     <div>
       <Head>

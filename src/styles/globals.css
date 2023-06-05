@@ -203,6 +203,9 @@ div.position-absolute.search-none {
 }
 
 @media only screen and (min-width: 990px) {
+  #map-list-holder {
+    padding: 0 !important;
+  }
   #map-list-holder,
   .event-info-inner-ctn {
     width: 1000px !important;
