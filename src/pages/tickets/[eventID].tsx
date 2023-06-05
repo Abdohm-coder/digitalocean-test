@@ -79,14 +79,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const widgetHTML = response.data;
   const additionalScript = `
   <script>
-    function sanitizeString(str) {
-      str = str.toLowerCase().replace(/[^a-z0-9-\s]/gi, '').replace(/\s/g, '-').replace(/-+/g, '-');
-      return str;
-  }
-			var seaticsBackUrl = "/performers/" + sanitizeString(page.performerName) + "-tickets",
 			Seatics = Seatics || {};
 			Seatics.config = Seatics.config || {};
-			Seatics.eventInfo.eventName = page.eventName;
 
 			Seatics.config.enableLegalDisclosureMobile = true;
 			Seatics.config.listLegalDisclosure = '<div class="sea-list-marketing-inner">\ <span class="sea-list-marketing-label" id="sea-listdisclosurelabel" style="font-size:1.0em; font-family: Arial; font-weight:900; text-align:justify; width:100%;">As a resale marketplace, prices may be above face value.</span>\ </div><div id="sea-list-legal-close" class="sea-listmarketing-close cm-close"></div>';
@@ -124,13 +118,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         document.title = 'No Tickets Available';
       };
 
-
+Seatics.config.mapFinishedRenderingHandler = function(){
+        document.querySelector('#tn-maps').classList.add('completed');                
+        Seatics.config.ticketSeparationOptions = {
+          packages: Seatics.TicketGroupSeparationOptions.Separate,
+          parking: Seatics.TicketGroupSeparationOptions.Separate,
+          passes: Seatics.TicketGroupSeparationOptions.Separate,
+          hotels: Seatics.TicketGroupSeparationOptions.Separate,
+          unmappedFlex: Seatics.TicketGroupSeparationOptions.Separate,
+          unmappedStandard: Seatics.TicketGroupSeparationOptions.Separate
+        };    
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          console.log("dsd");
+          setTimeout(function(){ document.querySelector("#list-ctn").style.top = '96px'; }, 900);
+                      
+        }
+      };
 
   document.addEventListener("DOMContentLoaded", function () {
     Seatics.config.ticketRowRenderedHandler = function () {
         var year = parseInt($('.event-info-date-date.event-info-date-loc').text().split(' ')[2]);
         var container = $("#event-info-area .event-info-content");
-        var seaticsBackLinkHTML = "<a href='/performers/" + sanitizeString($('#var_performer_name').text()) + "-tickets' class='btn btn-blue desktop-back-btn'>Show All Events</a>"
 
         if (year > 2030 && !container.hasClass('postponed')) {
           container.addClass('postponed');
