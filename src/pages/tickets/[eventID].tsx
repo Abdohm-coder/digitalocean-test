@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const widgetHTML = response.data;
   const additionalScript = `
     <script>
-      Seatics.config.c3CheckoutDomain = "checkout.ticketjewel.com";
+      Seatics.config.c3CheckoutDomain = "checkout.tickettransaction.com";
       Seatics.config.c3CurrencyCode = "USD";
       Seatics.config.useC3 = true;
       Seatics.config.currencyIntl = {};
@@ -63,29 +63,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       Seatics.config.enableLegalDisclosureMobile = false;
       Seatics.config.enableHeaderLegalDisclosureMobile = false;
       Seatics.config.enableHeaderLowerLegalDisclosureMobile = false; 
-      Seatics.config.smallScreenMapLayout =
-      Seatics.SmallScreenMapOptions.FullyHidden;
-
-      Seatics.config.onBuyButtonClicked = function(){
-        //location.href = 'checkout.ticketgrow.com/Checkout/Order';
-        //_bShowCoupon = false;          
-      };       
-      Seatics.config.mapFinishedRenderingHandler = function(){
-        document.querySelector('#tn-maps').classList.add('completed');                
-        Seatics.config.ticketSeparationOptions = {
-          packages: Seatics.TicketGroupSeparationOptions.Separate,
-          parking: Seatics.TicketGroupSeparationOptions.Separate,
-          passes: Seatics.TicketGroupSeparationOptions.Separate,
-          hotels: Seatics.TicketGroupSeparationOptions.Separate,
-          unmappedFlex: Seatics.TicketGroupSeparationOptions.Separate,
-          unmappedStandard: Seatics.TicketGroupSeparationOptions.Separate
-        };    
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-          console.log("dsd");
-          setTimeout(function(){ document.querySelector("#list-ctn").style.top = '96px'; }, 900);
-                      
-        }
-      };
     </script>
   `;
 
