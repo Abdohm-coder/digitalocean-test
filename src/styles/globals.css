@@ -203,8 +203,9 @@ div.position-absolute.search-none {
 }
 
 @media only screen and (min-width: 990px) {
-  #map-list-holder {
-    padding: 0 !important;
+  #map-list-holder.map-list-ctn {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
   #map-list-holder,
   .event-info-inner-ctn {
@@ -2014,7 +2015,7 @@ th {
     display: block !important;
   }
 
-  #map-shower[aria-expanded=true] + .venue-map {
+  #map-shower[aria-expanded=true] + #venue-map {
     top: 0 !important;
   }
 }
