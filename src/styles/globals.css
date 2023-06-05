@@ -985,7 +985,7 @@ button.desktop-precheckout-cta-btn,
 }
 
 #pre-checkout-sold-cta {
-  display: none;
+  display: none !important;
 }
 
 .sea-sold-out .sea-sold-out-button {
@@ -2508,7 +2508,7 @@ legend {
   color: #333;
   cursor: pointer;
   font-size: 20px;
-  padding: 0px 7px;
+  padding: 4px 5px;
 }
 .sea-no-vfs-show-details .pre-checkout-back-to-list .cm-close {
   background: rgba(199, 199, 199, 0.5);
