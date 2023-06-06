@@ -14,10 +14,12 @@ const TopEventCard = ({ ID, Name, Venue, City, Date }: GetEventsProps) => {
     let isThereImage = false;
     images.forEach((el) => {
       console.log(el);
-      if (el[1].toLowerCase().includes(Name.toLowerCase()))
-        {setEventImage(el[2]); isThereImage = true}
+      if (el[1].toLowerCase().includes(Name.toLowerCase())) {
+        setEventImage(el[2]);
+        isThereImage = true;
+      }
     });
-    if(!isThereImage) setEventImage(null)
+    if (!isThereImage) setEventImage(null);
   }, [Name, images]);
 
   return (
@@ -29,7 +31,7 @@ const TopEventCard = ({ ID, Name, Venue, City, Date }: GetEventsProps) => {
         alt="image"
         width={840}
         height={540}
-        className="w-100 h-100 object-cover rounded-img"
+        className="w-100 h-100 object-cover"
       />
       <div className="w-100 position-absolute bottom-0 d-flex justify-content-between align-items-end p-3 text-white">
         <div>

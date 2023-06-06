@@ -110,14 +110,19 @@ div.position-absolute.search-none {
   list-style: none;
 }
 
-.rounded-img {
+.card-img {
+  margin: 3rem 0;
+}
+
+.object-img {
   border-radius: 2rem;
 }
 
 @media screen and (max-width: 786px) {
-  .rounded-img {
+  .object-img {
     border-radius: 0px !important;
     object-fit: contain !important;
+    height: 150px;
   }
 }
 

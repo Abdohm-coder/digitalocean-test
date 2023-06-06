@@ -153,8 +153,6 @@ Seatics.config.mapFinishedRenderingHandler = function(){
 
   const updatedWidgetHTML = widgetHTML + additionalScript;
 
-  console.log(updatedWidgetHTML);
-
   return {
     props: {
       widgetHTML: updatedWidgetHTML,

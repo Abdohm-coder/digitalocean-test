@@ -45,14 +45,12 @@ const PerformerPage: React.FC = () => {
     if (performerTitle) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents(
-            {
-              performerName: capitalizeString(performerTitle),
-              numberOfEvents: eventNumber,
-              orderByClause: "Date",
-              whereClause: "",
-            }
-          );
+          const response = await fetchGetEvents({
+            performerName: capitalizeString(performerTitle),
+            numberOfEvents: eventNumber,
+            orderByClause: "Date",
+            whereClause: "",
+          });
           setLoading(false);
           setEvents(response || []);
           console.log(response || []);
@@ -71,13 +69,13 @@ const PerformerPage: React.FC = () => {
         </title>
       </Head>
       <main className="container">
-        <div className="position-relative my-5">
+        <div className="position-relative card-img">
           <Image
             src={performerImage ?? DefaultImage}
             alt={`${performerTitle} image`}
             width={1200}
             height={300}
-            className="w-100 object-cover rounded-img"
+            className="w-100 object-cover object-img"
           />
           <h1
             className="text-white m-0 fw-bold position-absolute text-capitalize"
