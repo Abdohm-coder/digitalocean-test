@@ -8,6 +8,7 @@ import { GetHighInventoryPerformersProps } from "@/types/data-types";
 import { sortArray } from "@/utils/sort-array";
 import Loading from "./Loading";
 import SlideImage from "./SlideImage";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 interface props {
   title: string;
@@ -67,7 +68,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}>
-            {sortArray(data, "Percent").map(({ Description, ID }) => (
+            {sortArray(removeDuplicatedElements(data, "Description"), "Percent").map(({ Description, ID }) => (
               <SlideImage key={ID} Description={Description} ID={ID} />
             ))}
           </Swiper>

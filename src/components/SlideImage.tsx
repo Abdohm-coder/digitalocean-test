@@ -5,6 +5,8 @@ import DefaultImage from "@/assets/images/default.jpg";
 import { SwiperSlide } from "swiper/react";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const SlideImage: React.FC<{
   ID: number;
