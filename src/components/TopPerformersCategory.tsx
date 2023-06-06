@@ -1,17 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import { fetchHighInventoryPerformers } from "@/settings/site.settings";
 import { GetHighInventoryPerformersProps } from "@/types/data-types";
-import { convertTitleToPath } from "@/utils/title-to-pathname";
-import { useDataContext } from "@/context/data.context";
-import DefaultImage from "@/assets/images/default.jpg";
 import { sortArray } from "@/utils/sort-array";
 import Loading from "./Loading";
+import SlideImage from "./SlideImage";
 
 interface props {
   title: string;
@@ -20,7 +16,6 @@ interface props {
 }
 
 const Events: React.FC<props> = ({ title, link, id }) => {
-  const { images } = useDataContext();
   const [loading, setLoading] = useState(true);
 
   const swiperRef = useRef<SwiperType>();
@@ -36,7 +31,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     },
   };
 
-  const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [data, setData] = useState<GetHighInventoryPerformersProps[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +41,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         });
         setLoading(false);
         setData(response || []);
-        console.log(response || []);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -55,19 +48,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     fetchData();
   }, [id]);
 
-  useEffect(() => {
-    let isThereImage = false;
-    images.forEach((el) => {
-      data.forEach(({ Description }) => {
-        console.log(Description, el[1]);
-        if (Description.toLowerCase().includes(el[1].toLowerCase())) {
-          setPerformerImage(el[2]);
-          isThereImage = true;
-        }
-      });
-    });
-    if (!isThereImage) setPerformerImage(null);
-  }, [data, images]);
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
@@ -88,23 +68,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
               swiperRef.current = swiper;
             }}>
             {sortArray(data, "Percent").map(({ Description, ID }) => (
-              <SwiperSlide key={ID}>
-                <div className="position-relative overlay up">
-                  <Image
-                    src={performerImage || DefaultImage}
-                    alt={`${Description} image`}
-                    className="w-100 object-cover"
-                    width={300}
-                    height={300}
-                  />
-                  <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
-                    {Description}
-                  </h5>
-                  <Link
-                    href={`/performers/${convertTitleToPath(Description)}`}
-                    className="stretched-link"></Link>
-                </div>
-              </SwiperSlide>
+              <SlideImage key={ID} Description={Description} ID={ID} />
             ))}
           </Swiper>
         )}

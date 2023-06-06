@@ -59,7 +59,6 @@ const CategoryPage: React.FC = () => {
             childCategoryID: categoryData[0].ChildCategoryID,
           });
           setPerformers(response || []);
-          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
@@ -72,18 +71,15 @@ const CategoryPage: React.FC = () => {
     if (categoryData[0]?.ParentCategoryID) {
       const fetchEvents = async () => {
         try {
-          const response = await fetchGetEvents(
-            {
-              parentCategoryID: categoryData[0].ParentCategoryID,
-              childCategoryID: categoryData[0].ChildCategoryID,
-              orderByClause: "Date",
-              whereClause: "",
-              numberOfEvents: eventNumber,
-            }
-          );
+          const response = await fetchGetEvents({
+            parentCategoryID: categoryData[0].ParentCategoryID,
+            childCategoryID: categoryData[0].ChildCategoryID,
+            orderByClause: "Date",
+            whereClause: "",
+            numberOfEvents: eventNumber,
+          });
           setLoading(false);
           setEvents(response || []);
-          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }

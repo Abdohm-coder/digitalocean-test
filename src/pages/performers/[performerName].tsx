@@ -53,7 +53,6 @@ const PerformerPage: React.FC = () => {
           });
           setLoading(false);
           setEvents(response || []);
-          console.log(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
