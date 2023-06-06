@@ -1,13 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { fetchHighInventoryPerformers } from "@/settings/site.settings";
 import { GetHighInventoryPerformersProps } from "@/types/data-types";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
+import { useDataContext } from "@/context/data.context";
+import DefaultImage from "@/assets/images/default.jpg";
 import { sortArray } from "@/utils/sort-array";
 import Loading from "./Loading";
-import SlideImage from "./SlideImage";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 interface props {
@@ -17,6 +21,7 @@ interface props {
 }
 
 const Events: React.FC<props> = ({ title, link, id }) => {
+  const { images } = useDataContext();
   const [loading, setLoading] = useState(true);
 
   const swiperRef = useRef<SwiperType>();
@@ -33,6 +38,9 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   };
 
   const [data, setData] = useState<GetHighInventoryPerformersProps[]>([]);
+  const [performerImages, setPerformerImages] = useState<Array<string | null>>(
+    []
+  );
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +57,25 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     fetchData();
   }, [id]);
 
+  useEffect(() => {
+    setLoading(true);
+    if (images.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        const Description = data[i].Description;
+        let itHasImage: string | null = null;
+        for (let j = 0; j < images.length; j++) {
+          const el = images[j];
+          if (i === data.length - 1 && j === images.length - 1)
+            setLoading(false);
+          if (Description.toLowerCase().includes(el[1].toLowerCase())) {
+            itHasImage = el[2];
+            break;
+          }
+        }
+        setPerformerImages((state) => [...state, itHasImage]);
+      }
+    }
+  }, [data, images]);
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
@@ -68,27 +95,30 @@ const Events: React.FC<props> = ({ title, link, id }) => {
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}>
-            {sortArray(removeDuplicatedElements(data, "Description"), "Percent").map(({ Description, ID }) => (
-              <SlideImage key={ID} Description={Description} ID={ID} />
+            {sortArray(
+              removeDuplicatedElements(data, "Description"),
+              "Percent"
+            ).map(({ Description, ID }, i) => (
+              <SwiperSlide key={ID}>
+                <div className="position-relative overlay up">
+                  <Image
+                    src={performerImages[i] || DefaultImage}
+                    alt={`${Description} image`}
+                    className="w-100 object-cover"
+                    width={300}
+                    height={300}
+                  />
+                  <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
+                    {Description}
+                  </h5>
+                  <Link
+                    href={`/performers/${convertTitleToPath(Description)}`}
+                    className="stretched-link"></Link>
+                </div>
+              </SwiperSlide>
             ))}
           </Swiper>
         )}
-        {/* <button
-          className="btn btn-sm btn-light shadow-sm rounded-circle p-2 position-absolute top-50 start-0 translate-middle"
-          style={{ zIndex: 1 }}
-          onClick={() => swiperRef.current?.slidePrev()}
-          disabled={isStart}
-        >
-          <BsChevronLeft className="fs-4" />
-        </button>
-        <button
-          className="btn btn-sm btn-light shadow-sm rounded-circle p-2 position-absolute top-50 start-100 translate-middle"
-          style={{ zIndex: 1 }}
-          onClick={() => swiperRef.current?.slideNext()}
-          disabled={isLast}
-        >
-          <BsChevronRight className="fs-4" />
-        </button> */}
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ const SlideImage: React.FC<{
         <Image
           src={performerImage || DefaultImage}
           alt={`${Description} image`}
-          className="w-100 object-cover"
+          className=" object-cover"
           width={300}
           height={300}
         />
