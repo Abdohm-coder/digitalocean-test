@@ -124,6 +124,9 @@ div.position-absolute.search-none {
     object-fit: contain !important;
     height: 150px;
   }
+  .card-img {
+    margin: 2rem 0;
+  }
 }
 
 .event-info-disclaimer ul {
@@ -2113,7 +2116,6 @@ th {
   }
 }
 @media screen and (max-width: 991px) {
-
   .event-info-right-col,
   .desktop-vfs-bg-overlay,
   .Sea-StaticMapMessage,

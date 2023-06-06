@@ -5,10 +5,6 @@ function Document() {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, user-scalable=no, width=device-width"
-        />
       </Head>
       <body>
         <Main />

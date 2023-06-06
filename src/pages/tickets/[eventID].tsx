@@ -57,6 +57,10 @@ const TicketPage = ({
   return (
     <div>
       <Head>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, user-scalable=no, width=device-width"
+        />
         <title>
           {events[0]?.Name || "Map Widget"} {events[0]?.DisplayDate} |{" "}
           {siteSettings.site_name}
