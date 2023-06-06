@@ -38,6 +38,8 @@ export default async function handler(
     // Make the SOAP request
     const response = await client.GetEventsAsync(params);
 
+    console.log(response, client)
+
     // Return the SOAP response as JSON
     res.status(200).json(response[0]);
   } catch (error) {

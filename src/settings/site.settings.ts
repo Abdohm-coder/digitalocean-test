@@ -17,7 +17,7 @@ export const SHEET_NAME = "Sheet1"; // Sheet Name
 export const googleSheetRange = "A:C"; // The range of cells
 export const WBCID = 4626;
 export const SOAP_ACTION =
-  "http://tnwebservices.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx?wsdl";
+  "http://tnwebservices.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx";
 
 export const siteSettings = {
   site_name: "Ticketjewel",
