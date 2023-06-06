@@ -15,9 +15,9 @@ export const baseApi = "https://ticketjewel.com";
 export const SHEET_ID = "1Ojnkc4IaJcXjuh-A20xCsc8pR8pMFIJfS7rFP_DoMlQ"; // Sheet ID
 export const SHEET_NAME = "Sheet1"; // Sheet Name
 export const googleSheetRange = "A:C"; // The range of cells
-export const WBCID = 27239;
+export const WBCID = 4626;
 export const SOAP_ACTION =
-  "https://tnwebservices-test.ticketnetwork.com/tnwebservice/v3.2/WSDL/tnwebservice.xml";
+  "http://tnwebservices-test.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx?wsdl";
 
 export const siteSettings = {
   site_name: "Ticketjewel",
