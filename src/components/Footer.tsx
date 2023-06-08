@@ -57,9 +57,13 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link link-light" href="/terms">
+                <a
+                  className="nav-link link-light"
+                  href="/terms"
+                  target="_blank"
+                  rel="noreferrer">
                   Terms & Conditions
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
