@@ -75,6 +75,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         setPerformerImages((state) => [...state, itHasImage]);
       }
     }
+    setLoading(false);
   }, [data, images]);
   return (
     <section className="pt-5">
