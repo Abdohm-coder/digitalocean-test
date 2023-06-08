@@ -105,7 +105,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
                     src={performerImages[i] || DefaultImage}
                     alt={`${Description} image`}
                     className="w-100 object-cover"
-                    style={{ maxWidth: "215.25px" }}
                     width={1200}
                     height={300}
                   />

@@ -1,7 +1,8 @@
-import { BID, SITE_NUMBER } from "@/settings/site.settings";
+// import { BID, SITE_NUMBER } from "@/settings/site.settings";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 
-const TermsPage = () => {
+const TermsPage = ({ html }: { html: string }) => {
   return (
     <>
       <Head>
@@ -9,12 +10,18 @@ const TermsPage = () => {
       </Head>
       <div
         dangerouslySetInnerHTML={{
-          __html: `
-        <script type='text/javascript' src='https://tickettransaction.com/?bid=${BID}&sitenumber=${SITE_NUMBER}&tid=600'></script>
-    `,
+          __html: html,
         }}></div>
     </>
   );
 };
 
 export default TermsPage;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      html: `<script type='text/javascript' src='https://tickettransaction.com/?bid=3212&sitenumber=23&tid=600'></script>`,
+    },
+  };
+};
