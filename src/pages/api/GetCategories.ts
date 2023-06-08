@@ -27,6 +27,6 @@ export default async function handler(
   } catch (error) {
     console.error("SOAP request error:", error);
     // @ts-ignore
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error });
   }
 }
