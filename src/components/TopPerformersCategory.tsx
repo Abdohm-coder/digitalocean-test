@@ -6,13 +6,13 @@ import "swiper/css/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchHighInventoryPerformers } from "@/settings/site.settings";
-import { GetHighInventoryPerformersProps } from "@/types/data-types";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
 import { sortArray } from "@/utils/sort-array";
 import Loading from "./Loading";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import useSWR from "swr";
 
 interface props {
   title: string;
@@ -37,25 +37,35 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     },
   };
 
-  const [data, setData] = useState<GetHighInventoryPerformersProps[]>([]);
+  const { data, error } = useSWR(
+    `high_inventory-${id}`,
+    fetchHighInventoryPerformers({
+      // numReturned: 12,
+      parentCategoryID: id,
+    }),
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000 * 24, // Refresh every 1 hour
+    }
+  );
   const [performerImages, setPerformerImages] = useState<Array<string | null>>(
     []
   );
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchHighInventoryPerformers({
-          // numReturned: 12,
-          parentCategoryID: id,
-        });
-        setLoading(false);
-        setData(response || []);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetchHighInventoryPerformers({
+  //         // numReturned: 12,
+  //         parentCategoryID: id,
+  //       });
+  //       setLoading(false);
+  //       setData(response || []);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [id]);
 
   useEffect(() => {
     setLoading(true);
