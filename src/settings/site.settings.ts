@@ -16,6 +16,8 @@ export const SHEET_ID = "1Ojnkc4IaJcXjuh-A20xCsc8pR8pMFIJfS7rFP_DoMlQ"; // Sheet
 export const SHEET_NAME = "Sheet1"; // Sheet Name
 export const googleSheetRange = "A:C"; // The range of cells
 export const WBCID = 4626;
+export const SITE_NUMBER = 4626;
+export const BID = 3212;
 export const SOAP_ACTION =
   "http://tnwebservices-test.ticketnetwork.com/TNWebservice/v3.2/TNWebservice.asmx?wsdl";
 
