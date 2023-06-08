@@ -10,12 +10,7 @@ const TermsPage = () => {
       <div
         dangerouslySetInnerHTML={{
           __html: `
-        <script type="text/javascript">
-            var bid= ${BID};
-            var site = ${SITE_NUMBER};
-            document.write('<script language="javascript"
-            src="http://tickettransaction.com/?bid='+${BID}+'&sitenumber='+${SITE_NUMBER}+'&tid=600" ></' + 'script>');
-        </script>
+        <script type='text/javascript' src='https://tickettransaction.com/?bid=${BID}&sitenumber=${SITE_NUMBER}&tid=600'></script>
     `,
         }}></div>
     </>
