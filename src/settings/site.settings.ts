@@ -19,7 +19,7 @@ export const WBCID = 4626;
 export const SITE_NUMBER = 23;
 export const BID = 3212;
 export const SOAP_ACTION =
-  "https://tnwebservices.ticketnetwork.com/tnwebservice/v3.2/WSDL/tnwebservice.xml";
+  "https://tnwebservices.ticketnetwork.com/tnwebservice/v3.2/WSDL/tnwebservicestringinputs.xml";
 
 export const siteSettings = {
   site_name: "Ticketjewel",
