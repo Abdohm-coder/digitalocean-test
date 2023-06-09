@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
 import "swiper/css";
@@ -40,18 +40,9 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     `high_inventory-${id}`,
     async () => {
       try {
-        const response = await axios.post(
-          "/api/GetHighInventoryPerformers",
-          { parentCategoryID: id },
-          {
-            onDownloadProgress: (progressEvent) => {
-              let percentCompleted = progressEvent.total
-                ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
-                : null;
-              console.log(percentCompleted);
-            },
-          }
-        );
+        const response = await axios.post("/api/GetHighInventoryPerformers", {
+          parentCategoryID: id,
+        });
         const data =
           response.data.GetHighInventoryPerformersResult.PerformerPercent;
         return data;
@@ -64,46 +55,9 @@ const Events: React.FC<props> = ({ title, link, id }) => {
       refreshInterval: 3600000 * 24, // Refresh every 24 hour
     }
   );
-  const [performerImages, setPerformerImages] = useState<Array<string | null>>(
-    []
-  );
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetchHighInventoryPerformers({
-  //         // numReturned: 12,
-  //         parentCategoryID: id,
-  //       });
-  //       setLoading(false);
-  //       setData(response || []);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [id]);
-
-  useEffect(() => {
-    if (images && images.length > 0 && data && data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
-        const Description = data[i].Description;
-        let itHasImage: string | null = null;
-        for (let j = 0; j < images.length; j++) {
-          const el = images[j];
-          if (Description.toLowerCase().includes(el[1].toLowerCase())) {
-            itHasImage = el[2];
-            break;
-          }
-        }
-        setPerformerImages((state) => [...state, itHasImage]);
-      }
-    }
-    console.log(data);
-  }, [data, images]);
 
   console.log(images);
 
-  console.log("performerImages:", performerImages);
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
@@ -127,26 +81,32 @@ const Events: React.FC<props> = ({ title, link, id }) => {
               sortArray(
                 removeDuplicatedElements(data, "Description"),
                 "Percent"
-              ).map(({ Description, ID }, i) => (
-                <SwiperSlide key={ID}>
-                  <div className="position-relative overlay up">
-                    <Image
-                      loading="lazy"
-                      src={performerImages[i] || DefaultImage}
-                      alt={`${Description} image`}
-                      className="w-100 object-cover"
-                      width={1200}
-                      height={300}
-                    />
-                    <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
-                      {Description}
-                    </h5>
-                    <Link
-                      href={`/performers/${convertTitleToPath(Description)}`}
-                      className="stretched-link"></Link>
-                  </div>
-                </SwiperSlide>
-              ))}
+              ).map(({ Description, ID }) => {
+                const image = images.find((el) =>
+                  Description.toLowerCase().includes(el[1].toLowerCase())
+                );
+                const image_src = image?.[2] || DefaultImage;
+                return (
+                  <SwiperSlide key={ID}>
+                    <div className="position-relative overlay up">
+                      <Image
+                        loading="lazy"
+                        src={image_src}
+                        alt={`${Description} image`}
+                        className="w-100 object-cover"
+                        width={1200}
+                        height={300}
+                      />
+                      <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
+                        {Description}
+                      </h5>
+                      <Link
+                        href={`/performers/${convertTitleToPath(Description)}`}
+                        className="stretched-link"></Link>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
           </Swiper>
         )}
       </div>

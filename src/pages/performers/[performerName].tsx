@@ -21,7 +21,7 @@ const PerformerPage: React.FC = () => {
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (performerName) {
@@ -46,6 +46,7 @@ const PerformerPage: React.FC = () => {
   useEffect(() => {
     if (performerTitle) {
       const fetchEvents = async () => {
+        setLoading(true);
         try {
           const response = await fetchGetEvents({
             performerName: capitalizeString(performerTitle),
@@ -53,11 +54,11 @@ const PerformerPage: React.FC = () => {
             orderByClause: "Date",
             whereClause: "",
           });
-          setLoading(false);
           setEvents(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
+        setLoading(false);
       };
       fetchEvents();
     }

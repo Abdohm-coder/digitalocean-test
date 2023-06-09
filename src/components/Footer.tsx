@@ -7,19 +7,19 @@ import {
   BsTwitter,
   BsYoutube,
 } from "react-icons/bs";
-import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
+import {
+  fetchHighSalesPerformers,
+  siteSettings,
+} from "@/settings/site.settings";
 import useSWR from "swr";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 const Footer: React.FC = () => {
   const { data: events } = useSWR(
-    "venues",
+    "high-sales",
     async () => {
-      const response = await fetchGetEvents({
-        numberOfEvents: 12,
-        parentCategoryID: 4,
-        orderByClause: "Date",
-        whereClause: "",
+      const response = await fetchHighSalesPerformers({
+        numReturned: 12,
       });
       return response || [];
     },
@@ -68,17 +68,17 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
-            <h5 className="fw-semibold ps-3">TOP EVENTS</h5>
+            <h5 className="fw-semibold ps-3">HIGH SALES</h5>
             <ul className="nav flex-column ">
               {Array.isArray(events) &&
-                removeDuplicatedElements(events, "Name")
+                removeDuplicatedElements(events, "Description")
                   .slice(0, 6)
-                  .map(({ ID, Name }) => (
+                  .map(({ ID, Description }) => (
                     <li key={ID} className="nav-item">
                       <a
                         className="nav-link link-light"
-                        href={`/tickets/${ID}`}>
-                        {Name}
+                        href={`/performers/${ID}`}>
+                        {Description}
                       </a>
                     </li>
                   ))}
@@ -88,13 +88,17 @@ const Footer: React.FC = () => {
             <h5 className="fw-semibold ps-3"></h5>
             <ul className="nav flex-column ">
               {Array.isArray(events) &&
-                events.slice(6, 12).map(({ ID, Name }) => (
-                  <li key={ID} className="nav-item">
-                    <a className="nav-link link-light" href={`/tickets/${ID}`}>
-                      {Name}
-                    </a>
-                  </li>
-                ))}
+                removeDuplicatedElements(events, "Description")
+                  .slice(6, 12)
+                  .map(({ ID, Description }) => (
+                    <li key={ID} className="nav-item">
+                      <a
+                        className="nav-link link-light"
+                        href={`/performers/${ID}`}>
+                        {Description}
+                      </a>
+                    </li>
+                  ))}
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">

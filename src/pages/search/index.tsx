@@ -25,19 +25,22 @@ const SearchPage = () => {
   useEffect(() => {
     if (event) {
       const fetchEvents = async () => {
+        setLoading(true);
         try {
           const response = await fetchSearchEvents({
             searchTerms: convertQueryToTitle(event),
           });
-          setLoading(false);
+
           setEvents(response || []);
         } catch (error) {
           console.error("Error:", error);
         }
+        setLoading(false);
       };
       fetchEvents();
     }
     if (venue) {
+      setLoading(true);
       const venueData = venues.find(({ Name }) =>
         Name.toLowerCase().includes(convertQueryToTitle(venue))
       );
@@ -55,6 +58,7 @@ const SearchPage = () => {
             console.error("Error:", error);
           }
         };
+        setLoading(false);
         fetchEvents();
       }
     }
