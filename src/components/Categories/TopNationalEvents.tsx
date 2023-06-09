@@ -11,14 +11,16 @@ const TopNationalEvents: React.FC<{
   const { images } = useDataContext();
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   useEffect(() => {
-    let isThereImage = false;
-    images.forEach((el) => {
-      if (name.toLowerCase().includes(el[1].toLowerCase())) {
-        setPerformerImage(el[2]);
-        isThereImage = true;
-      }
-    });
-    if (!isThereImage) setPerformerImage(null);
+    if (Array.isArray(images)) {
+      let isThereImage = false;
+      images.forEach((el) => {
+        if (name.toLowerCase().includes(el[1].toLowerCase())) {
+          setPerformerImage(el[2]);
+          isThereImage = true;
+        }
+      });
+      if (!isThereImage) setPerformerImage(null);
+    }
   }, [name, images]);
 
   return (
