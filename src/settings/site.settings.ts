@@ -619,15 +619,7 @@ export const fetchHighInventoryPerformers = async (
   try {
     const response = await axios.post(
       "/api/GetHighInventoryPerformers",
-      params,
-      {
-        onDownloadProgress: (progressEvent) => {
-          let percentCompleted = progressEvent.total
-            ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
-            : null;
-          console.log(percentCompleted);
-        },
-      }
+      params
     );
     const data =
       response.data.GetHighInventoryPerformersResult.PerformerPercent;
@@ -671,14 +663,7 @@ export const fetchSearchPerformers = async (params: SearchPerformersInput) => {
 
 export const fetchGetEvents = async (params: GetEventsInput) => {
   try {
-    const response = await axios.post("/api/GetEvents", params, {
-      onDownloadProgress: (progressEvent) => {
-        let percentCompleted = progressEvent.total
-          ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
-          : null;
-        console.log(progressEvent, percentCompleted);
-      },
-    });
+    const response = await axios.post("/api/GetEvents", params);
     const data = response.data.GetEventsResult?.Event;
     return data;
   } catch (error) {

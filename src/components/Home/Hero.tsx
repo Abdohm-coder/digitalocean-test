@@ -91,7 +91,7 @@ const Hero = () => {
                 .map(({ ID, Name }) => (
                   <div onClick={() => setSearch("")} key={ID}>
                     <Link
-                      href={`/performers/${convertTitleToPath(Name)}`}
+                      href={`/tickets/${ID}`}
                       className="search-result-item">
                       {Name}
                     </Link>
@@ -105,7 +105,7 @@ const Hero = () => {
                   <Link
                     style={{ color: "#3683fc" }}
                     href={`/events/${convertTitleToPath(search)}`}
-                    className="search-result-item">
+                    className="search-result-item pe-2">
                     View All
                   </Link>
                 </div>

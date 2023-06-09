@@ -24,22 +24,24 @@ const PerformerPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (performerName && Array.isArray(images)) {
+    if (performerName) {
       const name = convertQueryToTitle(performerName);
       let isThereImage = false;
-      images.forEach((el) => {
-        console.log(el);
-        if (el[1].toLowerCase().includes(name)) {
-          setPerformerImage(el[2]);
-          isThereImage = true;
-        }
-      });
-      if (!isThereImage) setPerformerImage(null);
+      if (Array.isArray(images)) {
+        images.forEach((el) => {
+          console.log(el);
+          if (el[1].toLowerCase().includes(name)) {
+            setPerformerImage(el[2]);
+            isThereImage = true;
+          }
+        });
+        if (!isThereImage) setPerformerImage(null);
+      }
       setPerformerTitle(name);
     }
   }, [performerName, images]);
 
-  console.log(performerImage);
+  console.log("performerImage: ", performerImage);
 
   useEffect(() => {
     if (performerTitle) {

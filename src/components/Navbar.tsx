@@ -238,13 +238,13 @@ const Navbar: React.FC<{
           )} */}
               {events.length > 0 && (
                 <>
-                  <div className="search-result-title">Performers</div>
+                  <div className="search-result-title">Events</div>
                   {removeDuplicatedElements(events, "Name")
                     .slice(0, 6)
                     .map(({ ID, Name }) => (
                       <div onClick={() => setSearch("")} key={ID}>
                         <Link
-                          href={`/performers/${convertTitleToPath(Name)}`}
+                          href={`/tickets/${ID}`}
                           className="search-result-item">
                           {Name}
                         </Link>
@@ -258,7 +258,7 @@ const Navbar: React.FC<{
                       <Link
                         style={{ color: "#3683fc" }}
                         href={`/events/${convertTitleToPath(search)}`}
-                        className="search-result-item">
+                        className="search-result-item pe-2">
                         View All
                       </Link>
                     </div>
