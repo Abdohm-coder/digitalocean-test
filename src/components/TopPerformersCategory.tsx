@@ -45,7 +45,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     }),
     {
       revalidateOnFocus: false,
-      refreshInterval: 3600000 * 24, // Refresh every 1 hour
+      refreshInterval: 3600000 * 24, // Refresh every 24 hour
     }
   );
   const [performerImages, setPerformerImages] = useState<Array<string | null>>(
@@ -69,7 +69,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
 
   useEffect(() => {
     setLoading(true);
-    if (images.length > 0) {
+    if (images.length > 0 && data?.length > 0) {
       for (let i = 0; i < data.length; i++) {
         const Description = data[i].Description;
         let itHasImage: string | null = null;
@@ -96,7 +96,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         </a>
       </div>
       <div className="mt-3 position-relative">
-        {loading ? (
+        {loading || (!data && !error) ? (
           <Loading />
         ) : (
           <Swiper
@@ -106,28 +106,29 @@ const Events: React.FC<props> = ({ title, link, id }) => {
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}>
-            {sortArray(
-              removeDuplicatedElements(data, "Description"),
-              "Percent"
-            ).map(({ Description, ID }, i) => (
-              <SwiperSlide key={ID}>
-                <div className="position-relative overlay up">
-                  <Image
-                    src={performerImages[i] || DefaultImage}
-                    alt={`${Description} image`}
-                    className="w-100 object-cover"
-                    width={1200}
-                    height={300}
-                  />
-                  <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
-                    {Description}
-                  </h5>
-                  <Link
-                    href={`/performers/${convertTitleToPath(Description)}`}
-                    className="stretched-link"></Link>
-                </div>
-              </SwiperSlide>
-            ))}
+            {Array.isArray(data) &&
+              sortArray(
+                removeDuplicatedElements(data, "Description"),
+                "Percent"
+              ).map(({ Description, ID }, i) => (
+                <SwiperSlide key={ID}>
+                  <div className="position-relative overlay up">
+                    <Image
+                      src={performerImages[i] || DefaultImage}
+                      alt={`${Description} image`}
+                      className="w-100 object-cover"
+                      width={1200}
+                      height={300}
+                    />
+                    <h5 className="position-absolute start-0 bottom-0 text-white text-uppercase fw-bold m-3">
+                      {Description}
+                    </h5>
+                    <Link
+                      href={`/performers/${convertTitleToPath(Description)}`}
+                      className="stretched-link"></Link>
+                  </div>
+                </SwiperSlide>
+              ))}
           </Swiper>
         )}
       </div>
