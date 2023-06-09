@@ -143,6 +143,12 @@ div.position-absolute.search-none {
 
 /* Loading Bar */
 
+.loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .lds-ripple {
   display: inline-block;
   position: relative;

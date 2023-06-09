@@ -13,6 +13,7 @@ import {
 } from "@/settings/site.settings";
 import useSWR from "swr";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import { convertTitleToPath } from "@/utils/title-to-pathname";
 
 const Footer: React.FC = () => {
   const { data: events } = useSWR(
@@ -77,7 +78,7 @@ const Footer: React.FC = () => {
                     <li key={ID} className="nav-item">
                       <a
                         className="nav-link link-light"
-                        href={`/performers/${ID}`}>
+                        href={`/performers/${convertTitleToPath(Description)}`}>
                         {Description}
                       </a>
                     </li>
@@ -94,7 +95,7 @@ const Footer: React.FC = () => {
                     <li key={ID} className="nav-item">
                       <a
                         className="nav-link link-light"
-                        href={`/performers/${ID}`}>
+                        href={`/performers/${convertTitleToPath(Description)}`}>
                         {Description}
                       </a>
                     </li>

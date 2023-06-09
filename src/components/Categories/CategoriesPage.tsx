@@ -16,6 +16,7 @@ import {
   fetchHighSalesPerformers,
 } from "@/settings/site.settings";
 import Loading from "../Loading";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 const CategoriesPage: React.FC = () => {
   const pathname = usePathname();
@@ -79,7 +80,12 @@ const CategoriesPage: React.FC = () => {
       <main className="bg-light">
         <Hero title={categoryTitle} />
         <div className="container">
-          <Categories categories={categoryData?.slice(0, 8)} />
+          <Categories
+            categories={removeDuplicatedElements(
+              categoryData,
+              "ChildCategoryDescription"
+            )?.slice(0, 8)}
+          />
           {performers.length > 0 && (
             <section className="mt-3">
               <h3 className="fw-bold text-capitalize">Top National Events</h3>

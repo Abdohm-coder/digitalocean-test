@@ -1,14 +1,13 @@
 import { SOAP_ACTION, WBCID } from "@/settings/site.settings";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClientAsync } from "soap";
+import cache from "memory-cache";
 
-type ResponseData = {
-  message: string;
-};
+const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse
 ) {
   const {
     parentCategoryID,
@@ -34,11 +33,24 @@ export default async function handler(
   if (numberOfEvents) params["numberOfEvents"] = numberOfEvents;
   if (orderByClause) params["orderByClause"] = orderByClause;
 
+  // Generate a cache key based on the request query parameters
+  const cacheKey = `${parentCategoryID}-${childCategoryID}-${performerName}-${performerID}-${numberOfEvents}-${orderByClause}`;
+
+  // Check if data is cached
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    // If data exists in cache, return it
+    return res.status(200).json(cachedData);
+  }
+
   try {
     // Make the SOAP request
     const response = await client.GetEventsAsync(params);
 
-    console.log(response, client)
+    console.log(response, client);
+
+    // Cache the fetched data
+    cache.put(cacheKey, response[0], cacheDuration);
 
     // Return the SOAP response as JSON
     res.status(200).json(response[0]);
