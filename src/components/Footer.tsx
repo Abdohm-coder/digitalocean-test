@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   BsFacebook,
@@ -9,26 +8,26 @@ import {
   BsYoutube,
 } from "react-icons/bs";
 import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
-import { GetEventsProps } from "@/types/data-types";
+import useSWR from "swr";
 
 const Footer: React.FC = () => {
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
+  const { data: events } = useSWR(
+    "venues",
+    async () => {
+      const response = await fetchGetEvents({
+        numberOfEvents: 12,
+        parentCategoryID: 4,
+        orderByClause: "Date",
+        whereClause: "",
+      });
+      return response || [];
+    },
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000 * 24, // Refresh every 24 hour
+    }
+  );
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetchGetEvents({
-          numberOfEvents: 12,
-          orderByClause: "Date",
-          whereClause: "",
-        });
-        setEvents(response || []);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchEvents();
-  }, []);
   return (
     <footer className="pt-5 pb-3 bg-info text-light">
       <div className="container-lg">
@@ -70,25 +69,27 @@ const Footer: React.FC = () => {
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h5 className="fw-semibold ps-3">TOP EVENTS</h5>
             <ul className="nav flex-column ">
-              {events.slice(0, 6).map(({ ID, Name }) => (
-                <li key={ID} className="nav-item">
-                  <a className="nav-link link-light" href={`/tickets/${ID}`}>
-                    {Name}
-                  </a>
-                </li>
-              ))}
+              {Array.isArray(events) &&
+                events.slice(0, 6).map(({ ID, Name }) => (
+                  <li key={ID} className="nav-item">
+                    <a className="nav-link link-light" href={`/tickets/${ID}`}>
+                      {Name}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <h5 className="fw-semibold ps-3"></h5>
             <ul className="nav flex-column ">
-              {events.slice(6, 12).map(({ ID, Name }) => (
-                <li key={ID} className="nav-item">
-                  <a className="nav-link link-light" href={`/tickets/${ID}`}>
-                    {Name}
-                  </a>
-                </li>
-              ))}
+              {Array.isArray(events) &&
+                events.slice(6, 12).map(({ ID, Name }) => (
+                  <li key={ID} className="nav-item">
+                    <a className="nav-link link-light" href={`/tickets/${ID}`}>
+                      {Name}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">

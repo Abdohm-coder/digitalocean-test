@@ -55,7 +55,7 @@ export const DataProvider: React.FC<{
     }
   );
   const { data: venues } = useSWR(
-    "images",
+    "venues",
     async () => {
       const response = await axios.get("/api/GetVenue");
       const data = response.data.GetVenueResult.Venue;
@@ -67,6 +67,8 @@ export const DataProvider: React.FC<{
       refreshInterval: 3600000 * 24, // Refresh every 24 hour
     }
   );
+
+  console.log(venues);
 
   useEffect(() => {
     const fetchData = async () => {
