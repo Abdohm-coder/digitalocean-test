@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
       try {
         const response = await fetchGetEvents({
           numberOfEvents: 12,
-          orderByClause: "Clicks",
+          orderByClause: "Date",
           whereClause: "",
         });
         setEvents(response || []);

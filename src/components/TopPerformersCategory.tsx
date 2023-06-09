@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { fetchHighInventoryPerformers } from "@/settings/site.settings";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
@@ -13,6 +12,7 @@ import { sortArray } from "@/utils/sort-array";
 import Loading from "./Loading";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 import useSWR from "swr";
+import axios from "axios";
 
 interface props {
   title: string;
@@ -39,10 +39,27 @@ const Events: React.FC<props> = ({ title, link, id }) => {
 
   const { data, error } = useSWR(
     `high_inventory-${id}`,
-    fetchHighInventoryPerformers({
-      // numReturned: 12,
-      parentCategoryID: id,
-    }),
+    async () => {
+      try {
+        const response = await axios.post(
+          "/api/GetHighInventoryPerformers",
+          { parentCategoryID: id },
+          {
+            onDownloadProgress: (progressEvent) => {
+              let percentCompleted = progressEvent.total
+                ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
+                : null;
+              console.log(percentCompleted);
+            },
+          }
+        );
+        const data =
+          response.data.GetHighInventoryPerformersResult.PerformerPercent;
+        return data;
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    },
     {
       revalidateOnFocus: false,
       refreshInterval: 3600000 * 24, // Refresh every 24 hour
@@ -67,6 +84,8 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   //   fetchData();
   // }, [id]);
 
+  console.log("error", error)
+
   useEffect(() => {
     setLoading(true);
     if (images.length > 0 && data?.length > 0) {
@@ -86,7 +105,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
       }
     }
     setLoading(false);
-    console.log(data)
+    console.log(data);
   }, [data, images]);
   return (
     <section className="pt-5">
