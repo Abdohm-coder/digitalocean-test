@@ -43,7 +43,7 @@ const CategoriesPage: React.FC = () => {
             parentCategoryID: categoryData[0]?.ParentCategoryID,
             orderByClause: "Date ASC",
             whereClause: "",
-            // numberOfEvents: eventNumber,
+            numberOfEvents: eventNumber,
           });
           setLoading(false);
           setEvents(response || []);
@@ -55,7 +55,7 @@ const CategoriesPage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [categoryData]);
+  }, [categoryData, eventNumber]);
 
   useEffect(() => {
     if (categoryData[0]?.ParentCategoryID) {

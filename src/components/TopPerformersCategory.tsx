@@ -86,6 +86,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
       }
     }
     setLoading(false);
+    console.log(data)
   }, [data, images]);
   return (
     <section className="pt-5">
