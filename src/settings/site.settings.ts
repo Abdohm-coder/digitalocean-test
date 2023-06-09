@@ -456,7 +456,7 @@ export const siteSettings = {
     },
     {
       title: "Theatre",
-      link: "theatre-tickets",
+      link: "/theatre-tickets",
       id: 3,
       sub_category: [
         {
