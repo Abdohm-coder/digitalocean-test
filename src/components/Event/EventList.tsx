@@ -2,7 +2,6 @@ import React from "react";
 import { BsChevronRight } from "react-icons/bs";
 import { GetEventsProps } from "../../types/data-types";
 import dayjs from "dayjs";
-import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(LocalizedFormat);
 
@@ -14,7 +13,7 @@ const EventList: React.FC<{
   return (
     <section>
       <div className="list-group">
-        {removeDuplicatedElements(events, "VenueID").map(
+        {events.map(
           ({
             ID,
             Name,

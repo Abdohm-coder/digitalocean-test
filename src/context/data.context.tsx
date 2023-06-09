@@ -10,12 +10,11 @@ import {
   SHEET_NAME,
   googleSheetRange,
 } from "@/settings/site.settings";
-import useSWR from "swr";
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
   performers?: GetEventPerformersProps[];
-  venues?: GetVenueProps[];
+  venues: GetVenueProps[];
   images: Array<string[]>;
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
@@ -31,25 +30,33 @@ export const DataProvider: React.FC<{
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }> = ({ searchHeroRef, children }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
-  // const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
   const [images, setImages] = useState<Array<string[]>>([]);
-  const { data: venues } = useSWR(
-    "venues",
-    async () => {
-      const response = await axios.get("/api/GetVenue");
-      const data = response.data.GetVenueResult.Venue;
+  const [venues, setVenues] = useState<GetVenueProps[]>([]);
 
-      return data;
-    },
-    {
-      revalidateOnFocus: false,
-      refreshInterval: 3600000 * 24, // Refresh every 24 hour
-    }
-  );
-
-  console.log(venues);
+  console.log("venues", venues);
 
   useEffect(() => {
+    const fetchVenues = async () => {
+      const storedData = localStorage.getItem("venues");
+      const storedTimestamp = localStorage.getItem("timestamp-venues");
+      const currentTime = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+
+      if (
+        !storedData ||
+        !storedTimestamp ||
+        currentTime - +storedTimestamp > oneDay
+      ) {
+        const response = await axios.get("/api/GetVenue");
+        const data = response.data.GetVenueResult.Venue;
+
+        localStorage.setItem("venues", JSON.stringify(data));
+        localStorage.setItem("timestamp-venues", currentTime.toString());
+        setVenues(data);
+      } else {
+        setVenues(JSON.parse(storedData));
+      }
+    };
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/GetCategories");
@@ -79,14 +86,15 @@ export const DataProvider: React.FC<{
           },
         });
 
-        localStorage.setItem("images", JSON.stringify(data));
+        localStorage.setItem("images", JSON.stringify(data?.data));
         localStorage.setItem("timestamp-images", currentTime.toString());
-        setImages(data);
+        setImages(data?.data);
       } else {
         setImages(JSON.parse(storedData));
       }
     };
     fetchAllImages();
+    fetchVenues();
 
     fetchData();
   }, []);

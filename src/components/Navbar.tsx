@@ -15,7 +15,6 @@ import { useDebounce } from "use-debounce";
 import { SearchEventsProps } from "@/types/data-types";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
-import Loading from "./Loading";
 
 const Navbar: React.FC<{
   searchNavbarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -26,7 +25,7 @@ const Navbar: React.FC<{
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { venues } = useDataContext();
 
@@ -44,6 +43,7 @@ const Navbar: React.FC<{
   useEffect(() => {
     if (search.trim().length > 0) {
       const fetchEvents = async () => {
+        setLoading(true);
         try {
           const response = await fetchSearchEvents({
             searchTerms: search,
@@ -239,7 +239,13 @@ const Navbar: React.FC<{
               )}
             </>
           )} */}
-              {loading && <Loading type="dots" />}
+              {loading && (
+                <div
+                  style={{ textAlign: "center", paddingBottom: "30px" }}
+                  className="search-result-title">
+                  Loading...
+                </div>
+              )}
               {events.length > 0 && (
                 <>
                   <div className="search-result-title">Events</div>
@@ -255,13 +261,13 @@ const Navbar: React.FC<{
                       </div>
                     ))}
                   {removeDuplicatedElements(events, "Name").length > 6 && (
-                    <div
+                    <div  
                       onClick={() => {
                         setSearch("");
                       }}>
                       <Link
                         style={{ color: "#3683fc" }}
-                        href={`/events/${convertTitleToPath(search)}`}
+                        href={`/search?event=${convertTitleToPath(search)}`}
                         className="search-result-item pe-2">
                         View All
                       </Link>
@@ -272,16 +278,31 @@ const Navbar: React.FC<{
               {searchVenues.length > 0 && (
                 <>
                   <div className="search-result-title">Venues</div>
-                  {searchVenues.map(({ ID, Name }) => (
-                    <div onClick={() => setSearch("")} key={ID}>
-                      <Link
-                        href={`/performers/${convertTitleToPath(Name)}`}
-                        className="search-result-item">
-                        {Name}
-                      </Link>
-                    </div>
-                  ))}
+                  {removeDuplicatedElements(searchVenues, "Name")
+                    .slice(0, 6)
+                    .map(({ ID, Name }) => (
+                      <div onClick={() => setSearch("")} key={ID}>
+                        <Link
+                          href={`/venues/${convertTitleToPath(Name)}`}
+                          className="search-result-item">
+                          {Name}
+                        </Link>
+                      </div>
+                    ))}
                 </>
+              )}
+              {removeDuplicatedElements(searchVenues, "Name").length > 6 && (
+                <div
+                  onClick={() => {
+                    setSearch("");
+                  }}>
+                  <Link
+                    style={{ color: "#3683fc" }}
+                    href={`/search?venue=${convertTitleToPath(search)}`}
+                    className="search-result-item pe-2">
+                    View All
+                  </Link>
+                </div>
               )}
             </div>
           </div>

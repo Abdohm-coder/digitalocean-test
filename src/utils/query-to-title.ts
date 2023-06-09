@@ -1,6 +1,8 @@
-export const convertQueryToTitle = (query: string) =>
+export const convertQueryToTitle = (query?: string | null) =>
   query
-    .replace("-and-", " / ")
-    .replace("-tickets", "")
-    .replaceAll("-", " ")
-    .toLowerCase();
+    ? query
+        .replace("-and-", " / ")
+        .replace("-tickets", "")
+        .replaceAll("-", " ")
+        .toLowerCase()
+    : "";

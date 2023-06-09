@@ -83,8 +83,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   //   fetchData();
   // }, [id]);
 
-  console.log("error", error);
-
   useEffect(() => {
     if (images && images.length > 0 && data && data.length > 0) {
       for (let i = 0; i < data.length; i++) {
@@ -102,6 +100,8 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     }
     console.log(data);
   }, [data, images]);
+
+  console.log(images);
 
   console.log("performerImages:", performerImages);
   return (

@@ -194,16 +194,18 @@ div.position-absolute.search-none {
 .lds-ellipsis {
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
 }
 .lds-ellipsis div {
   position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
+  top: 50%;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: #fff;
+  background: #121212;
+  transform: translateY(-50%);
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {

@@ -7,13 +7,12 @@ import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
-import Loading from "../Loading";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { venues, searchHeroRef } = useDataContext();
 
@@ -31,6 +30,7 @@ const Hero = () => {
   useEffect(() => {
     if (search.trim().length > 0) {
       const fetchEvents = async () => {
+        setLoading(true);
         try {
           const response = await fetchSearchEvents({
             searchTerms: search,
@@ -86,7 +86,7 @@ const Hero = () => {
               )}
             </>
           )} */}
-          {loading && <Loading type="dots" />}
+          {loading && <div style={{ textAlign: "center", paddingBottom: "30px" }} className="search-result-title">Loading...</div>}
           {events.length > 0 && (
             <>
               <div className="search-result-title">Events</div>
