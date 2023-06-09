@@ -1,6 +1,6 @@
 import Events from "@/components/TopPerformersCategory";
 import Hero from "@/components/Home/Hero";
-import TopEvents from "@/components/Home/TopEvents";
+// import TopEvents from "@/components/Home/TopEvents";
 import NewsLetterForm from "@/components/NewsLetterForm";
 import { siteSettings } from "@/settings/site.settings";
 import Head from "next/head";
@@ -15,7 +15,7 @@ const HomePage = () => {
       <main>
         <Hero />
         <div className="container">
-          <TopEvents title="Top Event In USA" />
+          {/* <TopEvents title="Top Event In USA" /> */}
           {siteSettings.main_categories.map((category) => (
             <Events key={`category: ${category.title}`} {...category} />
           ))}

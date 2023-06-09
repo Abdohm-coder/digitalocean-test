@@ -7,7 +7,7 @@ import {
   BsTelephoneFill,
 } from "react-icons/bs";
 // import { useDataContext } from "../context/data.context";
-import { fetchSearchEvents, siteSettings } from "../settings/site.settings";
+import { fetchSearchPerformers, siteSettings } from "../settings/site.settings";
 import Link from "next/link";
 import Image from "next/image";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
@@ -24,13 +24,13 @@ const Navbar: React.FC<{
   const [selectedSubMenu, setSelectedSubMenu] = useState<number>(0);
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [performers, setPerformers] = useState<SearchEventsProps[]>([]);
 
   const { venues } = useDataContext();
 
   const searchVenues = useMemo(
     () =>
-      search.trim().length > 0
+      search.trim().length > 0 && Array.isArray(venues)
         ? venues.filter(({ Name }) =>
             Name.toLowerCase().includes(search.toLowerCase())
           )
@@ -41,34 +41,20 @@ const Navbar: React.FC<{
 
   useEffect(() => {
     if (search.trim().length > 0) {
-      const fetchData = async () => {
+      const fetchPerformers = async () => {
         try {
-          const response = await fetchSearchEvents({
+          const response = await fetchSearchPerformers({
             searchTerms: search,
-            // orderByClause: "Date%20DESC",
           });
-          setEvents(response || []);
+          setPerformers(response || []);
           console.log(response);
         } catch (error) {
           console.error("Error:", error);
         }
       };
-      // const fetchPerformers = async () => {
-      //   try {
-      //     const response = await fetchSearchPerformers({
-      //       searchTerms: search,
-      //       // orderByClause: "Date%20DESC",
-      //     });
-      //     setPerformers(response || []);
-      //     console.log(response);
-      //   } catch (error) {
-      //     console.error("Error:", error);
-      //   }
-      // };
-      fetchData();
-      // fetchPerformers();
+      fetchPerformers();
     } else {
-      setEvents([]);
+      setPerformers([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -250,10 +236,10 @@ const Navbar: React.FC<{
               )}
             </>
           )} */}
-              {events.length > 0 && (
+              {performers.length > 0 && (
                 <>
                   <div className="search-result-title">Performers</div>
-                  {removeDuplicatedElements(events, "Name").map(
+                  {removeDuplicatedElements(performers, "Name").map(
                     ({ ID, Name }) => (
                       <div onClick={() => setSearch("")} key={ID}>
                         <Link

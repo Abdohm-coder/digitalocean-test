@@ -14,7 +14,7 @@ const TopEvents: React.FC<props> = ({ title }) => {
     const fetchEvents = async () => {
       try {
         const response = await fetchGetEvents({
-          orderByClause: "Clicks",
+          orderByClause: "Date",
           whereClause: "",
           numberOfEvents: 3,
         });

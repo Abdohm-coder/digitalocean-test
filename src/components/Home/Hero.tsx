@@ -1,12 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import {
-  SearchEventsProps,
-  SearchPerformersProps,
-} from "../../types/data-types";
+import { SearchPerformersProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
 import {
-  fetchSearchEvents,
   fetchSearchPerformers,
   siteSettings,
 } from "../../settings/site.settings";
@@ -18,14 +14,13 @@ import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [events, setEvents] = useState<SearchEventsProps[]>([]);
   const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
 
   const { venues, searchHeroRef } = useDataContext();
 
   const searchVenues = useMemo(
     () =>
-      search.trim().length > 0
+      search.trim().length > 0 && Array.isArray(venues)
         ? venues.filter(({ Name }) =>
             Name.toLowerCase().includes(search.toLowerCase())
           )
@@ -36,23 +31,10 @@ const Hero = () => {
 
   useEffect(() => {
     if (search.trim().length > 0) {
-      const fetchData = async () => {
-        try {
-          const response = await fetchSearchEvents({
-            searchTerms: search,
-            // orderByClause: "Date%20DESC",
-          });
-          setEvents(response || []);
-          console.log(response);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
       const fetchPerformers = async () => {
         try {
           const response = await fetchSearchPerformers({
             searchTerms: search,
-            // orderByClause: "Date%20DESC",
           });
           setPerformers(response || []);
           console.log(response);
@@ -60,11 +42,9 @@ const Hero = () => {
           console.error("Error:", error);
         }
       };
-      fetchData();
       fetchPerformers();
     } else {
       setPerformers([]);
-      setEvents([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,18 +86,20 @@ const Hero = () => {
               )}
             </>
           )} */}
-          {events.length > 0 && (
+          {performers.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
-              {removeDuplicatedElements(events, "Name").map(({ ID, Name }) => (
-                <div onClick={() => setSearch("")} key={ID}>
-                  <Link
-                    href={`/performers/${convertTitleToPath(Name)}`}
-                    className="search-result-item">
-                    {Name}
-                  </Link>
-                </div>
-              ))}
+              {removeDuplicatedElements(performers, "Name").map(
+                ({ ID, Name }) => (
+                  <div onClick={() => setSearch("")} key={ID}>
+                    <Link
+                      href={`/performers/${convertTitleToPath(Name)}`}
+                      className="search-result-item">
+                      {Name}
+                    </Link>
+                  </div>
+                )
+              )}
             </>
           )}
           {searchVenues.length > 0 && (

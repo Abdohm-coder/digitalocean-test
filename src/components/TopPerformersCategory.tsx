@@ -22,7 +22,6 @@ interface props {
 
 const Events: React.FC<props> = ({ title, link, id }) => {
   const { images } = useDataContext();
-  const [loading, setLoading] = useState(true);
 
   const swiperRef = useRef<SwiperType>();
   const breakpoints = {
@@ -84,18 +83,15 @@ const Events: React.FC<props> = ({ title, link, id }) => {
   //   fetchData();
   // }, [id]);
 
-  console.log("error", error)
+  console.log("error", error);
 
   useEffect(() => {
-    setLoading(true);
-    if (images.length > 0 && data?.length > 0) {
+    if (images && images.length > 0 && data && data.length > 0) {
       for (let i = 0; i < data.length; i++) {
         const Description = data[i].Description;
         let itHasImage: string | null = null;
         for (let j = 0; j < images.length; j++) {
           const el = images[j];
-          if (i === data.length - 1 && j === images.length - 1)
-            setLoading(false);
           if (Description.toLowerCase().includes(el[1].toLowerCase())) {
             itHasImage = el[2];
             break;
@@ -104,19 +100,18 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         setPerformerImages((state) => [...state, itHasImage]);
       }
     }
-    setLoading(false);
     console.log(data);
   }, [data, images]);
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
         <h3 className="fw-bold">{title}</h3>
-        <a href={link} className="text-decoration-none link-primary">
+        <Link href={link} className="text-decoration-none link-primary">
           VIEW ALL
-        </a>
+        </Link>
       </div>
       <div className="mt-3 position-relative">
-        {loading || (!data && !error) ? (
+        {!data && !error ? (
           <Loading />
         ) : (
           <Swiper
@@ -134,6 +129,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
                 <SwiperSlide key={ID}>
                   <div className="position-relative overlay up">
                     <Image
+                      loading="lazy"
                       src={performerImages[i] || DefaultImage}
                       alt={`${Description} image`}
                       className="w-100 object-cover"

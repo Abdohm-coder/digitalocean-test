@@ -43,6 +43,7 @@ const TicketPage = ({
         try {
           const response = await fetchGetEvents({
             eventID: +eventID,
+            numberOfEvents: 1,
           });
           setEvents(response || []);
         } catch (error) {

@@ -28,7 +28,7 @@ const VenuePage: React.FC = () => {
   }, [venueName]);
 
   const venueData = useMemo(() => {
-    return venues.find(({ Name }) => Name.toLowerCase().includes(venueTitle));
+    return venues?.find(({ Name }) => Name.toLowerCase().includes(venueTitle));
   }, [venues, venueTitle]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const VenuePage: React.FC = () => {
             venueID: venueData.ID,
             orderByClause: "Date ASC",
             whereClause: "",
-            // numberOfEvents: eventNumber,
+            numberOfEvents: eventNumber,
           });
           setLoading(false);
           setEvents(response || []);
@@ -51,7 +51,7 @@ const VenuePage: React.FC = () => {
     } else {
       console.log("error event id");
     }
-  }, [venueData]);
+  }, [venueData, eventNumber]);
   return (
     <>
       <Head>
