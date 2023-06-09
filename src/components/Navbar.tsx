@@ -243,11 +243,11 @@ const Navbar: React.FC<{
                     .slice(0, 6)
                     .map(({ ID, Name }) => (
                       <div onClick={() => setSearch("")} key={ID}>
-                        <Link
+                        <a
                           href={`/tickets/${ID}`}
                           className="search-result-item">
                           {Name}
-                        </Link>
+                        </a>
                       </div>
                     ))}
                   {removeDuplicatedElements(events, "Name").length > 6 && (
