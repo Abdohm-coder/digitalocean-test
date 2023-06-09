@@ -16,7 +16,7 @@ export const DataContext = createContext<{
   categories: GetCategoriesProps[];
   performers?: GetEventPerformersProps[];
   venues?: GetVenueProps[];
-  images?: Array<string[]>;
+  images: Array<string[]>;
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
   categories: [],
@@ -32,23 +32,7 @@ export const DataProvider: React.FC<{
 }> = ({ searchHeroRef, children }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   // const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
-  const { data: images } = useSWR(
-    "images",
-    async () => {
-      const { data } = await axios.get("/api/fetchGoogleSheetData", {
-        params: {
-          sheetId: SHEET_ID,
-          sheetName: SHEET_NAME,
-          range: googleSheetRange,
-        },
-      });
-      return data;
-    },
-    {
-      revalidateOnFocus: false,
-      refreshInterval: 3600000 * 24, // Refresh every 24 hour
-    }
-  );
+  const [images, setImages] = useState<Array<string[]>>([]);
   const { data: venues } = useSWR(
     "venues",
     async () => {
@@ -76,33 +60,33 @@ export const DataProvider: React.FC<{
         console.error("Error:", error);
       }
     };
-    // const fetchAllPerformers = async () => {
-    //   const storedData = localStorage.getItem("perfomers");
-    //   const storedTimestamp = localStorage.getItem("timestamp");
-    //   const currentTime = new Date().getTime();
-    //   const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+    const fetchAllImages = async () => {
+      const storedData = localStorage.getItem("images");
+      const storedTimestamp = localStorage.getItem("timestamp-images");
+      const currentTime = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
 
-    //   if (
-    //     !storedData ||
-    //     !storedTimestamp ||
-    //     currentTime - +storedTimestamp > oneDay
-    //   ) {
-    //     try {
-    //       const response = await axios.get("/api/GetEventPerformers");
-    //       const newData = response.data.GetEventPerformersResult.EventPerformer;
+      if (
+        !storedData ||
+        !storedTimestamp ||
+        currentTime - +storedTimestamp > oneDay
+      ) {
+        const { data } = await axios.get("/api/fetchGoogleSheetData", {
+          params: {
+            sheetId: SHEET_ID,
+            sheetName: SHEET_NAME,
+            range: googleSheetRange,
+          },
+        });
 
-    //       localStorage.setItem("perfomers", JSON.stringify(newData));
-    //       localStorage.setItem("timestamp", currentTime.toString());
-
-    //       setPerformers(newData);
-    //     } catch (error) {
-    //       console.error("Error:", error);
-    //       throw error;
-    //     }
-    //   } else {
-    //     setPerformers(JSON.parse(storedData));
-    //   }
-    // };
+        localStorage.setItem("images", JSON.stringify(data));
+        localStorage.setItem("timestamp-images", currentTime.toString());
+        setImages(data);
+      } else {
+        setImages(JSON.parse(storedData));
+      }
+    };
+    fetchAllImages();
 
     fetchData();
   }, []);
