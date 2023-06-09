@@ -7,7 +7,7 @@ import {
   BsTelephoneFill,
 } from "react-icons/bs";
 // import { useDataContext } from "../context/data.context";
-import { fetchSearchPerformers, siteSettings } from "../settings/site.settings";
+import { fetchSearchEvents, siteSettings } from "../settings/site.settings";
 import Link from "next/link";
 import Image from "next/image";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
@@ -24,7 +24,7 @@ const Navbar: React.FC<{
   const [selectedSubMenu, setSelectedSubMenu] = useState<number>(0);
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [performers, setPerformers] = useState<SearchEventsProps[]>([]);
+  const [events, setEvents] = useState<SearchEventsProps[]>([]);
 
   const { venues } = useDataContext();
 
@@ -41,20 +41,20 @@ const Navbar: React.FC<{
 
   useEffect(() => {
     if (search.trim().length > 0) {
-      const fetchPerformers = async () => {
+      const fetchEvents = async () => {
         try {
-          const response = await fetchSearchPerformers({
+          const response = await fetchSearchEvents({
             searchTerms: search,
           });
-          setPerformers(response || []);
+          setEvents(response || []);
           console.log(response);
         } catch (error) {
           console.error("Error:", error);
         }
       };
-      fetchPerformers();
+      fetchEvents();
     } else {
-      setPerformers([]);
+      setEvents([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -236,11 +236,12 @@ const Navbar: React.FC<{
               )}
             </>
           )} */}
-              {performers.length > 0 && (
+              {events.length > 0 && (
                 <>
                   <div className="search-result-title">Performers</div>
-                  {removeDuplicatedElements(performers, "Name").map(
-                    ({ ID, Name }) => (
+                  {removeDuplicatedElements(events, "Name")
+                    .slice(0, 6)
+                    .map(({ ID, Name }) => (
                       <div onClick={() => setSearch("")} key={ID}>
                         <Link
                           href={`/performers/${convertTitleToPath(Name)}`}
@@ -248,7 +249,19 @@ const Navbar: React.FC<{
                           {Name}
                         </Link>
                       </div>
-                    )
+                    ))}
+                  {removeDuplicatedElements(events, "Name").length > 6 && (
+                    <div
+                      onClick={() => {
+                        setSearch("");
+                      }}>
+                      <Link
+                        style={{ color: "#3683fc" }}
+                        href={`/events/${convertTitleToPath(search)}`}
+                        className="search-result-item">
+                        View All
+                      </Link>
+                    </div>
                   )}
                 </>
               )}

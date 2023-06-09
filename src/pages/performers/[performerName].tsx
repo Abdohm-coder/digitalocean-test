@@ -24,7 +24,7 @@ const PerformerPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (performerName) {
+    if (performerName && Array.isArray(images)) {
       const name = convertQueryToTitle(performerName);
       let isThereImage = false;
       images.forEach((el) => {

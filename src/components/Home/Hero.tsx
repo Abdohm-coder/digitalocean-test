@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchPerformersProps } from "../../types/data-types";
+import { SearchEventsProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
 import { fetchSearchEvents, siteSettings } from "../../settings/site.settings";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [events, setEvents] = useState<SearchPerformersProps[]>([]);
+  const [events, setEvents] = useState<SearchEventsProps[]>([]);
 
   const { venues, searchHeroRef } = useDataContext();
 
@@ -98,8 +98,12 @@ const Hero = () => {
                   </div>
                 ))}
               {removeDuplicatedElements(events, "Name").length > 6 && (
-                <div onClick={() => setSearch("")}>
+                <div
+                  onClick={() => {
+                    setSearch("");
+                  }}>
                   <Link
+                    style={{ color: "#3683fc" }}
                     href={`/events/${convertTitleToPath(search)}`}
                     className="search-result-item">
                     View All

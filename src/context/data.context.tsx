@@ -14,19 +14,15 @@ import useSWR from "swr";
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
-  performers: GetEventPerformersProps[];
+  performers?: GetEventPerformersProps[];
   venues?: GetVenueProps[];
   images?: Array<string[]>;
-  performerID: number | null;
-  setPerformerID: React.Dispatch<React.SetStateAction<number | null>>;
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
   categories: [],
   performers: [],
   venues: [],
   images: [],
-  performerID: null,
-  setPerformerID: () => {},
   searchHeroRef: { current: null },
 });
 
@@ -35,8 +31,7 @@ export const DataProvider: React.FC<{
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }> = ({ searchHeroRef, children }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
-  const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
-  const [performerID, setPerformerID] = useState<number | null>(null);
+  // const [performers, setPerformers] = useState<GetEventPerformersProps[]>([]);
   const { data: images } = useSWR(
     "images",
     async () => {
@@ -116,11 +111,9 @@ export const DataProvider: React.FC<{
     <DataContext.Provider
       value={{
         categories,
-        performers,
+        // performers,
         venues,
         images,
-        performerID,
-        setPerformerID,
         searchHeroRef,
       }}>
       {children}
