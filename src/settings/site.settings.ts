@@ -616,48 +616,24 @@ export const fetchHighSalesPerformers = async (
 export const fetchHighInventoryPerformers = async (
   params: GetHighInventoryPerformersInput
 ) => {
-  const storedData = localStorage.getItem(
-    `high_inventory-${params.parentCategoryID}`
-  );
-  const storedTimestamp = localStorage.getItem(
-    `timestamp-${params.parentCategoryID}`
-  );
-  const currentTime = new Date().getTime();
-  const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
-  if (
-    !storedData ||
-    !storedTimestamp ||
-    currentTime - +storedTimestamp > oneDay
-  ) {
-    try {
-      const response = await axios.post(
-        "/api/GetHighInventoryPerformers",
-        params,
-        {
-          onDownloadProgress: (progressEvent) => {
-            let percentCompleted = progressEvent.total
-              ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
-              : null;
-            console.log(percentCompleted);
-          },
-        }
-      );
-      const data =
-        response.data.GetHighInventoryPerformersResult.PerformerPercent;
-      localStorage.setItem(
-        `high_inventory-${params.parentCategoryID}`,
-        JSON.stringify(data)
-      );
-      localStorage.setItem(
-        `timestamp-${params.parentCategoryID}`,
-        currentTime.toString()
-      );
-      return data;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  } else {
-    return JSON.parse(storedData);
+  try {
+    const response = await axios.post(
+      "/api/GetHighInventoryPerformers",
+      params,
+      {
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = progressEvent.total
+            ? Math.floor((progressEvent.loaded / progressEvent.total) * 100)
+            : null;
+          console.log(percentCompleted);
+        },
+      }
+    );
+    const data =
+      response.data.GetHighInventoryPerformersResult.PerformerPercent;
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
   }
 };
 
