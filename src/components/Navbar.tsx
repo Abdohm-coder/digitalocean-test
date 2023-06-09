@@ -15,6 +15,7 @@ import { useDebounce } from "use-debounce";
 import { SearchEventsProps } from "@/types/data-types";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import Loading from "./Loading";
 
 const Navbar: React.FC<{
   searchNavbarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -25,6 +26,7 @@ const Navbar: React.FC<{
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { venues } = useDataContext();
 
@@ -51,6 +53,7 @@ const Navbar: React.FC<{
         } catch (error) {
           console.error("Error:", error);
         }
+        setLoading(false);
       };
       fetchEvents();
     } else {
@@ -236,6 +239,7 @@ const Navbar: React.FC<{
               )}
             </>
           )} */}
+              {loading && <Loading type="dots" />}
               {events.length > 0 && (
                 <>
                   <div className="search-result-title">Events</div>

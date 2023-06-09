@@ -7,11 +7,13 @@ import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import Loading from "../Loading";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { venues, searchHeroRef } = useDataContext();
 
@@ -38,6 +40,7 @@ const Hero = () => {
         } catch (error) {
           console.error("Error:", error);
         }
+        setLoading(false);
       };
       fetchEvents();
     } else {
@@ -83,6 +86,7 @@ const Hero = () => {
               )}
             </>
           )} */}
+          {loading && <Loading type="dots" />}
           {events.length > 0 && (
             <>
               <div className="search-result-title">Events</div>
@@ -90,9 +94,7 @@ const Hero = () => {
                 .slice(0, 6)
                 .map(({ ID, Name }) => (
                   <div onClick={() => setSearch("")} key={ID}>
-                    <a
-                      href={`/tickets/${ID}`}
-                      className="search-result-item">
+                    <a href={`/tickets/${ID}`} className="search-result-item">
                       {Name}
                     </a>
                   </div>
