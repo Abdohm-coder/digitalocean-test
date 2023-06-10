@@ -77,7 +77,7 @@ export const DataProvider: React.FC<{
           console.error("Error:", error);
         }
       } else {
-        setVenues(JSON.parse(storedData));
+        setCategories(JSON.parse(storedData));
       }
     };
     const fetchAllImages = async () => {

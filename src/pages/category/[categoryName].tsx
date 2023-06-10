@@ -20,6 +20,7 @@ import { capitalizeString } from "@/utils/capitalize-string";
 import TopNationalEvents from "@/components/Categories/TopNationalEvents";
 import Loading from "@/components/Loading";
 import useSWR, { Fetcher } from "swr";
+import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -104,9 +105,11 @@ const CategoryPage: React.FC = () => {
             <section className="mt-3">
               <h3 className="fw-bold text-capitalize">Top National Events</h3>
               <div className="d-flex overflow-auto flex-lg-wrap">
-                {performers.slice(0, 8).map(({ Description, ID }) => (
-                  <TopNationalEvents key={ID} name={Description} />
-                ))}
+                {removeDuplicatedElements(performers, "Description")
+                  .slice(0, 8)
+                  .map(({ Description, ID }) => (
+                    <TopNationalEvents key={ID} name={Description} />
+                  ))}
               </div>
             </section>
           )}
