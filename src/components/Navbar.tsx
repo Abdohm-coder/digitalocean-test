@@ -190,6 +190,7 @@ const Navbar: React.FC<{
         <div className="container-lg">
           <Link href={"/"} className="navbar-brand">
             <Image
+              loading="lazy"
               src={siteSettings.logo.src}
               alt={siteSettings.logo.alt}
               height={siteSettings.logo.height}
@@ -261,7 +262,7 @@ const Navbar: React.FC<{
                       </div>
                     ))}
                   {removeDuplicatedElements(events, "Name").length > 6 && (
-                    <div  
+                    <div
                       onClick={() => {
                         setSearch("");
                       }}>

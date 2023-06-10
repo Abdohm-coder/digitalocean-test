@@ -12,6 +12,7 @@ import { convertQueryToTitle } from "@/utils/query-to-title";
 import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
 import Loading from "@/components/Loading";
+import useSWR, { Fetcher } from "swr";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();
@@ -19,13 +20,36 @@ const PerformerPage: React.FC = () => {
   const performerName = query.performerName as string;
   const [performerTitle, setPerformerTitle] = useState("");
   const [performerImage, setPerformerImage] = useState<string | null>(null);
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [loading, setLoading] = useState(false);
+
+  const fetchEvents: Fetcher<GetEventsProps[]> = async () => {
+    const response = await fetchGetEvents({
+      performerName: capitalizeString(performerTitle),
+      numberOfEvents: eventNumber,
+      orderByClause: "Date",
+      whereClause: "",
+    });
+    return response;
+  };
+
+  const {
+    data: events,
+    error,
+    isLoading,
+  } = useSWR(
+    performerTitle ? `${performerTitle}-performer-events` : null,
+    fetchEvents,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000, // Refresh every 1 hour
+    }
+  );
 
   useEffect(() => {
     if (performerName) {
       const name = convertQueryToTitle(performerName);
+      setPerformerTitle(name);
+
       let isThereImage = false;
       if (Array.isArray(images)) {
         images.forEach((el) => {
@@ -37,32 +61,11 @@ const PerformerPage: React.FC = () => {
         });
         if (!isThereImage) setPerformerImage(null);
       }
-      setPerformerTitle(name);
     }
   }, [performerName, images]);
 
-  console.log("performerImage: ", performerImage);
+  console.log("performerEvents: ", events);
 
-  useEffect(() => {
-    if (performerTitle) {
-      const fetchEvents = async () => {
-        setLoading(true);
-        try {
-          const response = await fetchGetEvents({
-            performerName: capitalizeString(performerTitle),
-            numberOfEvents: eventNumber,
-            orderByClause: "Date",
-            whereClause: "",
-          });
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-        setLoading(false);
-      };
-      fetchEvents();
-    }
-  }, [eventNumber, performerTitle]);
   return (
     <>
       <Head>
@@ -73,6 +76,7 @@ const PerformerPage: React.FC = () => {
       <main className="container">
         <div className="position-relative card-img">
           <Image
+            loading="lazy"
             src={performerImage ?? DefaultImage}
             alt={`${performerTitle} image`}
             width={1200}
@@ -86,13 +90,14 @@ const PerformerPage: React.FC = () => {
           </h1>
         </div>
 
-        {loading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <EventList
             eventNumber={eventNumber}
             setEventNumber={setEventNumber}
             events={events}
+            error={error}
           />
         )}
         {/* <Events count={8} title="Sam Morril tour venues" />

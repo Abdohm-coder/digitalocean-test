@@ -36,7 +36,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     },
   };
 
-  const { data, error } = useSWR(
+  const { data, isLoading } = useSWR(
     `high_inventory-${id}`,
     async () => {
       try {
@@ -67,7 +67,7 @@ const Events: React.FC<props> = ({ title, link, id }) => {
         </Link>
       </div>
       <div className="mt-3 position-relative">
-        {!data && !error ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <Swiper

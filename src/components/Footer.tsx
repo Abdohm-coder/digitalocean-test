@@ -76,11 +76,11 @@ const Footer: React.FC = () => {
                   .slice(0, 6)
                   .map(({ ID, Description }) => (
                     <li key={ID} className="nav-item">
-                      <a
+                      <Link
                         className="nav-link link-light"
                         href={`/performers/${convertTitleToPath(Description)}`}>
                         {Description}
-                      </a>
+                      </Link>
                     </li>
                   ))}
             </ul>
@@ -93,11 +93,11 @@ const Footer: React.FC = () => {
                   .slice(6, 12)
                   .map(({ ID, Description }) => (
                     <li key={ID} className="nav-item">
-                      <a
+                      <Link
                         className="nav-link link-light"
                         href={`/performers/${convertTitleToPath(Description)}`}>
                         {Description}
-                      </a>
+                      </Link>
                     </li>
                   ))}
             </ul>

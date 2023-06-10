@@ -19,6 +19,7 @@ import {
 import { capitalizeString } from "@/utils/capitalize-string";
 import TopNationalEvents from "@/components/Categories/TopNationalEvents";
 import Loading from "@/components/Loading";
+import useSWR, { Fetcher } from "swr";
 
 const CategoryPage: React.FC = () => {
   const { categories } = useDataContext();
@@ -27,13 +28,7 @@ const CategoryPage: React.FC = () => {
   const categoryName = query.categoryName as string;
   const [categoryTitle, setCategoryTitle] = useState("");
 
-  const [loading, setLoading] = useState(true);
-
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [eventNumber, setEventNumber] = useState(50);
-  const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
-    []
-  );
   const categoryData = useMemo(
     () =>
       categories.filter(({ ChildCategoryDescription }) =>
@@ -42,53 +37,58 @@ const CategoryPage: React.FC = () => {
     [categories, categoryTitle]
   );
 
+  const fetchEvents: Fetcher<GetEventsProps[]> = async () => {
+    const response = await fetchGetEvents({
+      parentCategoryID: categoryData[0].ParentCategoryID,
+      childCategoryID: categoryData[0].ChildCategoryID,
+      orderByClause: "Date",
+      whereClause: "",
+      numberOfEvents: eventNumber,
+    });
+    return response;
+  };
+
+  const {
+    data: events,
+    error,
+    isLoading,
+  } = useSWR(
+    categoryData[0]?.ChildCategoryID
+      ? `${categoryData[0]?.ParentCategoryID}-${categoryData[0]?.ChildCategoryID}-category-events`
+      : null,
+    fetchEvents,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000, // Refresh every 1 hour
+    }
+  );
+
+  const fetchPerformers: Fetcher<GetPerfomerByCategoryProps[]> = async () => {
+    const response = await fetchPerformerByCategory({
+      hasEvent: true,
+      parentCategoryID: categoryData[0].ParentCategoryID,
+      childCategoryID: categoryData[0].ChildCategoryID,
+    });
+    return response;
+  };
+
+  const { data: performers } = useSWR(
+    categoryData[0]?.ChildCategoryID
+      ? `${categoryData[0]?.ParentCategoryID}-${categoryData[0]?.ChildCategoryID}-category-performers`
+      : null,
+    fetchPerformers,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000, // Refresh every 1 hour
+    }
+  );
+
   useEffect(() => {
     if (categoryName) {
       const name = convertQueryToTitle(categoryName);
       setCategoryTitle(name);
     }
   }, [categoryName]);
-
-  useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID) {
-      const fetchData = async () => {
-        try {
-          const response = await fetchPerformerByCategory({
-            hasEvent: true,
-            parentCategoryID: categoryData[0].ParentCategoryID,
-            childCategoryID: categoryData[0].ChildCategoryID,
-          });
-          setPerformers(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchData();
-    }
-  }, [categoryData]);
-
-  useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID) {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchGetEvents({
-            parentCategoryID: categoryData[0].ParentCategoryID,
-            childCategoryID: categoryData[0].ChildCategoryID,
-            orderByClause: "Date",
-            whereClause: "",
-            numberOfEvents: eventNumber,
-          });
-          setLoading(false);
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchEvents();
-    } else {
-      console.log("error event id");
-    }
-  }, [categoryData, eventNumber]);
 
   return (
     <>
@@ -100,7 +100,7 @@ const CategoryPage: React.FC = () => {
       <main className="bg-light">
         <Hero title={categoryTitle} />
         <div className="container">
-          {performers.length > 0 && (
+          {Array.isArray(performers) && performers.length > 0 && (
             <section className="mt-3">
               <h3 className="fw-bold text-capitalize">Top National Events</h3>
               <div className="d-flex overflow-auto flex-lg-wrap">
@@ -115,13 +115,14 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}
                   setEventNumber={setEventNumber}
                   events={events}
+                  error={error}
                 />
               )}
             </div>

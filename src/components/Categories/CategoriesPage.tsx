@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Categories from "./Categories";
 import Hero from "./Hero";
 import TopNationalEvents from "./TopNationalEvents";
@@ -8,7 +8,7 @@ import TicketInfo from "./TicketInfo";
 import { useDataContext } from "../../context/data.context";
 import {
   GetEventsProps,
-  GetPerfomerByCategoryProps,
+  GetHighSalesPerformersProps,
 } from "../../types/data-types";
 import { usePathname } from "next/navigation";
 import {
@@ -17,6 +17,7 @@ import {
 } from "@/settings/site.settings";
 import Loading from "../Loading";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import useSWR, { Fetcher } from "swr";
 
 const CategoriesPage: React.FC = () => {
   const pathname = usePathname();
@@ -24,11 +25,6 @@ const CategoriesPage: React.FC = () => {
   const categoryTitle = pathname.replace("/", "").replace("-tickets", "");
   console.log(categoryTitle);
   const [eventNumber, setEventNumber] = useState(50);
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
-  const [performers, setPerformers] = useState<GetPerfomerByCategoryProps[]>(
-    []
-  );
-  const [loading, setLoading] = useState(true);
 
   const categoryData = useMemo(() => {
     return categories.filter(({ ParentCategoryDescription }) =>
@@ -36,44 +32,49 @@ const CategoriesPage: React.FC = () => {
     );
   }, [categories, categoryTitle]);
 
-  useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID) {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchGetEvents({
-            parentCategoryID: categoryData[0]?.ParentCategoryID,
-            orderByClause: "Date ASC",
-            whereClause: "",
-            numberOfEvents: eventNumber,
-          });
-          setLoading(false);
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchEvents();
-    } else {
-      console.log("error event id");
-    }
-  }, [categoryData, eventNumber]);
+  const fetchEvents: Fetcher<GetEventsProps[]> = async () => {
+    const response = await fetchGetEvents({
+      parentCategoryID: categoryData[0]?.ParentCategoryID,
+      orderByClause: "Date ASC",
+      whereClause: "",
+      numberOfEvents: eventNumber,
+    });
+    return response;
+  };
 
-  useEffect(() => {
-    if (categoryData[0]?.ParentCategoryID) {
-      const fetchPerformerByCategory = async () => {
-        try {
-          const response = await fetchHighSalesPerformers({
-            numReturned: 8,
-            parentCategoryID: categoryData[0].ParentCategoryID,
-          });
-          setPerformers(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchPerformerByCategory();
+  const {
+    data: events,
+    error,
+    isLoading,
+  } = useSWR(
+    categoryData[0]?.ParentCategoryID
+      ? `${categoryData[0]?.ParentCategoryID}-category-events`
+      : null,
+    fetchEvents,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000, // Refresh every 1 hour
     }
-  }, [categoryData]);
+  );
+
+  const fetchPerformers: Fetcher<GetHighSalesPerformersProps[]> = async () => {
+    const response = await fetchHighSalesPerformers({
+      numReturned: 8,
+      parentCategoryID: categoryData[0].ParentCategoryID,
+    });
+    return response;
+  };
+
+  const { data: performers } = useSWR(
+    categoryData[0]?.ParentCategoryID
+      ? `${categoryData[0]?.ParentCategoryID}-category-performers`
+      : null,
+    fetchPerformers,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 3600000, // Refresh every 1 hour
+    }
+  );
 
   return (
     <>
@@ -86,7 +87,7 @@ const CategoriesPage: React.FC = () => {
               "ChildCategoryDescription"
             )?.slice(0, 8)}
           />
-          {performers.length > 0 && (
+          {Array.isArray(performers) && performers.length > 0 && (
             <section className="mt-3">
               <h3 className="fw-bold text-capitalize">Top National Events</h3>
               <div className="d-flex overflow-auto flex-lg-wrap">
@@ -98,13 +99,14 @@ const CategoriesPage: React.FC = () => {
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}
                   setEventNumber={setEventNumber}
                   events={events}
+                  error={error}
                 />
               )}
             </div>

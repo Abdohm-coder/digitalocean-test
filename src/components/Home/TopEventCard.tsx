@@ -27,6 +27,7 @@ const TopEventCard = ({ ID, Name, Venue, City, Date }: GetEventsProps) => {
       key={`top event: ${ID}`}
       className="col-12 col-md-6 col-lg-4 position-relative overlay">
       <Image
+        loading="lazy"
         src={eventImage ?? DefaultImage}
         alt="image"
         width={840}

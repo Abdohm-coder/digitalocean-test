@@ -158,6 +158,13 @@ export declare type GetHighInventoryPerformersProps = {
   Percent: number;
 };
 
+export declare type GetHighSalesPerformersProps = {
+  ID: number;
+  Description: string;
+  Category: any;
+  Percent: number;
+};
+
 export declare type GetPerfomerByCategoryProps = {
   ID: number;
   HomeVenueID: number;

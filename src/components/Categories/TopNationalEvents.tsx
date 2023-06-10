@@ -27,6 +27,7 @@ const TopNationalEvents: React.FC<{
     <div className="col-6 col-md-4 col-lg-3 p-1">
       <div className="position-relative overlay up">
         <Image
+          loading="lazy"
           src={performerImage || DefaultImage}
           alt={`${name} image`}
           height={200}

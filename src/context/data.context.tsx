@@ -58,13 +58,26 @@ export const DataProvider: React.FC<{
       }
     };
     const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/GetCategories");
-        const data = response.data.GetCategoriesResult.Category;
-        setCategories(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
+      const storedData = localStorage.getItem("categories");
+      const storedTimestamp = localStorage.getItem("timestamp-categories");
+      const currentTime = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+      if (
+        !storedData ||
+        !storedTimestamp ||
+        currentTime - +storedTimestamp > oneDay
+      ) {
+        try {
+          const response = await axios.get("/api/GetCategories");
+          const data = response.data.GetCategoriesResult.Category;
+          setCategories(data);
+          localStorage.setItem("categories", JSON.stringify(data));
+          localStorage.setItem("timestamp-categories", currentTime.toString());
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      } else {
+        setVenues(JSON.parse(storedData));
       }
     };
     const fetchAllImages = async () => {
