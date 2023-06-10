@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   GetEventsProps,
-  GetHighSalesPerformersProps,
+  GetPerfomerByCategoryProps,
 } from "../../types/data-types";
 import { useDataContext } from "../../context/data.context";
 import { convertQueryToTitle } from "../../utils/query-to-title";
@@ -13,7 +13,7 @@ import TicketInfo from "@/components/Categories/TicketInfo";
 import Head from "next/head";
 import {
   fetchGetEvents,
-  fetchHighSalesPerformers,
+  fetchPerformerByCategory,
   siteSettings,
 } from "@/settings/site.settings";
 import { capitalizeString } from "@/utils/capitalize-string";
@@ -64,9 +64,9 @@ const CategoryPage: React.FC = () => {
     }
   );
 
-  const fetchPerformers: Fetcher<GetHighSalesPerformersProps[]> = async () => {
-    const response = await fetchHighSalesPerformers({
-      numReturned: 16,
+  const fetchPerformers: Fetcher<GetPerfomerByCategoryProps[]> = async () => {
+    const response = await fetchPerformerByCategory({
+      hasEvent: true,
       parentCategoryID: categoryData[0].ParentCategoryID,
       childCategoryID: categoryData[0].ChildCategoryID,
     });
