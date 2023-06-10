@@ -59,7 +59,7 @@ const CategoriesPage: React.FC = () => {
 
   const fetchPerformers: Fetcher<GetHighSalesPerformersProps[]> = async () => {
     const response = await fetchHighSalesPerformers({
-      numReturned: 8,
+      numReturned: 16,
       parentCategoryID: categoryData[0].ParentCategoryID,
     });
     return response;
@@ -91,9 +91,11 @@ const CategoriesPage: React.FC = () => {
             <section className="mt-3">
               <h3 className="fw-bold text-capitalize">Top National Events</h3>
               <div className="d-flex overflow-auto flex-lg-wrap">
-                {performers.slice(0, 8).map(({ Description, ID }) => (
-                  <TopNationalEvents key={ID} name={Description} />
-                ))}
+                {removeDuplicatedElements(performers, "Description")
+                  .slice(0, 8)
+                  .map(({ Description, ID }) => (
+                    <TopNationalEvents key={ID} name={Description} />
+                  ))}
               </div>
             </section>
           )}

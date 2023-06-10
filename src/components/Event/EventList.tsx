@@ -64,6 +64,7 @@ const EventList: React.FC<{
             )
           )}
         {(Array.isArray(events) && events.length === 0) ||
+          !events ||
           (error && (
             <div className="list-group-item list-group-item-action event-item">
               No events available.

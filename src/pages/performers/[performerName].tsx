@@ -85,7 +85,12 @@ const PerformerPage: React.FC = () => {
           />
           <h1
             className="text-white m-0 fw-bold position-absolute text-capitalize"
-            style={{ left: "16px", bottom: "16px" }}>
+            style={{
+              left: "16px",
+              bottom: "16px",
+              background: "rgba(0, 0, 0, 0.5)",
+              padding: "6px",
+            }}>
             {capitalizeString(performerTitle)} Tickets
           </h1>
         </div>
