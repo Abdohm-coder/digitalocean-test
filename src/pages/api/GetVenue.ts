@@ -10,6 +10,12 @@ type ResponseData = {
   message: string;
 };
 
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+};
+
 export default async function handler(
   _: NextApiRequest,
   res: NextApiResponse<ResponseData>
