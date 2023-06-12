@@ -53,7 +53,6 @@ const PerformerPage: React.FC = () => {
       let isThereImage = false;
       if (Array.isArray(images)) {
         images.forEach((el) => {
-          console.log(el);
           if (el[1].toLowerCase().includes(name)) {
             setPerformerImage(el[2]);
             isThereImage = true;
@@ -63,8 +62,6 @@ const PerformerPage: React.FC = () => {
       }
     }
   }, [performerName, images]);
-
-  console.log("performerEvents: ", events);
 
   return (
     <>

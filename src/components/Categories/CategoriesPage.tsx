@@ -23,7 +23,6 @@ const CategoriesPage: React.FC = () => {
   const pathname = usePathname();
   const { categories } = useDataContext();
   const categoryTitle = pathname.replace("/", "").replace("-tickets", "");
-  console.log(categoryTitle);
   const [eventNumber, setEventNumber] = useState(50);
 
   const categoryData = useMemo(() => {

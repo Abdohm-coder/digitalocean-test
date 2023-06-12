@@ -13,7 +13,6 @@ const TopEventCard = ({ ID, Name, Venue, City, Date }: GetEventsProps) => {
   useEffect(() => {
     let isThereImage = false;
     images.forEach((el) => {
-      console.log(el);
       if (el[1].toLowerCase().includes(Name.toLowerCase())) {
         setEventImage(el[2]);
         isThereImage = true;

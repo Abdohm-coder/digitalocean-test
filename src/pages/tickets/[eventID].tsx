@@ -128,7 +128,6 @@ Seatics.config.mapFinishedRenderingHandler = function(){
           unmappedStandard: Seatics.TicketGroupSeparationOptions.Separate
         };    
         // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        //   console.log("dsd");
         //   setTimeout(function(){ document.querySelector("#list-ctn").style.top = '96px'; }, 900);
                       
         // }

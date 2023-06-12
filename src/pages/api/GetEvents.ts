@@ -47,8 +47,6 @@ export default async function handler(
     // Make the SOAP request
     const response = await client.GetEventsAsync(params);
 
-    console.log(response, client);
-
     // Cache the fetched data
     cache.put(cacheKey, response[0], cacheDuration);
 

@@ -36,7 +36,6 @@ const Hero = () => {
             searchTerms: search,
           });
           setEvents(response || []);
-          console.log(response);
         } catch (error) {
           console.error("Error:", error);
         }

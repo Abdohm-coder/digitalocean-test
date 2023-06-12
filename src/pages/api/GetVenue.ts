@@ -31,6 +31,8 @@ export default async function handler(
       // Make the SOAP request
       const response = await client.GetVenueAsync(params);
 
+      console.log(response, client);
+
       // Cache the fetched data
       cache.put("venues", response[0], cacheDuration);
 

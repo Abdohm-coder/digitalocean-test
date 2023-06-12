@@ -56,8 +56,6 @@ const Events: React.FC<props> = ({ title, link, id }) => {
     }
   );
 
-  console.log(images);
-
   return (
     <section className="pt-5">
       <div className="d-flex align-items-center justify-content-between">
