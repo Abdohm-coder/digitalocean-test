@@ -37,13 +37,13 @@ export default async function handler(
       // Make the SOAP request
       const response = await client.GetVenueAsync(params);
 
-      console.log(JSON.parse(response[0]));
+      console.log(response?.[0]);
 
       // Cache the fetched data
-      cache.put("venues", response[0], cacheDuration);
+      cache.put("venues", response?.[0], cacheDuration);
 
       // Return the SOAP response as JSON
-      res.status(200).json(response[0]);
+      res.status(200).json(response?.[0]);
     }
   } catch (error) {
     console.error("SOAP request error:", error);
