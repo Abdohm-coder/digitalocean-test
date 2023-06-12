@@ -114,8 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       document.title = 'No Tickets Available';
 
       $('#tn-maps-inner').hide();
-         var divToAdd = 
-      \`<div id="no-tickets-msg-ctn" class="no-tickets-msg-ctn">
+         var divToAdd = \`<div id="no-tickets-msg-ctn" class="no-tickets-msg-ctn">
           <p class="no-tickets-msg-hdr">
               Sorry, There is not tickets for this event.
           </p>
@@ -128,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
               </div>
           </div>
       </div> \`;
-    $("#tn-maps).append(divToAdd);
+    $("#tn-maps").append(divToAdd);
 };
 
 Seatics.config.mapFinishedRenderingHandler = function(){
@@ -160,8 +159,8 @@ Seatics.config.mapFinishedRenderingHandler = function(){
           }
       $("#map-shower").on("click", () => {
         if($("#map-resize-txt").html() === "Show Map"){ $("#venue-map").css("top", "0"); $("#list-ctn").css("top", "330px                                                                                                                                                                                                                                   ")}
-      })
-
+      });
+ 
     };
   });
     </script>
@@ -169,6 +168,8 @@ Seatics.config.mapFinishedRenderingHandler = function(){
 
   const updatedWidgetHTML = widgetHTML + additionalScript;
 
+
+  console.log(updatedWidgetHTML);
   return {
     props: {
       widgetHTML: updatedWidgetHTML,
