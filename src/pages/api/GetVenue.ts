@@ -29,7 +29,7 @@ export default async function handler(
       res.status(200).json(cachedData);
     } else {
       // Make the SOAP request
-      const response = await client.GetVenueAsync(params);
+      const response = await client.GetVenuesAsync(params);
 
       console.log(response, client);
 
