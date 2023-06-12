@@ -32,8 +32,10 @@ const CategoryPage: React.FC = () => {
   const [eventNumber, setEventNumber] = useState(50);
   const categoryData = useMemo(
     () =>
-      categories.filter(({ ChildCategoryDescription }) =>
-        ChildCategoryDescription.toLowerCase().includes(categoryTitle)
+      categories.filter(
+        ({ ChildCategoryDescription, GrandchildCategoryDescription }) =>
+          ChildCategoryDescription.toLowerCase().includes(categoryTitle) ||
+          GrandchildCategoryDescription.toLowerCase().includes(categoryTitle)
       ),
     [categories, categoryTitle]
   );

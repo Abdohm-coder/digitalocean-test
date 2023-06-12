@@ -63,13 +63,13 @@ const EventList: React.FC<{
               </a>
             )
           )}
-        {(Array.isArray(events) && events.length === 0) ||
+        {((Array.isArray(events) && events.length === 0) ||
           !events ||
-          (error && (
-            <div className="list-group-item list-group-item-action event-item">
-              No events available.
-            </div>
-          ))}
+          error) && (
+          <div className="list-group-item list-group-item-action event-item">
+            No events available.
+          </div>
+        )}
         {Array.isArray(events) &&
           setEventNumber &&
           events.length % 50 === 0 &&

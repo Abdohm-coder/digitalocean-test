@@ -3,16 +3,13 @@ import axios from "axios";
 // import { BsArrowsAngleContract, BsArrowsFullscreen } from "react-icons/bs";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { fetchGetEvents, siteSettings } from "@/settings/site.settings";
-import { useEffect, useState } from "react";
-import { GetEventsProps } from "@/types/data-types";
+import { useEffect } from "react";
+// import { GetEventsProps } from "@/types/data-types";
 
 const TicketPage = ({
   widgetHTML,
-  eventID,
 }: {
   widgetHTML: string;
-  eventID: string;
 }) => {
   useEffect(() => {
     const addTableCell = () => {
@@ -35,24 +32,24 @@ const TicketPage = ({
 
     addTableCell();
   }, []);
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
+  // const [events, setEvents] = useState<GetEventsProps[]>([]);
 
-  useEffect(() => {
-    if (+eventID) {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchGetEvents({
-            eventID: +eventID,
-            numberOfEvents: 1,
-          });
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchEvents();
-    }
-  }, [eventID]);
+  // useEffect(() => {
+  //   if (+eventID) {
+  //     const fetchEvents = async () => {
+  //       try {
+  //         const response = await fetchGetEvents({
+  //           eventID: +eventID,
+  //           numberOfEvents: 1,
+  //         });
+  //         setEvents(response || []);
+  //       } catch (error) {
+  //         console.error("Error:", error);
+  //       }
+  //     };
+  //     fetchEvents();
+  //   }
+  // }, [eventID]);
 
   return (
     <div>
@@ -61,10 +58,10 @@ const TicketPage = ({
           name="viewport"
           content="initial-scale=1.0, user-scalable=no, width=device-width"
         />
-        <title>
+        {/* <title>
           {events[0]?.Name || "Map Widget"} {events[0]?.DisplayDate} |{" "}
           {siteSettings.site_name}
-        </title>
+        </title> */}
       </Head>
       <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
     </div>
@@ -86,7 +83,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			Seatics = Seatics || {};
 			Seatics.config = Seatics.config || {};
 
-			Seatics.config.enableLegalDisclosureMobile = true;
+			Seatics.config.enableLegalDisclosureMobile = false;
+			Seatics.config.enableHeaderLowerLegalDisclosureMobile = false;
+			Seatics.config.enableQuantityModal = true;
 			Seatics.config.useC3 = true;
       Seatics.config.c3CheckoutDomain = "checkout.ticketfront.com";
 			Seatics.config.c3CurrencyCode = 'USD';

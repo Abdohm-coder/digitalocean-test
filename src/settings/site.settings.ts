@@ -47,7 +47,7 @@ export const siteSettings = {
       id: 2,
       sub_category: [
         {
-          title: "Festivals",
+          title: "Festival",
           performers: [
             {
               title: "Lollapalooza",
@@ -527,7 +527,7 @@ export const siteSettings = {
           ],
         },
         {
-          title: "On Tour",
+          title: "Fistival/Tour",
           performers: [
             {
               title: "Hamilton",
@@ -565,7 +565,7 @@ export const siteSettings = {
           ],
         },
         {
-          title: "Musicals",
+          title: "Musical",
           performers: [
             {
               title: "Waitress",
