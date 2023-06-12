@@ -21,6 +21,13 @@ export default async function handler(
     grandchildCategoryID,
   } = req.body;
 
+  // Check if data is cached
+  const cachedData = cache.get(`high_inventory-${parentCategoryID}`);
+  if (cachedData) {
+    // If data exists in cache, return it
+    return res.status(200).json(cachedData);
+  }
+
   // Create a new SoapClient instance
   const client = await createClientAsync(SOAP_ACTION);
 
@@ -36,25 +43,14 @@ export default async function handler(
     params["grandchildCategoryID"] = grandchildCategoryID;
 
   try {
-    // Check if data is cached
-    const cachedData = cache.get(`high_inventory-${parentCategoryID}`);
-    if (cachedData) {
-      // If data exists in cache, return it
-      res.status(200).json(cachedData);
-    } else {
-      // Make the SOAP request
-      const response = await client.GetHighInventoryPerformersAsync(params);
+    // Make the SOAP request
+    const response = await client.GetHighInventoryPerformersAsync(params);
 
-      // Cache the fetched data
-      cache.put(
-        `high_inventory-${parentCategoryID}`,
-        response[0],
-        cacheDuration
-      );
+    // Cache the fetched data
+    cache.put(`high_inventory-${parentCategoryID}`, response[0], cacheDuration);
 
-      // Return the SOAP response as JSON
-      res.status(200).json(response[0]);
-    }
+    // Return the SOAP response as JSON
+    return res.status(200).json(response[0]);
   } catch (error) {
     console.error("SOAP request error:", error);
     // @ts-ignore

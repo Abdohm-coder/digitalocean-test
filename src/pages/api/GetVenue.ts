@@ -20,6 +20,11 @@ export default async function handler(
   _: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
+  const cachedData = cache.get("venues");
+  if (cachedData) {
+    // If data exists in cache, return it
+    return res.status(200).json(cachedData);
+  }
   // Create a new SoapClient instance
   const client = await createClientAsync(SOAP_ACTION);
 
@@ -29,22 +34,16 @@ export default async function handler(
   };
 
   try {
-    const cachedData = cache.get("venues");
-    if (cachedData) {
-      // If data exists in cache, return it
-      res.status(200).json(cachedData);
-    } else {
-      // Make the SOAP request
-      const response = await client.GetVenueAsync(params);
+    // Make the SOAP request
+    const response = await client.GetVenueAsync(params);
 
-      console.log(response?.[0]);
+    console.log(response?.[0]);
 
-      // Cache the fetched data
-      cache.put("venues", response?.[0], cacheDuration);
+    // Cache the fetched data
+    cache.put("venues", response?.[0], cacheDuration);
 
-      // Return the SOAP response as JSON
-      res.status(200).json(response?.[0]);
-    }
+    // Return the SOAP response as JSON
+    return res.status(200).json(response?.[0]);
   } catch (error) {
     console.error("SOAP request error:", error);
     // @ts-ignore

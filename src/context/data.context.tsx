@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import {
   GetCategoriesProps,
-  GetEventPerformersProps,
   GetVenueProps,
 } from "@/types/data-types";
 import axios from "axios";
@@ -13,13 +12,13 @@ import {
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
-  performers?: GetEventPerformersProps[];
+  // performers?: GetEventPerformersProps[];
   venues: GetVenueProps[];
   images: Array<string[]>;
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
   categories: [],
-  performers: [],
+  // performers: [],
   venues: [],
   images: [],
   searchHeroRef: { current: null },

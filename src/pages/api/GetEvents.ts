@@ -18,6 +18,16 @@ export default async function handler(
     orderByClause,
   } = req.body;
 
+  // Generate a cache key based on the request query parameters
+  const cacheKey = `${parentCategoryID}-${childCategoryID}-${performerName}-${performerID}-${numberOfEvents}-${orderByClause}`;
+
+  // Check if data is cached
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    // If data exists in cache, return it
+    return res.status(200).json(cachedData);
+  }
+
   // Create a new SoapClient instance
   const client = await createClientAsync(SOAP_ACTION);
 
@@ -32,16 +42,6 @@ export default async function handler(
   if (performerID) params["performerID"] = performerID;
   if (numberOfEvents) params["numberOfEvents"] = numberOfEvents;
   if (orderByClause) params["orderByClause"] = orderByClause;
-
-  // Generate a cache key based on the request query parameters
-  const cacheKey = `${parentCategoryID}-${childCategoryID}-${performerName}-${performerID}-${numberOfEvents}-${orderByClause}`;
-
-  // Check if data is cached
-  const cachedData = cache.get(cacheKey);
-  if (cachedData) {
-    // If data exists in cache, return it
-    return res.status(200).json(cachedData);
-  }
 
   try {
     // Make the SOAP request
