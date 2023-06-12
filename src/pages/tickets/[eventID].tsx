@@ -113,27 +113,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       
       document.title = 'No Tickets Available';
 
-      jQuery(document).ready(function ($) {
-        $('#tn-maps-inner').hide();
-           var divToAdd = 
-        \`<div id="no-tickets-msg-ctn" class="no-tickets-msg-ctn">
-            <p class="no-tickets-msg-hdr">
-                Sorry, There is not tickets for this event.
-            </p>
-            <div class="no-tickets-msg-text-ctn">
-                Please try:
-                <div>
-                    <ul class="no-tickets-msg-list">
-                        <li>Searching for a different event date</li>
-                    </ul>
-                </div>
-            </div>
-        </div> \`
-    ;
-      $("#tn-maps).append(divToAdd)
-    
-
-      });
+      $('#tn-maps-inner').hide();
+         var divToAdd = 
+      \`<div id="no-tickets-msg-ctn" class="no-tickets-msg-ctn">
+          <p class="no-tickets-msg-hdr">
+              Sorry, There is not tickets for this event.
+          </p>
+          <div class="no-tickets-msg-text-ctn">
+              Please try:
+              <div>
+                  <ul class="no-tickets-msg-list">
+                      <li>Searching for a different event date</li>
+                  </ul>
+              </div>
+          </div>
+      </div> \`;
+    $("#tn-maps).append(divToAdd);
 };
 
 Seatics.config.mapFinishedRenderingHandler = function(){
