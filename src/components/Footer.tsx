@@ -128,26 +128,36 @@ const Footer: React.FC = () => {
           </p>
           <div className="d-flex fs-4 gap-3">
             <a
+              target="_blank"
+              rel="noreferrer"
               href={siteSettings.social_media_links.facebook}
               className="link-light">
               <BsFacebook />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={siteSettings.social_media_links.twitter}
               className="link-light">
               <BsTwitter />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={siteSettings.social_media_links.pinterest}
               className="link-light">
               <BsPinterest />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={siteSettings.social_media_links.youtube}
               className="link-light">
               <BsYoutube />
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href={siteSettings.social_media_links.instagram}
               className="link-light">
               <BsInstagram />

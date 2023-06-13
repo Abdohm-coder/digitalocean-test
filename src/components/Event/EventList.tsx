@@ -29,7 +29,9 @@ const EventList: React.FC<{
                 href={`/tickets/${ID}`}
                 className="list-group-item list-group-item-action event-item">
                 <div className="d-flex gap-3 align-items-center w-100">
-                  <div className="text-center border-end pe-3">
+                  <div
+                    style={{ flex: "0.15" }}
+                    className="text-center border-end pe-3">
                     <h6 className="mb-1 text-primary text-uppercase">
                       {new Date(DateTime).toLocaleString("en-US", {
                         weekday: "short",
@@ -47,7 +49,7 @@ const EventList: React.FC<{
                       {dayjs(DateTime).format("LT")}
                     </p>
                   </div>
-                  <div className="flex-fill">
+                  <div style={{ flex: "1" }}>
                     <h5 className="mb-1 text-muted">{Name}</h5>
                     <p className="m-0 text-muted">
                       {Venue} - {City}, {StateProvince}
