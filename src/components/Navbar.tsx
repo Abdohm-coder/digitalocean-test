@@ -116,6 +116,9 @@ const Navbar: React.FC<{
         return (
           <li
             key={i}
+            onClick={() => {
+              setMobileMenuView(0);
+            }}
             data-bs-toggle="offcanvas"
             data-bs-target="#mobileMenu"
             aria-controls="mobileMenu"
@@ -198,6 +201,9 @@ const Navbar: React.FC<{
           <button
             className="navbar-toggler rounded-pill"
             type="button"
+            onClick={() => {
+              setMobileMenuView(0);
+            }}
             data-bs-toggle="offcanvas"
             data-bs-target="#mobileMenu"
             aria-controls="mobileMenu">
