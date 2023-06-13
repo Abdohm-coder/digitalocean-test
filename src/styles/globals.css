@@ -294,7 +294,7 @@ div.position-absolute.search-none {
   }
 }
 button.btn-buy.venue-ticket-list-checkout-trigger-js {
-  background: #0077ff !important;
+  background: #f60 !important;
   color: #fff !important;
   border-radius: 5px !important;
   padding: 0 10px !important;
@@ -319,7 +319,7 @@ button.btn-buy.venue-ticket-list-checkout-trigger-js {
   color: #8e8e93 !important;
 }
 #sea-inventory-slider-with-filterBtn #sea-inventory-filtersBtncnt {
-  background: #ff5566;
+  background: #f60;
   color: #fff;
   font-weight: bold;
 }
@@ -2206,12 +2206,12 @@ th {
   border: 1px solid #ef495e;
   border-radius: 50%;
   color: #ffffff;
-  background: #ff5566;
+  background: #f60;
 }
 .filters-qty-filter .sea-btn.active,
 .filters-qty-filter .sea-btn.sea-active {
   border: 1px solid #ef495e;
-  background: #ff5566;
+  background: #f60;
   color: #ffffff;
 }
 #sea-quantity-modal-skip,
@@ -2222,15 +2222,19 @@ th {
 .sea-filterCard-parent #sea-filterCard-submit-ctn #sea-filterCard-submit-btn,
 .sea-quantity-items li:hover,
 .sea-quantity-items .sea-selected {
-  background: #ff5566;
+  background: #f60;
   border: 1px solid #ef495e;
+  color: #fff;
+
 }
 .sea-filterCard-parent
   #sea-filterCard-wrapper
   .sea-deliveryTypeCnt
   li.active
   .slider:before {
-  background-color: #ff5566;
+  background-color: #f60;
+  color: #fff;
+
 }
 .sea-header-disclosure {
   position: relative;
@@ -2384,7 +2388,8 @@ div#top-search {
 .pre-checkout-price-cta,
 button.desktop-precheckout-cta-btn,
 #pre-checkout-map-toggle {
-  background-color: #ef495e !important;
+  background-color: #f60 !important;
+  color: white !important;
 }
 .btn.btn-primary.active:hover,
 .filter-tg-type .btn.active,

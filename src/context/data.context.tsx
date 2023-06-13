@@ -1,8 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import {
-  GetCategoriesProps,
-  GetVenueProps,
-} from "@/types/data-types";
+import { GetCategoriesProps, GetVenueProps } from "@/types/data-types";
 import axios from "axios";
 import {
   SHEET_ID,
@@ -48,6 +45,7 @@ export const DataProvider: React.FC<{
       ) {
         const response = await axios.get("/api/GetVenue");
         const data = response.data.GetVenueResult.Venue;
+        console.log(response);
 
         localStorage.setItem("venues", JSON.stringify(data));
         localStorage.setItem("timestamp-venues", currentTime.toString());
