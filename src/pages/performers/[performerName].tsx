@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import EventList from "@/components/Event/EventList";
-import NewsLetterForm from "@/components/NewsLetterForm";
-import Details from "@/components/Event/Details";
 import { GetEventsProps } from "@/types/data-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -13,6 +11,7 @@ import { useDataContext } from "@/context/data.context";
 import DefaultImage from "@/assets/images/default.jpg";
 import Loading from "@/components/Loading";
 import useSWR, { Fetcher } from "swr";
+import TicketInfo from "@/components/Categories/TicketInfo";
 
 const PerformerPage: React.FC = () => {
   const { query } = useRouter();
@@ -104,8 +103,7 @@ const PerformerPage: React.FC = () => {
         )}
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
-        <Details performerTitle={capitalizeString(performerTitle)} />
-        <NewsLetterForm />
+        <TicketInfo categoryTitle={capitalizeString(performerTitle)} />
       </main>
     </>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
 import EventList from "@/components/Event/EventList";
-import NewsLetterForm from "@/components/NewsLetterForm";
 import { GetEventsProps } from "@/types/data-types";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -10,6 +9,7 @@ import { convertQueryToTitle } from "@/utils/query-to-title";
 import { useDataContext } from "@/context/data.context";
 import Hero from "@/components/Categories/Hero";
 import Loading from "@/components/Loading";
+import TicketInfo from "@/components/Categories/TicketInfo";
 
 const VenuePage: React.FC = () => {
   const { query } = useRouter();
@@ -74,7 +74,8 @@ const VenuePage: React.FC = () => {
         )}
         {/* <Events count={8} title="Sam Morril tour venues" />
         <Events count={8} title="Popular artists near you" /> */}
-        <NewsLetterForm />
+                <TicketInfo categoryTitle={capitalizeString(venueTitle)} />
+
       </main>
     </>
   );
