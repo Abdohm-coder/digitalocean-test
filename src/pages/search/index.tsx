@@ -8,7 +8,6 @@ import { useSearchParams } from "next/navigation";
 import {
   fetchGetEvents,
   fetchSearchEvents,
-  fetchSearchPerformers,
   siteSettings,
 } from "@/settings/site.settings";
 import NewsLetterForm from "@/components/NewsLetterForm";
@@ -19,38 +18,21 @@ const SearchPage = () => {
   const { venues } = useDataContext();
   const searchParams = useSearchParams();
   const venue = searchParams.get("venue");
-  const event = searchParams.get("event");
   const performer = searchParams.get("performer");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (event) {
-      const fetchEvents = async () => {
-        setLoading(true);
-        try {
-          const response = await fetchSearchEvents({
-            searchTerms: convertQueryToTitle(event),
-          });
-
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-        setLoading(false);
-      };
-      fetchEvents();
-    }
     if (performer) {
       const fetchEvents = async () => {
         setLoading(true);
         try {
-          const response = await fetchSearchPerformers({
+          const response = await fetchSearchEvents({
             searchTerms: convertQueryToTitle(performer),
           });
-
           setEvents(response || []);
         } catch (error) {
+          setEvents([]);
           console.error("Error:", error);
         }
         setLoading(false);
@@ -80,22 +62,21 @@ const SearchPage = () => {
         fetchEvents();
       }
     }
-  }, [venue, event, venues, performer]);
+  }, [venue, venues, performer]);
 
   return (
     <>
       <Head>
         <title>
-          {capitalizeString(convertQueryToTitle(venue || event || performer))}{" "}
-          Tickets | {siteSettings.site_name}
+          {capitalizeString(convertQueryToTitle(venue || performer))} Tickets |{" "}
+          {siteSettings.site_name}
         </title>
       </Head>
       <main className="container">
         <div className="position-relative card-img">
           <h1 className="m-0 fw-bold text-capitalize">
             Search result for{" "}
-            {capitalizeString(convertQueryToTitle(venue || event || performer))}{" "}
-            Tickets
+            {capitalizeString(convertQueryToTitle(venue || performer))} Tickets
           </h1>
         </div>
 

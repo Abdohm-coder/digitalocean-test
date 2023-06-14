@@ -1,12 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import {
-  SearchEventsProps,
-  SearchPerformersProps,
-} from "../../types/data-types";
+import { SearchPerformersProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
 import {
-  fetchSearchEvents,
   fetchSearchPerformers,
   siteSettings,
 } from "../../settings/site.settings";
@@ -19,7 +15,6 @@ import { useRouter } from "next/navigation";
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
-  const [events, setEvents] = useState<SearchEventsProps[]>([]);
   const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -40,33 +35,21 @@ const Hero = () => {
   useEffect(() => {
     if (search.trim().length > 0) {
       setLoading(true);
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchSearchEvents({
-            searchTerms: search,
-          });
-          setEvents(response || []);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
       const fetchPerformers = async () => {
         try {
           const response = await fetchSearchPerformers({
             searchTerms: search,
           });
           setPerformers(response || []);
-          setLoading(false);
         } catch (error) {
+          setPerformers([]);
           console.error("Error:", error);
         }
+        setLoading(false);
       };
-
-      fetchEvents();
       fetchPerformers();
     } else {
-      setEvents([]);
+      setPerformers([]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +59,7 @@ const Hero = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    router.push(`/search?event=${convertTitleToPath(search)}`);
+    router.push(`/search?performer=${convertTitleToPath(search)}`);
   };
 
   return (
@@ -138,33 +121,6 @@ const Hero = () => {
               </>
             )}
 
-            {events.length > 0 && (
-              <>
-                <div className="search-result-title">Events</div>
-                {removeDuplicatedElements(events, "Name")
-                  .slice(0, 6)
-                  .map(({ ID, Name }) => (
-                    <div onClick={() => setSearch("")} key={ID}>
-                      <a href={`/tickets/${ID}`} className="search-result-item">
-                        {Name}
-                      </a>
-                    </div>
-                  ))}
-                {removeDuplicatedElements(events, "Name").length > 6 && (
-                  <div
-                    onClick={() => {
-                      setSearch("");
-                    }}>
-                    <Link
-                      style={{ color: "#3683fc" }}
-                      href={`/search?event=${convertTitleToPath(search)}`}
-                      className="search-result-item pe-2">
-                      View All
-                    </Link>
-                  </div>
-                )}
-              </>
-            )}
             {searchVenues.length > 0 && (
               <>
                 <div className="search-result-title">Venues</div>
