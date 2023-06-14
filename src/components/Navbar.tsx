@@ -252,9 +252,10 @@ const Navbar: React.FC<{
               {performers.length > 0 && (
                 <>
                   <div className="search-result-title">Performers</div>
-                  {removeDuplicatedElements(performers, "Description").map(
-                    ({ ID, Description }) => (
-                      <div key={ID}>
+                  {removeDuplicatedElements(performers, "Description")
+                    .slice(0, 6)
+                    .map(({ ID, Description }) => (
+                      <div onClick={() => setSearch("")} key={ID}>
                         <Link
                           href={`/performers/${convertTitleToPath(
                             Description
@@ -263,14 +264,10 @@ const Navbar: React.FC<{
                           {Description}
                         </Link>
                       </div>
-                    )
-                  )}
+                    ))}
                   {removeDuplicatedElements(performers, "Description").length >
                     6 && (
-                    <div
-                      onClick={() => {
-                        setSearch("");
-                      }}>
+                    <div onClick={() => setSearch("")}>
                       <Link
                         style={{ color: "#3683fc" }}
                         href={`/search?performer=${convertTitleToPath(search)}`}
@@ -298,10 +295,7 @@ const Navbar: React.FC<{
                 </>
               )}
               {removeDuplicatedElements(searchVenues, "Name").length > 6 && (
-                <div
-                  onClick={() => {
-                    setSearch("");
-                  }}>
+                <div onClick={() => setSearch("")}>
                   <Link
                     style={{ color: "#3683fc" }}
                     href={`/search?venue=${convertTitleToPath(search)}`}

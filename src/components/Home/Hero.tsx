@@ -93,23 +93,20 @@ const Hero = () => {
             {performers.length > 0 && (
               <>
                 <div className="search-result-title">Performers</div>
-                {removeDuplicatedElements(performers, "Description").map(
-                  ({ ID, Description }) => (
-                    <div key={ID}>
+                {removeDuplicatedElements(performers, "Description")
+                  .slice(0, 6)
+                  .map(({ ID, Description }) => (
+                    <div onClick={() => setSearch("")} key={ID}>
                       <Link
                         href={`/performers/${convertTitleToPath(Description)}`}
                         className="search-result-item">
                         {Description}
                       </Link>
                     </div>
-                  )
-                )}
+                  ))}
                 {removeDuplicatedElements(performers, "Description").length >
                   6 && (
-                  <div
-                    onClick={() => {
-                      setSearch("");
-                    }}>
+                  <div onClick={() => setSearch("")}>
                     <Link
                       style={{ color: "#3683fc" }}
                       href={`/search?performer=${convertTitleToPath(search)}`}
@@ -124,16 +121,28 @@ const Hero = () => {
             {searchVenues.length > 0 && (
               <>
                 <div className="search-result-title">Venues</div>
-                {searchVenues.map(({ ID, Name }) => (
-                  <div onClick={() => setSearch("")} key={ID}>
-                    <Link
-                      href={`/venues/${convertTitleToPath(Name)}`}
-                      className="search-result-item">
-                      {Name}
-                    </Link>
-                  </div>
-                ))}
+                {removeDuplicatedElements(searchVenues, "Name")
+                  .slice(0, 6)
+                  .map(({ ID, Name }) => (
+                    <div onClick={() => setSearch("")} key={ID}>
+                      <Link
+                        href={`/venues/${convertTitleToPath(Name)}`}
+                        className="search-result-item">
+                        {Name}
+                      </Link>
+                    </div>
+                  ))}
               </>
+            )}
+            {removeDuplicatedElements(searchVenues, "Name").length > 6 && (
+              <div onClick={() => setSearch("")}>
+                <Link
+                  style={{ color: "#3683fc" }}
+                  href={`/search?venue=${convertTitleToPath(search)}`}
+                  className="search-result-item pe-2">
+                  View All
+                </Link>
+              </div>
             )}
           </div>
           <button
