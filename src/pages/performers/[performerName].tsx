@@ -20,6 +20,8 @@ const PerformerPage: React.FC = () => {
   const [performerTitle, setPerformerTitle] = useState("");
   const [performerImage, setPerformerImage] = useState<string | null>(null);
   const [eventNumber, setEventNumber] = useState(50);
+  const [data, setData] = useState<GetEventsProps[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchEvents: Fetcher<GetEventsProps[]> = async () => {
     const response = await fetchGetEvents({
@@ -43,6 +45,23 @@ const PerformerPage: React.FC = () => {
       refreshInterval: 3600000, // Refresh every 1 hour
     }
   );
+
+  useEffect(() => {
+    if (eventNumber > 50) {
+      setLoading(true);
+      const fetchEvents = async () => {
+        const response = await fetchGetEvents({
+          performerName: capitalizeString(performerTitle),
+          numberOfEvents: eventNumber,
+          orderByClause: "Date",
+          whereClause: "",
+        });
+        setData(response);
+      };
+      fetchEvents();
+      setLoading(false);
+    }
+  }, [eventNumber, performerTitle]);
 
   useEffect(() => {
     if (performerName) {
@@ -91,13 +110,13 @@ const PerformerPage: React.FC = () => {
           </h1>
         </div>
 
-        {isLoading ? (
+        {isLoading || loading ? (
           <Loading />
         ) : (
           <EventList
             eventNumber={eventNumber}
             setEventNumber={setEventNumber}
-            events={events}
+            events={eventNumber > 50 ? data : events}
             error={error}
           />
         )}

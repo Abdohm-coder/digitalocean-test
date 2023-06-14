@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Categories from "./Categories";
 import Hero from "./Hero";
 import TopNationalEvents from "./TopNationalEvents";
@@ -24,7 +24,8 @@ const CategoriesPage: React.FC = () => {
   const { categories } = useDataContext();
   const categoryTitle = pathname.replace("/", "").replace("-tickets", "");
   const [eventNumber, setEventNumber] = useState(50);
-
+  const [data, setData] = useState<GetEventsProps[]>([]);
+  const [loading, setLoading] = useState(false);
   const categoryData = useMemo(() => {
     return categories.filter(({ ParentCategoryDescription }) =>
       ParentCategoryDescription.toLowerCase().includes(categoryTitle)
@@ -40,6 +41,23 @@ const CategoriesPage: React.FC = () => {
     });
     return response;
   };
+
+  useEffect(() => {
+    if (eventNumber > 50 && categoryData.length > 0) {
+      setLoading(true);
+      const fetchEvents = async () => {
+        const response = await fetchGetEvents({
+          parentCategoryID: categoryData[0]?.ParentCategoryID,
+          orderByClause: "Date ASC",
+          whereClause: "",
+          numberOfEvents: eventNumber,
+        });
+        setData(response);
+      };
+      fetchEvents();
+      setLoading(false);
+    }
+  }, [eventNumber, categoryData]);
 
   const {
     data: events,
@@ -100,13 +118,13 @@ const CategoriesPage: React.FC = () => {
           )}
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {isLoading ? (
+              {isLoading || loading ? (
                 <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}
                   setEventNumber={setEventNumber}
-                  events={events}
+                  events={eventNumber > 50 ? data : events}
                   error={error}
                 />
               )}

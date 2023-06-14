@@ -28,7 +28,8 @@ const CategoryPage: React.FC = () => {
   const { query } = useRouter();
   const categoryName = query.categoryName as string;
   const [categoryTitle, setCategoryTitle] = useState("");
-
+  const [data, setData] = useState<GetEventsProps[]>([]);
+  const [loading, setLoading] = useState(false);
   const [eventNumber, setEventNumber] = useState(50);
   const categoryData = useMemo(
     () =>
@@ -50,6 +51,24 @@ const CategoryPage: React.FC = () => {
     });
     return response;
   };
+
+  useEffect(() => {
+    if (eventNumber > 50 && categoryData.length > 0) {
+      setLoading(true);
+      const fetchEvents = async () => {
+        const response = await fetchGetEvents({
+          parentCategoryID: categoryData[0].ParentCategoryID,
+          childCategoryID: categoryData[0].ChildCategoryID,
+          orderByClause: "Date",
+          whereClause: "",
+          numberOfEvents: eventNumber,
+        });
+        setData(response);
+      };
+      fetchEvents();
+      setLoading(false);
+    }
+  }, [eventNumber, categoryData]);
 
   const {
     data: events,
@@ -120,13 +139,13 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {isLoading ? (
+              {isLoading || loading ? (
                 <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}
                   setEventNumber={setEventNumber}
-                  events={events}
+                  events={eventNumber > 50 ? data : events}
                   error={error}
                 />
               )}
