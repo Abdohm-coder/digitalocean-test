@@ -15,6 +15,7 @@ import { useDebounce } from "use-debounce";
 import { SearchEventsProps } from "@/types/data-types";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import { useRouter } from "next/navigation";
 
 const Navbar: React.FC<{
   searchNavbarRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -26,6 +27,8 @@ const Navbar: React.FC<{
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const { venues } = useDataContext();
 
@@ -186,6 +189,13 @@ const Navbar: React.FC<{
       </>
     );
   };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    router.push(`/events/${convertTitleToPath(search)}`);
+  };
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-info">
@@ -210,10 +220,12 @@ const Navbar: React.FC<{
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
-            ref={searchNavbarRef}
-            className="position-relative row w-100 mt-3 mt-lg-0">
+            className="position-relative row w-100 mt-3 mt-lg-0"
+            ref={searchNavbarRef}>
             <div className="col-12 col-xl-10 col-xxl-8">
-              <div className="input-group input-group-sm">
+              <form
+                onSubmit={handleSubmit}
+                className="input-group input-group-sm">
                 <span className="input-group-text bg-white">
                   <BsSearch />
                 </span>
@@ -224,27 +236,11 @@ const Navbar: React.FC<{
                   onChange={(e) => setSearch(e.target.value)}
                   value={search}
                 />
-              </div>
+              </form>
             </div>
             <div
-              style={{ zIndex: 9999, marginTop: "3.5rem" }}
+              style={{ zIndex: 9999, marginTop: "2.5rem" }}
               className="position-absolute bg-white text-dark rounded-2 d-flex flex-column justify-content-center container-fluid">
-              {/* {performers.length > 0 && (
-            <>
-              <div className="search-result-title">Performers</div>
-              {removeDuplicatedElements(performers, "Description").map(
-                ({ ID, Description }) => (
-                  <div key={ID}>
-                    <Link
-                      href={`/performers/${convertTitleToPath(Description)}`}
-                      className="search-result-item">
-                      {Description}
-                    </Link>
-                  </div>
-                )
-              )}
-            </>
-          )} */}
               {loading && (
                 <div
                   style={{ textAlign: "center", paddingBottom: "30px" }}

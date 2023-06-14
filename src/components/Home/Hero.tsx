@@ -7,12 +7,14 @@ import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const { venues, searchHeroRef } = useDataContext();
 
@@ -49,6 +51,13 @@ const Hero = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedFilter]);
 
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    router.push(`/events/${convertTitleToPath(search)}`);
+  };
+
   return (
     <section
       className="bg-info d-flex flex-column align-items-center text-white pb-5"
@@ -56,20 +65,21 @@ const Hero = () => {
       <div className="container-lg border-light border-top"></div>
       <h1 className="mt-auto">{siteSettings.hero_text.title}</h1>
       <h3>{siteSettings.hero_text.p}</h3>
-      <div
-        ref={searchHeroRef}
+      <form
+        onSubmit={handleSubmit}
         className="position-relative mt-3 col-11 col-md-8 col-lg-6 col-xl-4 mb-auto">
-        <input
-          type="text"
-          className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-gray"
-          placeholder="Event, artist or team"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-        />
-        <div
-          style={{ zIndex: 9999 }}
-          className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
-          {/* {performers.length > 0 && (
+        <div ref={searchHeroRef}>
+          <input
+            type="text"
+            className="form-control form-control-lg rounded-pill bg-transparent border border-2 border-primary text-white py-3 placeholder-gray"
+            placeholder="Event, artist or team"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+          />
+          <div
+            style={{ zIndex: 9999 }}
+            className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
+            {/* {performers.length > 0 && (
             <>
               <div className="search-result-title">Performers</div>
               {removeDuplicatedElements(performers, "Description").map(
@@ -85,55 +95,63 @@ const Hero = () => {
               )}
             </>
           )} */}
-          {loading && <div style={{ textAlign: "center", paddingBottom: "30px" }} className="search-result-title">Loading...</div>}
-          {events.length > 0 && (
-            <>
-              <div className="search-result-title">Events</div>
-              {removeDuplicatedElements(events, "Name")
-                .slice(0, 6)
-                .map(({ ID, Name }) => (
+            {loading && (
+              <div
+                style={{ textAlign: "center", paddingBottom: "30px" }}
+                className="search-result-title">
+                Loading...
+              </div>
+            )}
+            {events.length > 0 && (
+              <>
+                <div className="search-result-title">Events</div>
+                {removeDuplicatedElements(events, "Name")
+                  .slice(0, 6)
+                  .map(({ ID, Name }) => (
+                    <div onClick={() => setSearch("")} key={ID}>
+                      <a href={`/tickets/${ID}`} className="search-result-item">
+                        {Name}
+                      </a>
+                    </div>
+                  ))}
+                {removeDuplicatedElements(events, "Name").length > 6 && (
+                  <div
+                    onClick={() => {
+                      setSearch("");
+                    }}>
+                    <Link
+                      style={{ color: "#3683fc" }}
+                      href={`/events/${convertTitleToPath(search)}`}
+                      className="search-result-item pe-2">
+                      View All
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
+            {searchVenues.length > 0 && (
+              <>
+                <div className="search-result-title">Venues</div>
+                {searchVenues.map(({ ID, Name }) => (
                   <div onClick={() => setSearch("")} key={ID}>
-                    <a href={`/tickets/${ID}`} className="search-result-item">
+                    <Link
+                      href={`/venues/${convertTitleToPath(Name)}`}
+                      className="search-result-item">
                       {Name}
-                    </a>
+                    </Link>
                   </div>
                 ))}
-              {removeDuplicatedElements(events, "Name").length > 6 && (
-                <div
-                  onClick={() => {
-                    setSearch("");
-                  }}>
-                  <Link
-                    style={{ color: "#3683fc" }}
-                    href={`/events/${convertTitleToPath(search)}`}
-                    className="search-result-item pe-2">
-                    View All
-                  </Link>
-                </div>
-              )}
-            </>
-          )}
-          {searchVenues.length > 0 && (
-            <>
-              <div className="search-result-title">Venues</div>
-              {searchVenues.map(({ ID, Name }) => (
-                <div onClick={() => setSearch("")} key={ID}>
-                  <Link
-                    href={`/venues/${convertTitleToPath(Name)}`}
-                    className="search-result-item">
-                    {Name}
-                  </Link>
-                </div>
-              ))}
-            </>
-          )}
+              </>
+            )}
+          </div>
+          <button
+            type="submit"
+            className="btn btn-lg btn-primary rounded-circle text-white position-absolute top-50 translate-middle-y d-flex align-items-center justify-content-center"
+            style={{ height: "80%", right: "1%" }}>
+            <BsSearch />
+          </button>
         </div>
-        <button
-          className="btn btn-lg btn-primary rounded-circle text-white position-absolute top-50 translate-middle-y d-flex align-items-center justify-content-center"
-          style={{ height: "80%", right: "1%" }}>
-          <BsSearch />
-        </button>
-      </div>
+      </form>
     </section>
   );
 };
