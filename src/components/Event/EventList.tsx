@@ -3,6 +3,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { GetEventsProps } from "../../types/data-types";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import Loading from "../Loading";
 dayjs.extend(LocalizedFormat);
 
 const EventList: React.FC<{
@@ -10,7 +11,8 @@ const EventList: React.FC<{
   events: GetEventsProps[] | undefined;
   setEventNumber?: React.Dispatch<React.SetStateAction<number>>;
   error?: boolean;
-}> = ({ events, setEventNumber, error }) => {
+  loading?: boolean;
+}> = ({ events, setEventNumber, error, loading }) => {
   return (
     <section>
       <div className="list-group">
@@ -84,6 +86,12 @@ const EventList: React.FC<{
               </button>
             </div>
           )}
+        {loading && (
+          <div className="list-group-item list-group-item-action event-item">
+            {" "}
+            <Loading />
+          </div>
+        )}
       </div>
     </section>
   );

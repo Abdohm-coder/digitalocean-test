@@ -1,8 +1,15 @@
 import { useState, useEffect, useMemo } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchEventsProps } from "../../types/data-types";
+import {
+  SearchEventsProps,
+  SearchPerformersProps,
+} from "../../types/data-types";
 import { useDebounce } from "use-debounce";
-import { fetchSearchEvents, siteSettings } from "../../settings/site.settings";
+import {
+  fetchSearchEvents,
+  fetchSearchPerformers,
+  siteSettings,
+} from "../../settings/site.settings";
 import Link from "next/link";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDataContext } from "@/context/data.context";
@@ -13,6 +20,7 @@ const Hero = () => {
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -31,19 +39,32 @@ const Hero = () => {
 
   useEffect(() => {
     if (search.trim().length > 0) {
+      setLoading(true);
       const fetchEvents = async () => {
-        setLoading(true);
         try {
           const response = await fetchSearchEvents({
             searchTerms: search,
           });
           setEvents(response || []);
+          setLoading(false);
         } catch (error) {
           console.error("Error:", error);
         }
-        setLoading(false);
       };
+      const fetchPerformers = async () => {
+        try {
+          const response = await fetchSearchPerformers({
+            searchTerms: search,
+          });
+          setPerformers(response || []);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+
       fetchEvents();
+      fetchPerformers();
     } else {
       setEvents([]);
     }
@@ -55,7 +76,7 @@ const Hero = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    router.push(`/events/${convertTitleToPath(search)}`);
+    router.push(`/search?event=${convertTitleToPath(search)}`);
   };
 
   return (
@@ -79,22 +100,6 @@ const Hero = () => {
           <div
             style={{ zIndex: 9999 }}
             className="position-absolute bg-white text-dark mt-3 rounded-2 d-flex flex-column justify-content-center container-fluid">
-            {/* {performers.length > 0 && (
-            <>
-              <div className="search-result-title">Performers</div>
-              {removeDuplicatedElements(performers, "Description").map(
-                ({ ID, Description }) => (
-                  <div key={ID}>
-                    <Link
-                      href={`/performers/${convertTitleToPath(Description)}`}
-                      className="search-result-item">
-                      {Description}
-                    </Link>
-                  </div>
-                )
-              )}
-            </>
-          )} */}
             {loading && (
               <div
                 style={{ textAlign: "center", paddingBottom: "30px" }}
@@ -102,6 +107,37 @@ const Hero = () => {
                 Loading...
               </div>
             )}
+            {performers.length > 0 && (
+              <>
+                <div className="search-result-title">Performers</div>
+                {removeDuplicatedElements(performers, "Description").map(
+                  ({ ID, Description }) => (
+                    <div key={ID}>
+                      <Link
+                        href={`/performers/${convertTitleToPath(Description)}`}
+                        className="search-result-item">
+                        {Description}
+                      </Link>
+                    </div>
+                  )
+                )}
+                {removeDuplicatedElements(performers, "Description").length >
+                  6 && (
+                  <div
+                    onClick={() => {
+                      setSearch("");
+                    }}>
+                    <Link
+                      style={{ color: "#3683fc" }}
+                      href={`/search?performer=${convertTitleToPath(search)}`}
+                      className="search-result-item pe-2">
+                      View All
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
+
             {events.length > 0 && (
               <>
                 <div className="search-result-title">Events</div>
@@ -121,7 +157,7 @@ const Hero = () => {
                     }}>
                     <Link
                       style={{ color: "#3683fc" }}
-                      href={`/events/${convertTitleToPath(search)}`}
+                      href={`/search?event=${convertTitleToPath(search)}`}
                       className="search-result-item pe-2">
                       View All
                     </Link>

@@ -7,12 +7,16 @@ import {
   BsTelephoneFill,
 } from "react-icons/bs";
 // import { useDataContext } from "../context/data.context";
-import { fetchSearchEvents, siteSettings } from "../settings/site.settings";
+import {
+  fetchSearchEvents,
+  fetchSearchPerformers,
+  siteSettings,
+} from "../settings/site.settings";
 import Link from "next/link";
 import Image from "next/image";
 import { convertTitleToPath } from "@/utils/title-to-pathname";
 import { useDebounce } from "use-debounce";
-import { SearchEventsProps } from "@/types/data-types";
+import { SearchEventsProps, SearchPerformersProps } from "@/types/data-types";
 import { useDataContext } from "@/context/data.context";
 import { removeDuplicatedElements } from "@/utils/remove-duplicated";
 import { useRouter } from "next/navigation";
@@ -26,6 +30,7 @@ const Navbar: React.FC<{
   const [search, setSearch] = useState("");
   const [debouncedFilter] = useDebounce(search, 500);
   const [events, setEvents] = useState<SearchEventsProps[]>([]);
+  const [performers, setPerformers] = useState<SearchPerformersProps[]>([]);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -57,6 +62,18 @@ const Navbar: React.FC<{
         }
         setLoading(false);
       };
+      const fetchPerformers = async () => {
+        try {
+          const response = await fetchSearchPerformers({
+            searchTerms: search,
+          });
+          setPerformers(response || []);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchPerformers();
       fetchEvents();
     } else {
       setEvents([]);
@@ -194,7 +211,7 @@ const Navbar: React.FC<{
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    router.push(`/events/${convertTitleToPath(search)}`);
+    router.push(`/search?event=${convertTitleToPath(search)}`);
   };
   return (
     <header>
@@ -247,6 +264,38 @@ const Navbar: React.FC<{
                   className="search-result-title">
                   Loading...
                 </div>
+              )}
+              {performers.length > 0 && (
+                <>
+                  <div className="search-result-title">Performers</div>
+                  {removeDuplicatedElements(performers, "Description").map(
+                    ({ ID, Description }) => (
+                      <div key={ID}>
+                        <Link
+                          href={`/performers/${convertTitleToPath(
+                            Description
+                          )}`}
+                          className="search-result-item">
+                          {Description}
+                        </Link>
+                      </div>
+                    )
+                  )}
+                  {removeDuplicatedElements(performers, "Description").length >
+                    6 && (
+                    <div
+                      onClick={() => {
+                        setSearch("");
+                      }}>
+                      <Link
+                        style={{ color: "#3683fc" }}
+                        href={`/search?performer=${convertTitleToPath(search)}`}
+                        className="search-result-item pe-2">
+                        View All
+                      </Link>
+                    </div>
+                  )}
+                </>
               )}
               {events.length > 0 && (
                 <>
