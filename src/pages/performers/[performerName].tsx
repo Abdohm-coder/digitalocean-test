@@ -57,9 +57,9 @@ const PerformerPage: React.FC = () => {
           whereClause: "",
         });
         setData(response);
+        setLoading(false);
       };
       fetchEvents();
-      setLoading(false);
     }
   }, [eventNumber, performerTitle]);
 

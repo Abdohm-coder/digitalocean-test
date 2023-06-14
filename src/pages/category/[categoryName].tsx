@@ -64,9 +64,9 @@ const CategoryPage: React.FC = () => {
           numberOfEvents: eventNumber,
         });
         setData(response);
+        setLoading(false);
       };
       fetchEvents();
-      setLoading(false);
     }
   }, [eventNumber, categoryData]);
 
