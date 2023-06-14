@@ -110,14 +110,15 @@ const PerformerPage: React.FC = () => {
           </h1>
         </div>
 
-        {isLoading || loading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <EventList
             eventNumber={eventNumber}
             setEventNumber={setEventNumber}
-            events={eventNumber > 50 ? data : events}
+            events={data.length === 0 ? events : data}
             error={error}
+            loading={loading}
           />
         )}
         {/* <Events count={8} title="Sam Morril tour venues" />

@@ -139,14 +139,15 @@ const CategoryPage: React.FC = () => {
         <div className="container">
           <div className="row my-5">
             <div className="col-12 col-lg-8">
-              {isLoading || loading ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <EventList
                   eventNumber={eventNumber}
                   setEventNumber={setEventNumber}
-                  events={eventNumber > 50 ? data : events}
+                  events={data.length === 0 ? events : data}
                   error={error}
+                  loading={loading}
                 />
               )}
             </div>
