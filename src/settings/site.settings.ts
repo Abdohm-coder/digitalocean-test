@@ -1,5 +1,6 @@
 import axios from "axios";
 import LogoWhite from "../assets/images/logo.png";
+import LogoDark from "../assets/images/logo-dark.png";
 import {
   GetEventTickets3Input,
   GetEventsInput,
@@ -24,7 +25,10 @@ export const SOAP_ACTION =
 export const siteSettings = {
   site_name: "Ticketjewel",
   logo: {
-    src: LogoWhite,
+    src: {
+      white: LogoWhite,
+      dark: LogoDark,
+    },
     alt: "Ticketjewel logo",
     height: 50,
   },

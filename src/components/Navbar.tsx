@@ -105,7 +105,16 @@ const Navbar: React.FC<{
         </div>
       );
     }
-    return <span>TicketJwewel</span>;
+    return (
+      <Link href={"/"} className="navbar-brand">
+        <Image
+          loading="lazy"
+          src={siteSettings.logo.src.dark}
+          alt={siteSettings.logo.alt}
+          height={70}
+        />
+      </Link>
+    );
   };
 
   const MobileMenu = () => {
@@ -204,7 +213,7 @@ const Navbar: React.FC<{
           <Link href={"/"} className="navbar-brand">
             <Image
               loading="lazy"
-              src={siteSettings.logo.src}
+              src={siteSettings.logo.src.white}
               alt={siteSettings.logo.alt}
               height={siteSettings.logo.height}
             />
