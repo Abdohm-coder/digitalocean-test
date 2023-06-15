@@ -1,34 +1,9 @@
-import { useState } from "react";
-import { WBCID, fetchGetEvents, siteSettings } from "@/settings/site.settings";
+import { WBCID } from "@/settings/site.settings";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
-import { GetEventsProps } from "@/types/data-types";
-import { useRouter } from "next/router";
 
 const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
-  const { query } = useRouter();
-  const eventID = query.eventID;
-  const [events, setEvents] = useState<GetEventsProps[]>([]);
-
-  useEffect(() => {
-    if (eventID) {
-      const fetchEvents = async () => {
-        try {
-          const response = await fetchGetEvents({
-            eventID: +eventID,
-            numberOfEvents: 1,
-          });
-          setEvents(response || []);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
-      fetchEvents();
-    }
-  }, [eventID]);
-
   return (
     <div>
       <Head>
@@ -36,10 +11,6 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
           name="viewport"
           content="initial-scale=1.0, user-scalable=no, width=device-width"
         />
-        <title>
-          {events[0]?.Name || "Map Widget"} {events[0]?.DisplayDate} |{" "}
-          {siteSettings.site_name}
-        </title>
       </Head>
       <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
     </div>
@@ -65,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			Seatics.config.enableHeaderLowerLegalDisclosureMobile = false;
 			Seatics.config.enableQuantityModal = true;
 			Seatics.config.useC3 = true;
-      Seatics.config.c3CheckoutDomain = "checkout.ticketfront.com";
+      Seatics.config.c3CheckoutDomain = "https://checkout.ticketfront.com";
 			Seatics.config.c3CurrencyCode = 'USD';
 			Seatics.config.showBranding = false;
 			Seatics.config.useSuperLevels = true;
@@ -113,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 Seatics.config.mapFinishedRenderingHandler = function(){
+        document.title = document.querySelector("#sea-event-info-name").textContent() + " at " + document.querySelector(".event-info-place").children[1].textContent();
         document.querySelector('#tn-maps').classList.add('completed');                
         Seatics.config.ticketSeparationOptions = {
           packages: Seatics.TicketGroupSeparationOptions.Separate,
