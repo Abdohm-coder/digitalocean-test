@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 Seatics.config.mapFinishedRenderingHandler = function(){
-        document.title = document.querySelector("#sea-event-info-name").textContent() + " at " + document.querySelector(".event-info-place").children[1].textContent();
+        document.title = document.querySelector("#sea-event-info-name").textContent + " at " + document.querySelector(".event-info-place").children[1].textContent;
         document.querySelector('#tn-maps').classList.add('completed');                
         Seatics.config.ticketSeparationOptions = {
           packages: Seatics.TicketGroupSeparationOptions.Separate,
