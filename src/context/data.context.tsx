@@ -6,6 +6,58 @@ import {
   SHEET_NAME,
   googleSheetRange,
 } from "@/settings/site.settings";
+import { AES, enc } from "crypto-js";
+
+const encryptionKey = "7K9$?rZ*jE52T!#Xq%u@d6nP";
+
+// Function to encrypt sensitive data using AES encryption
+function encryptData(data: any) {
+  const encryptedData = AES.encrypt(
+    JSON.stringify(data),
+    encryptionKey
+  ).toString();
+  return encryptedData;
+}
+
+// Function to decrypt previously encrypted data
+function decryptData(encryptedData: any) {
+  const decryptedBytes = AES.decrypt(encryptedData, encryptionKey);
+  const decryptedData = JSON.parse(decryptedBytes.toString(enc.Utf8));
+  return decryptedData;
+}
+
+// Function to store data in localStorage with encryption
+function storeData(key: string, data: any, expirationHours: number) {
+  const encryptedData = encryptData(data);
+  const expirationDate = new Date();
+  expirationDate.setTime(
+    expirationDate.getTime() + expirationHours * 60 * 60 * 1000
+  );
+
+  const dataWithExpiration = {
+    data: encryptedData,
+    expiresAt: expirationDate.getTime(),
+  };
+
+  localStorage.setItem(key, JSON.stringify(dataWithExpiration));
+}
+
+// Function to retrieve and decrypt data from localStorage
+function retrieveData(key: string) {
+  const storedData = localStorage.getItem(key);
+  if (storedData) {
+    const { data, expiresAt } = JSON.parse(storedData);
+    const currentTime = new Date().getTime();
+    if (currentTime < expiresAt) {
+      const decryptedData = decryptData(data);
+      return decryptedData;
+    } else {
+      // Clear expired data from localStorage
+      localStorage.removeItem(key);
+    }
+  }
+  return null;
+}
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
@@ -33,61 +85,44 @@ export const DataProvider: React.FC<{
 
   useEffect(() => {
     const fetchVenues = async () => {
-      const storedData = localStorage.getItem("venues");
-      const storedTimestamp = localStorage.getItem("timestamp-venues");
-      const currentTime = new Date().getTime();
-      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+      const cachedVenues = retrieveData("venues-data");
 
-      if (
-        !storedData ||
-        !storedTimestamp ||
-        currentTime - +storedTimestamp > oneDay
-      ) {
-        const response = await axios.get("/api/GetVenue");
-        const data = response.data.GetVenueResult.Venue;
-        console.log(response);
-
-        localStorage.setItem("venues", JSON.stringify(data));
-        localStorage.setItem("timestamp-venues", currentTime.toString());
-        setVenues(data);
-      } else {
-        setVenues(JSON.parse(storedData));
-      }
-    };
-    const fetchData = async () => {
-      const storedData = localStorage.getItem("categories");
-      const storedTimestamp = localStorage.getItem("timestamp-categories");
-      const currentTime = new Date().getTime();
-      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
-      if (
-        !storedData ||
-        !storedTimestamp ||
-        currentTime - +storedTimestamp > oneDay
-      ) {
+      if (!cachedVenues) {
         try {
-          const response = await axios.get("/api/GetCategories");
-          const data = response.data.GetCategoriesResult.Category;
-          setCategories(data);
-          localStorage.setItem("categories", JSON.stringify(data));
-          localStorage.setItem("timestamp-categories", currentTime.toString());
+          const response = await axios.get("/api/GetVenue");
+          const data = response.data.GetVenueResult.Venue;
+
+          console.log("Response from Venues",response);
+          storeData("venues-data", data, 24);
+          setVenues(data);
         } catch (error) {
           console.error("Error:", error);
         }
       } else {
-        setCategories(JSON.parse(storedData));
+        setVenues(cachedVenues);
+      }
+    };
+    const fetchCategories = async () => {
+      const cachedCategories = retrieveData("categories-data");
+
+      if (!cachedCategories) {
+        try {
+          const response = await axios.get("/api/GetCategories");
+          const data = response.data.GetCategoriesResult.Category;
+
+          setCategories(data);
+          storeData("categories-data", data, 24);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      } else {
+        setCategories(cachedCategories);
       }
     };
     const fetchAllImages = async () => {
-      const storedData = localStorage.getItem("images");
-      const storedTimestamp = localStorage.getItem("timestamp-images");
-      const currentTime = new Date().getTime();
-      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+      const cachedImages = retrieveData("performerimg");
 
-      if (
-        !storedData ||
-        !storedTimestamp ||
-        currentTime - +storedTimestamp > oneDay
-      ) {
+      if (!cachedImages) {
         const { data } = await axios.get("/api/fetchGoogleSheetData", {
           params: {
             sheetId: SHEET_ID,
@@ -96,17 +131,16 @@ export const DataProvider: React.FC<{
           },
         });
 
-        localStorage.setItem("images", JSON.stringify(data?.data));
-        localStorage.setItem("timestamp-images", currentTime.toString());
+        storeData("performerimg", data?.data, 24);
         setImages(data?.data);
       } else {
-        setImages(JSON.parse(storedData));
+        setImages(cachedImages);
       }
     };
     fetchAllImages();
     fetchVenues();
 
-    fetchData();
+    fetchCategories();
   }, []);
 
   return (
