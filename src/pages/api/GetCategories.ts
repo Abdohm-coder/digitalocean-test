@@ -26,7 +26,6 @@ export default async function handler(
     res.status(200).json(response[0]);
   } catch (error) {
     console.error("SOAP request error:", error);
-    const Error = JSON.stringify(error);
-    res.status(500).json({ Error });
+    res.status(500).json(error);
   }
 }

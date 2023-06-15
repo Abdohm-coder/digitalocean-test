@@ -1,51 +1,33 @@
-// import { useState } from "react";
+import { useState } from "react";
+import { WBCID, fetchGetEvents, siteSettings } from "@/settings/site.settings";
 import axios from "axios";
-// import { BsArrowsAngleContract, BsArrowsFullscreen } from "react-icons/bs";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
-// import { GetEventsProps } from "@/types/data-types";
+import { GetEventsProps } from "@/types/data-types";
+import { useRouter } from "next/router";
 
 const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
+  const { query } = useRouter();
+  const eventID = query.eventID;
+  const [events, setEvents] = useState<GetEventsProps[]>([]);
+
   useEffect(() => {
-    const addTableCell = () => {
-      const tableRow = document.querySelector(
-        "table.venue-ticket-list-tbl tbody tr"
-      );
-      if (tableRow) {
-        const tableData = document.createElement("td");
-        tableData.className =
-          "venue-ticket-list-cta-js venue-ticket-list-cta-col";
-
-        const button = document.createElement("button");
-        button.className = "btn-buy venue-ticket-list-checkout-trigger-js";
-        button.innerText = "Continue";
-
-        tableData.appendChild(button);
-        tableRow.appendChild(tableData);
-      }
-    };
-
-    addTableCell();
-  }, []);
-  // const [events, setEvents] = useState<GetEventsProps[]>([]);
-
-  // useEffect(() => {
-  //   if (+eventID) {
-  //     const fetchEvents = async () => {
-  //       try {
-  //         const response = await fetchGetEvents({
-  //           eventID: +eventID,
-  //           numberOfEvents: 1,
-  //         });
-  //         setEvents(response || []);
-  //       } catch (error) {
-  //         console.error("Error:", error);
-  //       }
-  //     };
-  //     fetchEvents();
-  //   }
-  // }, [eventID]);
+    if (eventID) {
+      const fetchEvents = async () => {
+        try {
+          const response = await fetchGetEvents({
+            eventID: +eventID,
+            numberOfEvents: 1,
+          });
+          setEvents(response || []);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
+      fetchEvents();
+    }
+  }, [eventID]);
 
   return (
     <div>
@@ -54,10 +36,10 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
           name="viewport"
           content="initial-scale=1.0, user-scalable=no, width=device-width"
         />
-        {/* <title>
+        <title>
           {events[0]?.Name || "Map Widget"} {events[0]?.DisplayDate} |{" "}
           {siteSettings.site_name}
-        </title> */}
+        </title>
       </Head>
       <div dangerouslySetInnerHTML={{ __html: widgetHTML }} />
     </div>
@@ -66,7 +48,7 @@ const TicketPage = ({ widgetHTML }: { widgetHTML: string }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const eventID = context.params?.eventID;
-  const WBCID = 4626;
+  // @ts-ignore
   const userAgent = context.headers?.["user-agent"] || "something";
 
   const response = await axios.get(
