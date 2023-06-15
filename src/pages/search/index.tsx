@@ -5,19 +5,12 @@ import { GetEventsProps } from "@/types/data-types";
 import { capitalizeString } from "@/utils/capitalize-string";
 import Head from "next/head";
 import { useSearchParams } from "next/navigation";
-import {
-  fetchGetEvents,
-  fetchSearchEvents,
-  siteSettings,
-} from "@/settings/site.settings";
+import { fetchSearchEvents, siteSettings } from "@/settings/site.settings";
 import NewsLetterForm from "@/components/NewsLetterForm";
 import { convertQueryToTitle } from "@/utils/query-to-title";
-import { useDataContext } from "@/context/data.context";
 
 const SearchPage = () => {
-  const { venues } = useDataContext();
   const searchParams = useSearchParams();
-  const venue = searchParams.get("venue");
   const performer = searchParams.get("performer");
   const [events, setEvents] = useState<GetEventsProps[]>([]);
   const [loading, setLoading] = useState(false);
@@ -39,44 +32,21 @@ const SearchPage = () => {
       };
       fetchEvents();
     }
-    if (venue) {
-      setLoading(true);
-      const venueData = venues.find(({ Name }) =>
-        Name.toLowerCase().includes(convertQueryToTitle(venue))
-      );
-      if (venueData) {
-        const fetchEvents = async () => {
-          try {
-            const response = await fetchGetEvents({
-              venueID: venueData.ID,
-              orderByClause: "Date ASC",
-              whereClause: "",
-            });
-            setLoading(false);
-            setEvents(response || []);
-          } catch (error) {
-            console.error("Error:", error);
-          }
-        };
-        setLoading(false);
-        fetchEvents();
-      }
-    }
-  }, [venue, venues, performer]);
+  }, [performer]);
 
   return (
     <>
       <Head>
         <title>
-          {capitalizeString(convertQueryToTitle(venue || performer))} Tickets |{" "}
+          {capitalizeString(convertQueryToTitle(performer))} Tickets |{" "}
           {siteSettings.site_name}
         </title>
       </Head>
       <main className="container">
         <div className="position-relative card-img">
           <h1 className="m-0 fw-bold text-capitalize">
-            Search result for{" "}
-            {capitalizeString(convertQueryToTitle(venue || performer))} Tickets
+            Search result for {capitalizeString(convertQueryToTitle(performer))}{" "}
+            Tickets
           </h1>
         </div>
 

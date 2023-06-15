@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { GetCategoriesProps, GetVenueProps } from "@/types/data-types";
+import { GetCategoriesProps } from "@/types/data-types";
 import axios from "axios";
 import {
   SHEET_ID,
@@ -61,14 +61,10 @@ function retrieveData(key: string) {
 
 export const DataContext = createContext<{
   categories: GetCategoriesProps[];
-  // performers?: GetEventPerformersProps[];
-  venues: GetVenueProps[];
   images: Array<string[]>;
   searchHeroRef: React.MutableRefObject<HTMLDivElement | null>;
 }>({
   categories: [],
-  // performers: [],
-  venues: [],
   images: [],
   searchHeroRef: { current: null },
 });
@@ -79,29 +75,8 @@ export const DataProvider: React.FC<{
 }> = ({ searchHeroRef, children }) => {
   const [categories, setCategories] = useState<GetCategoriesProps[]>([]);
   const [images, setImages] = useState<Array<string[]>>([]);
-  const [venues, setVenues] = useState<GetVenueProps[]>([]);
-
-  console.log("venues", venues);
 
   useEffect(() => {
-    const fetchVenues = async () => {
-      const cachedVenues = retrieveData("venues-data");
-
-      if (!cachedVenues) {
-        try {
-          const response = await axios.get("/api/GetVenue");
-          const data = response.data.GetVenueResult.Venue;
-
-          console.log("Response from Venues",response);
-          storeData("venues-data", data, 24);
-          setVenues(data);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      } else {
-        setVenues(cachedVenues);
-      }
-    };
     const fetchCategories = async () => {
       const cachedCategories = retrieveData("categories-data");
 
@@ -138,7 +113,6 @@ export const DataProvider: React.FC<{
       }
     };
     fetchAllImages();
-    fetchVenues();
 
     fetchCategories();
   }, []);
@@ -147,8 +121,6 @@ export const DataProvider: React.FC<{
     <DataContext.Provider
       value={{
         categories,
-        // performers,
-        venues,
         images,
         searchHeroRef,
       }}>

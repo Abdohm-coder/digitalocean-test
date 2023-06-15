@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchPerformersProps } from "../../types/data-types";
 import { useDebounce } from "use-debounce";
@@ -19,18 +19,7 @@ const Hero = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const { venues, searchHeroRef } = useDataContext();
-
-  const searchVenues = useMemo(
-    () =>
-      search.trim().length > 0 && Array.isArray(venues)
-        ? venues.filter(({ Name }) =>
-            Name.toLowerCase().includes(search.toLowerCase())
-          )
-        : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [debouncedFilter, venues]
-  );
+  const { searchHeroRef } = useDataContext();
 
   useEffect(() => {
     if (search.trim().length > 0) {
@@ -116,33 +105,6 @@ const Hero = () => {
                   </div>
                 )}
               </>
-            )}
-
-            {searchVenues.length > 0 && (
-              <>
-                <div className="search-result-title">Venues</div>
-                {removeDuplicatedElements(searchVenues, "Name")
-                  .slice(0, 6)
-                  .map(({ ID, Name }) => (
-                    <div onClick={() => setSearch("")} key={ID}>
-                      <Link
-                        href={`/venues/${convertTitleToPath(Name)}`}
-                        className="search-result-item">
-                        {Name}
-                      </Link>
-                    </div>
-                  ))}
-              </>
-            )}
-            {removeDuplicatedElements(searchVenues, "Name").length > 6 && (
-              <div onClick={() => setSearch("")}>
-                <Link
-                  style={{ color: "#3683fc" }}
-                  href={`/search?venue=${convertTitleToPath(search)}`}
-                  className="search-result-item pe-2">
-                  View All
-                </Link>
-              </div>
             )}
           </div>
           <button
