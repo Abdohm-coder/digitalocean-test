@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			Seatics.config.enableLegalDisclosureMobile = false;
 			Seatics.config.enableHeaderLowerLegalDisclosureMobile = false;
 			Seatics.config.enableQuantityModal = true;
-	    Seatics.config.c3CheckoutDomain = "checkout.ticketfront.com";
+	    Seatics.config.c3CheckoutDomain = "checkout.ticketjewel.com";
       Seatics.config.c3CurrencyCode = "USD";
       Seatics.config.useC3 = true;
 			Seatics.config.showBranding = false;
