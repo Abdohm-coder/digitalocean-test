@@ -1,31 +1,15 @@
-import { SOAP_ACTION, WBCID } from "@/settings/site.settings";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { createClientAsync } from "soap";
+import axios from "axios";
 
-type ResponseData = {
-  message: string;
-};
-
-export default async function handler(
-  _: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  // Create a new SoapClient instance
-  const client = await createClientAsync(SOAP_ACTION);
-
-  // Define the SOAP request parameters
-  const params = {
-    websiteConfigID: WBCID,
-  };
-
+export default async function handler(_, res) {
   try {
-    // Make the SOAP request
-    const response = await client.GetCategoriesAsync(params);
-
-    // Return the SOAP response as JSON
-    res.status(200).json(response[0]);
-  } catch (error) {
-    console.error("SOAP request error:", error);
-    res.status(500).json(error);
+    const response = await axios.get(
+      "https://www.raynab2b.com/api/Tour/countries"
+    );
+    const data = await response.json();
+    // console.log(data)
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("res: ", err.response.data);
+    res.status(500).json(err.response.data);
   }
 }
